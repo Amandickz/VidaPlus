@@ -16,22 +16,25 @@ public class Paciente {
     private String email;
     private String telefone;
     private String dataNascimento;
+    private int sexo;
 
-    public Paciente(String cpf, String nome, String email, String telefone, String dataNascimento) {
+    public Paciente(String cpf, String nome, String email, String telefone, String dataNascimento, int sexo) {
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
+        this.sexo = sexo;
     }
 
-    public Paciente(int id, String cpf, String nome, String email, String telefone, String dataNascimento) {
+    public Paciente(int id, String cpf, String nome, String email, String telefone, String dataNascimento, int sexo) {
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
+        this.sexo = sexo;
     }
 
     public int getId() {
@@ -82,9 +85,17 @@ public class Paciente {
         this.dataNascimento = dataNascimento;
     }
 
+    public int getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(int sexo) {
+        this.sexo = sexo;
+    }
+
     @Override
     public String toString() {
-        return "Paciente{" + "id=" + id + ", cpf=" + cpf + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", dataNascimento=" + dataNascimento + '}';
+        return "Paciente{" + "id=" + id + ", cpf=" + cpf + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", dataNascimento=" + dataNascimento + ", sexo=" + sexo + '}';
     }
     
 }

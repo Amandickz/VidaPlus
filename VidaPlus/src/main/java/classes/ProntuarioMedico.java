@@ -10,4 +10,23 @@ package classes;
  */
 public class ProntuarioMedico {
     
+    private int id;
+
+    public ProntuarioMedico(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "ProntuarioMedico{" + "id=" + id + '}';
+    }
+    
 }
