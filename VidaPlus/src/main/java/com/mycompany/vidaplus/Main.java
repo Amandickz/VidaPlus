@@ -4,6 +4,8 @@
 
 package com.mycompany.vidaplus;
 
+import dao.AdministracaoDAO;
+
 /**
  *
  * @author Amanda
@@ -11,6 +13,10 @@ package com.mycompany.vidaplus;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
+        AdministracaoDAO admDAO = new AdministracaoDAO();
+        
+        admDAO.testeConnection();
+        
     }
 }
