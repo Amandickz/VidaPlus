@@ -125,9 +125,10 @@ public class TelaCNPJ extends javax.swing.JFrame {
         Administracao adm = contoleAdm.buscaAdministrador(cnpj.getText());
         
         if(adm == null){
-            JOptionPane.showMessageDialog(null, "CNPJ não localizado!");
+            JOptionPane.showMessageDialog(null, "CNPJ não localizado!\n"
+                    + "Verifique e tente novamente");
         } else {
-            JOptionPane.showMessageDialog(null, "CNPJ encontrado!");
+            new TelaInicialAdministrador(adm).setVisible(true);
         }
     }//GEN-LAST:event_continuarActionPerformed
 

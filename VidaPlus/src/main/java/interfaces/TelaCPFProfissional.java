@@ -4,12 +4,10 @@
  */
 package interfaces;
 
-import classes.Administracao;
 import classes.Enfermeiro;
 import classes.Farmaceutico;
 import classes.Medico;
 import classes.ProfissionalSaude;
-import controles.ControleAdministracao;
 import controles.ControleProfissional;
 import javax.swing.JOptionPane;
 

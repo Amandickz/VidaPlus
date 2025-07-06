@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class LeitoDAO {
     
-    public void recuperaLeito(){
+    public ArrayList<Leito> recuperaLeito(int idAdministracao){
         ArrayList<Leito> leitos = new ArrayList<>();
         Connection conn = null;
         Statement stmt = null;
@@ -29,7 +29,7 @@ public class LeitoDAO {
             
             stmt = conn.createStatement();
             
-            rs = stmt.executeQuery("select * from leito");
+            rs = stmt.executeQuery("select * from leito where idAdministracao = " + idAdministracao);
             
             System.out.println(rs);
             
@@ -39,13 +39,15 @@ public class LeitoDAO {
                 int numero = rs.getInt("numero");
                 double valor = rs.getDouble("valor");
                 boolean status = rs.getBoolean("status");
+                int capacidade = rs.getInt("capacidade");
                 
-                Leito leito = new Leito(id, tipoLeito, numero, valor, status);
+                Leito leito = new Leito(id, tipoLeito, numero, valor, status, capacidade);
                 leitos.add(leito);
             }
             
             System.out.println(leitos);
             
+            return leitos;
             
         } catch (SQLException e){
             System.err.println("********Erro ao Recuperar dados!");
@@ -55,6 +57,7 @@ public class LeitoDAO {
             DB.closeConnection();
         }
         
+        return null;
     }
     
 }

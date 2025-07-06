@@ -19,9 +19,6 @@ public class Main {
         AdministracaoDAO admDAO = new AdministracaoDAO();
         admDAO.recuperaAdministracao();
         
-        LeitoDAO leitoDAO = new LeitoDAO();
-        leitoDAO.recuperaLeito();
-        
         new TelaInicial().setVisible(true);
         
     }

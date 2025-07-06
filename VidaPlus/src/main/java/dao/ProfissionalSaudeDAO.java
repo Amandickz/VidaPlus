@@ -69,7 +69,7 @@ public class ProfissionalSaudeDAO {
             
             stmt = conn.createStatement();
             
-            rs = stmt.executeQuery("select * from medico where profissionalSaude_id = '" + profissional.getId() + "'");
+            rs = stmt.executeQuery("select * from medico where idProfissionalSaude = '" + profissional.getId() + "'");
             
             while(rs.next()){
                 String crm = rs.getString("crm");

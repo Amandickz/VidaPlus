@@ -15,20 +15,23 @@ public class Leito {
     private int numero;
     private double valor;
     private boolean status;
+    private int capacidade;
 
-    public Leito(int tipoLeito, int numero, double valor, boolean status) {
+    public Leito(int tipoLeito, int numero, double valor, boolean status, int capacidade) {
         this.tipoLeito = tipoLeito;
         this.numero = numero;
         this.valor = valor;
         this.status = status;
+        this.capacidade = capacidade;
     }
 
-    public Leito(int id, int tipoLeito, int numero, double valor, boolean status) {
+    public Leito(int id, int tipoLeito, int numero, double valor, boolean status, int capacidade) {
         this.id = id;
         this.tipoLeito = tipoLeito;
         this.numero = numero;
         this.valor = valor;
         this.status = status;
+        this.capacidade = capacidade;
     }
 
     public int getId() {
@@ -71,9 +74,17 @@ public class Leito {
         this.status = status;
     }
 
+    public int getCapacidade() {
+        return capacidade;
+    }
+
+    public void setCapacidade(int capacidade) {
+        this.capacidade = capacidade;
+    }
+
     @Override
     public String toString() {
-        return "Leito{" + "id=" + id + ", tipoLeito=" + tipoLeito + ", numero=" + numero + ", valor=" + valor + ", status=" + status + '}';
+        return "Leito{" + "id=" + id + ", tipoLeito=" + tipoLeito + ", numero=" + numero + ", valor=" + valor + ", status=" + status + ", capacidade=" + capacidade + '}';
     }
     
 }
