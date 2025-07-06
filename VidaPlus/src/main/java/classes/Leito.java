@@ -14,10 +14,10 @@ public class Leito {
     private int tipoLeito;
     private int numero;
     private double valor;
-    private boolean status;
+    private int status;
     private int capacidade;
 
-    public Leito(int tipoLeito, int numero, double valor, boolean status, int capacidade) {
+    public Leito(int tipoLeito, int numero, double valor, int status, int capacidade) {
         this.tipoLeito = tipoLeito;
         this.numero = numero;
         this.valor = valor;
@@ -25,7 +25,7 @@ public class Leito {
         this.capacidade = capacidade;
     }
 
-    public Leito(int id, int tipoLeito, int numero, double valor, boolean status, int capacidade) {
+    public Leito(int id, int tipoLeito, int numero, double valor, int status, int capacidade) {
         this.id = id;
         this.tipoLeito = tipoLeito;
         this.numero = numero;
@@ -66,11 +66,11 @@ public class Leito {
         this.valor = valor;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

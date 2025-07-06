@@ -10,6 +10,7 @@ import controles.ControleLeito;
 import enums.DisponibilidadeLeito;
 import enums.TipoLeito;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,6 +33,7 @@ public class TelaCadastroLeito extends javax.swing.JFrame {
         
         this.tabelaLeito = (DefaultTableModel) leitosCadastrados.getModel();
         
+        desativarLimparCampos();
         preencheTipoLeito();
         preencheTipoDisponibilidade();
         preencheTabela();
@@ -61,9 +63,48 @@ public class TelaCadastroLeito extends javax.swing.JFrame {
                 l.getTipoLeito(),
                 l.getValor(),
                 l.getCapacidade(),
-                l.isStatus()});
+                l.getStatus()});
             }
         }
+    }
+    
+    private void desativarLimparCampos(){
+        numeroLeito.setText("");
+        preencheTipoLeito();
+        listaTipoLeito.setEnabled(false);
+        capacidadeQuarto.setText("");
+        capacidadeQuarto.setEnabled(false);
+        valorLeito.setText("");
+        valorLeito.setEnabled(false);
+        preencheTipoDisponibilidade();
+        listaDisponibilidade.setEnabled(false);
+        buscar.setEnabled(true);
+    }
+    
+    private void ativaCamposCadastro(){
+        listaTipoLeito.setEnabled(true);
+        capacidadeQuarto.setText("");
+        capacidadeQuarto.setEnabled(true);
+        valorLeito.setText("");
+        valorLeito.setEnabled(true);
+        listaDisponibilidade.setEnabled(true);
+    }
+    
+    private void mostrarInformacoes(Leito leito){
+        listaTipoLeito.setEnabled(true);
+        preencheTipoLeito();
+        listaTipoLeito.setSelectedIndex(leito.getTipoLeito());
+        listaTipoLeito.setEditable(false);
+        capacidadeQuarto.setEnabled(true);
+        capacidadeQuarto.setEditable(false);
+        capacidadeQuarto.setText("" + leito.getCapacidade());
+        valorLeito.setEnabled(true);
+        valorLeito.setEditable(false);
+        valorLeito.setText("" + leito.getValor());
+        preencheTipoDisponibilidade();
+        listaDisponibilidade.setEnabled(true);
+        listaDisponibilidade.setSelectedIndex(leito.getStatus());
+        listaDisponibilidade.setEditable(false);
     }
 
     /**
@@ -92,6 +133,7 @@ public class TelaCadastroLeito extends javax.swing.JFrame {
         listaDisponibilidade = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         capacidadeQuarto = new javax.swing.JTextField();
+        cadastrar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -182,6 +224,13 @@ public class TelaCadastroLeito extends javax.swing.JFrame {
         listaDisponibilidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel7.setText("Capacidade do Quarto:");
+
+        cadastrar.setText("Cadastrar");
+        cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Geral");
 
@@ -421,8 +470,13 @@ public class TelaCadastroLeito extends javax.swing.JFrame {
                 .addGap(30, 30, 30))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(voltar)
-                .addGap(381, 381, 381))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(voltar)
+                        .addGap(381, 381, 381))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(cadastrar)
+                        .addGap(378, 378, 378))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -446,6 +500,8 @@ public class TelaCadastroLeito extends javax.swing.JFrame {
                     .addComponent(valorLeito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(listaDisponibilidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(cadastrar)
                 .addGap(30, 30, 30)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -466,6 +522,19 @@ public class TelaCadastroLeito extends javax.swing.JFrame {
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         // TODO add your handling code here:
+        int numero = Integer.parseInt(numeroLeito.getText());
+        
+        if(controleLeito.recuperaLeitos(adm.getId()) == null){
+            ativaCamposCadastro();
+        } else {
+            Leito leito = controleLeito.buscaLeitoPorLeito(numero);
+            if(leito == null){
+                ativaCamposCadastro();
+            } else {
+                JOptionPane.showMessageDialog(null, "Leito localizado!\nMostrando as informações.");
+                mostrarInformacoes(leito);
+            }
+        }
     }//GEN-LAST:event_buscarActionPerformed
 
     private void sairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sairMouseClicked
@@ -533,6 +602,33 @@ public class TelaCadastroLeito extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_listaFarmaceuticosActionPerformed
 
+    private void cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarActionPerformed
+        // TODO add your handling code here:
+
+        //Pega Informações do Leito
+        int tipoLeito = listaTipoLeito.getSelectedIndex();
+        int numero = Integer.parseInt(numeroLeito.getText());
+        Double valor = Double.valueOf(valorLeito.getText());
+        int status = listaDisponibilidade.getSelectedIndex();
+        int capacidade = Integer.parseInt(capacidadeQuarto.getText());
+        
+        //Cria Objeto Leito
+        Leito leito = new Leito(tipoLeito, numero, valor, status, capacidade);
+        
+        //Solicita cadastro
+        boolean confirmacao = controleLeito.cadastrarLeito(leito, adm.getId());
+        
+        if(confirmacao){
+            JOptionPane.showMessageDialog(null, "Leito Cadastrado com sucesso!");
+            preencheTabela();
+            desativarLimparCampos();
+        } else {
+            JOptionPane.showMessageDialog(null, "Ops! Algo deu errado.");
+        }
+        
+        
+    }//GEN-LAST:event_cadastrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem alterarDadosEnfermeiro;
@@ -544,6 +640,7 @@ public class TelaCadastroLeito extends javax.swing.JFrame {
     private javax.swing.JMenuItem alterarStatus;
     private javax.swing.JButton buscar;
     private javax.swing.JMenu buscarMedicos;
+    private javax.swing.JButton cadastrar;
     private javax.swing.JMenuItem cadastrarLeito;
     private javax.swing.JTextField capacidadeQuarto;
     private javax.swing.JMenuItem dataAdmissaoMedico;

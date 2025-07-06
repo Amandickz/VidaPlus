@@ -25,4 +25,14 @@ public class ControleLeito {
         return listaLeitos;
     }
     
+    public Leito buscaLeitoPorLeito(int numero){
+        Leito leito = leitoDAO.buscaLeitoPorNumero(numero);
+        return leito;
+    }
+    
+    public boolean cadastrarLeito(Leito leito, int idAdministracao){
+        boolean confirmacao = leitoDAO.cadastrarLeito(leito, idAdministracao);
+        return confirmacao;
+    }
+    
 }

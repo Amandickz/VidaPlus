@@ -24,7 +24,7 @@ public class DB {
                 
                 String user = "root";
                 String password = "root";
-                String url = "jdbc:mysql://localhost:3306/mydb";
+                String url = "jdbc:mysql://localhost:3306/vidaplus";
                 conn = DriverManager.getConnection(url, user, password);
                 
                 System.out.println("********Conexão realizada!");
