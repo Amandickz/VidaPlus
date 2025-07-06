@@ -6,8 +6,11 @@ package controles;
 
 import classes.Administracao;
 import classes.Paciente;
+import classes.Suprimento;
 import dao.AdministracaoDAO;
 import dao.PacienteDAO;
+import dao.SuprimentoDAO;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,10 +20,12 @@ public class ControleAdministracao {
     
     private AdministracaoDAO admDAO;
     private PacienteDAO pacienteDAO;
+    private SuprimentoDAO suprimentoDAO;
 
     public ControleAdministracao() {
         this.admDAO = new AdministracaoDAO();
         this.pacienteDAO = new PacienteDAO();
+        this.suprimentoDAO = new SuprimentoDAO();
     }
     
     public Administracao buscaAdministrador(String cnpj){
@@ -37,5 +42,5 @@ public class ControleAdministracao {
         boolean confirmacao = pacienteDAO.cadastrarPaciente(paciente, idAdministracao);
         return confirmacao;
     }
-    
+       
 }
