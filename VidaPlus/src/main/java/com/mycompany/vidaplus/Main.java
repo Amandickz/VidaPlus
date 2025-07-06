@@ -5,6 +5,8 @@
 package com.mycompany.vidaplus;
 
 import dao.AdministracaoDAO;
+import dao.LeitoDAO;
+import interfaces.TelaInicial;
 
 /**
  *
@@ -15,8 +17,12 @@ public class Main {
     public static void main(String[] args) {
         
         AdministracaoDAO admDAO = new AdministracaoDAO();
+        admDAO.recuperaAdministracao();
         
-        admDAO.testeConnection();
+        LeitoDAO leitoDAO = new LeitoDAO();
+        leitoDAO.recuperaLeito();
+        
+        new TelaInicial().setVisible(true);
         
     }
 }

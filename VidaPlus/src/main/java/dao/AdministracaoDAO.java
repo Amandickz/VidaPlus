@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,7 +17,8 @@ import java.sql.Statement;
  */
 public class AdministracaoDAO {
     
-    public void testeConnection(){
+    public void recuperaAdministracao(){
+        ArrayList<Administracao> administradores = new ArrayList<>();
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -37,7 +39,44 @@ public class AdministracaoDAO {
                 String telefone = rs.getString("telefone");
                 
                 Administracao adm = new Administracao(id, cnpj, razaoSocial, email, telefone);
+                administradores.add(adm);
                 System.out.println(adm);
+            }
+            
+            System.out.println(administradores);
+            
+        } catch (SQLException e){
+            System.err.println("********Erro ao Recuperar dados!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        
+    }
+    
+    public Administracao buscaAdmPorCNPJ(String cnpj){
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from administracao where cnpj = '" + cnpj + "'");
+            
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String razaoSocial = rs.getString("razaoSocial");
+                String email = rs.getString("email");
+                String telefone = rs.getString("telefone");
+                
+                Administracao adm = new Administracao(id, cnpj, razaoSocial, email, telefone);
+                System.out.println(adm);
+                return adm;
             }
             
         } catch (SQLException e){
@@ -48,6 +87,7 @@ public class AdministracaoDAO {
             DB.closeConnection();
         }
         
+        return null;
     }
     
 }
