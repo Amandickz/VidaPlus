@@ -4,12 +4,12 @@
  */
 package dao;
 
-import classes.Administracao;
 import classes.Enfermeiro;
 import classes.Farmaceutico;
 import classes.Medico;
 import classes.ProfissionalSaude;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,6 +19,48 @@ import java.sql.Statement;
  * @author Amanda
  */
 public class ProfissionalSaudeDAO {
+    
+    public ProfissionalSaude cadastraProfissional(ProfissionalSaude profissional, int idAdministrador){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            pstmt = conn.prepareStatement("INSERT INTO profissionalsaude" +
+                    "(idAdministracao,cpf,nome,telefone,email,dataNascimento,DataContratacao)" +
+                    " VALUES(?,?,?,?,?,?,?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            
+            pstmt.setInt(1, idAdministrador);
+            pstmt.setString(2, profissional.getCpf());
+            pstmt.setString(3, profissional.getNome());
+            pstmt.setString(4, profissional.getTelefone());
+            pstmt.setString(5, profissional.getEmail());
+            pstmt.setString(6, profissional.getDataNascimento());
+            pstmt.setString(7, profissional.getDataContratacao());
+            
+            int rollsAffected = pstmt.executeUpdate();
+
+            if(rollsAffected > 0){
+                ResultSet rs = pstmt.getGeneratedKeys();
+                while (rs.next()){
+                    int id = rs.getInt(1);
+                    profissional.setId(id);
+                }
+                return profissional;
+            }
+            
+        } catch (SQLException e){
+            System.out.println("********Erro ao Cadastrar dados!");
+        } finally {
+            DB.closeStatement(pstmt);
+            DB.closeConnection();
+        }
+        
+        return null;
+    }
     
     public ProfissionalSaude buscaProfissional(String cpf){
         Connection conn = null;

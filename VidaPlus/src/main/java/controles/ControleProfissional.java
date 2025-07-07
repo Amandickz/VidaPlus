@@ -22,6 +22,11 @@ public class ControleProfissional {
         this.profissionalDAO = new ProfissionalSaudeDAO();
     }
     
+    public ProfissionalSaude cadastraProfissional(ProfissionalSaude profissional, int idAdministracao){
+        profissional = profissionalDAO.cadastraProfissional(profissional, idAdministracao);
+        return profissional;
+    }
+    
     public ProfissionalSaude buscaProfissional(String cpf){
         ProfissionalSaude profissionalSaude = profissionalDAO.buscaProfissional(cpf);
         return profissionalSaude;

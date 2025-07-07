@@ -6,11 +6,9 @@ package controles;
 
 import classes.Administracao;
 import classes.Paciente;
-import classes.Suprimento;
 import dao.AdministracaoDAO;
 import dao.PacienteDAO;
 import dao.SuprimentoDAO;
-import java.util.ArrayList;
 
 /**
  *
