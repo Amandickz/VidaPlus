@@ -204,6 +204,8 @@ public class TelaInicialMedico extends javax.swing.JFrame {
 
     private void addNovasDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNovasDatasActionPerformed
         // TODO add your handling code here:
+        new TelaCadastroDatasConsultas(medico).setVisible(true);
+        dispose();
     }//GEN-LAST:event_addNovasDatasActionPerformed
 
     private void agendaCompletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agendaCompletaActionPerformed
