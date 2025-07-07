@@ -32,7 +32,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         administracao = new javax.swing.JButton();
         profissionalSaude = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        paciente = new javax.swing.JButton();
         sair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -62,7 +62,12 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Paciente");
+        paciente.setText("Paciente");
+        paciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pacienteActionPerformed(evt);
+            }
+        });
 
         sair.setText("Sair");
         sair.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +85,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(administracao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(profissionalSaude, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(paciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(88, 88, 88))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +116,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(profissionalSaude)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(paciente)
                 .addGap(56, 56, 56)
                 .addComponent(sair, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(30, 30, 30))
@@ -137,12 +142,18 @@ public class TelaInicial extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_profissionalSaudeActionPerformed
 
+    private void pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pacienteActionPerformed
+        // TODO add your handling code here:
+        new TelaCPFPaciente().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_pacienteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton administracao;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton paciente;
     private javax.swing.JButton profissionalSaude;
     private javax.swing.JButton sair;
     // End of variables declaration//GEN-END:variables
