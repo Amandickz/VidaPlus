@@ -363,6 +363,8 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
 
     private void novoEnfermeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoEnfermeiroActionPerformed
         // TODO add your handling code here:
+        new TelaCadastrarEnfermeiro(adm).setVisible(true);
+        dispose();
     }//GEN-LAST:event_novoEnfermeiroActionPerformed
 
     private void listaEnfermeirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaEnfermeirosActionPerformed
