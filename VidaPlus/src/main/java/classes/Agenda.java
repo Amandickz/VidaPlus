@@ -13,15 +13,15 @@ public class Agenda {
     private int id;
     private String data;
     private String hora;
-    private boolean status;
+    private int status;
 
-    public Agenda(String data, String hora, boolean status) {
+    public Agenda(String data, String hora, int status) {
         this.data = data;
         this.hora = hora;
         this.status = status;
     }
 
-    public Agenda(int id, String data, String hora, boolean status) {
+    public Agenda(int id, String data, String hora, int status) {
         this.id = id;
         this.data = data;
         this.hora = hora;
@@ -52,11 +52,11 @@ public class Agenda {
         this.hora = hora;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

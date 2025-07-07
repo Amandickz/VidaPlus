@@ -45,7 +45,7 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
     private void atualizaTabela(){
         consultas.setRowCount(0);
         for(Agenda a : todosHorarios){
-            consultas.addRow(new Object[]{a.getData(), a.getHora(), a.isStatus()});
+            consultas.addRow(new Object[]{a.getData(), a.getHora(), a.getStatus()});
         }
     }
     
@@ -332,9 +332,8 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
         }
         
         ArrayList<Agenda> consultasGeradas = controleAgenda.gerarNovasConsultas(data, horarioInicial, horarioFinal, intervalo);
-                
+        
         for(Agenda a : consultasGeradas){
-            a.setId(todosHorarios.size() + 1);
             todosHorarios.add(a);
         }
         
@@ -362,10 +361,19 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
     }//GEN-LAST:event_removerActionPerformed
 
     private void finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarActionPerformed
-        // TODO add your handling code here:
-        /*gerenciamentoMedico.addNovasDatas(todosHorarios);
-        new TelaInicialMedico(gerenciamentoMedico).setVisible(true);
-        dispose();*/
+        for(int i = 0; i < todosHorarios.size(); i++){
+            boolean confirmacao = controleAgenda.cadastrarData(todosHorarios.get(i), medico.getId());
+            if(!confirmacao){
+                JOptionPane.showMessageDialog(null, "Ops! Algo deu errado."
+                        + "\nVoltando a Tela Inicial.");
+                new TelaInicialMedico(medico).setVisible(true);
+                dispose();
+            }
+        }
+        
+        JOptionPane.showMessageDialog(null, "Datas e Horários Cadastradas!");
+        new TelaInicialMedico(medico).setVisible(true);
+        dispose();
     }//GEN-LAST:event_finalizarActionPerformed
 
 

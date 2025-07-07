@@ -26,6 +26,11 @@ public class ControleAgenda {
         this.agendaDAO = new AgendaDAO();
     }
     
+    public boolean cadastrarData(Agenda agenda, int idMedico){
+        boolean confirmacao = agendaDAO.cadastrarAgenda(agenda, idMedico);
+        return confirmacao;
+    }
+    
     public ArrayList<Agenda> gerarNovasConsultas(String data, String horaInicial, String horaFinal, IntervaloConsultas intervalo){
         ArrayList<Agenda> listaHorarios = new ArrayList<>();
         int tempo = 0, cont = 0;
@@ -51,7 +56,6 @@ public class ControleAgenda {
         String[] quebraFim = horaFinal.split(":");
         for(int i = Integer.parseInt(quebraInicio[0]); i < Integer.parseInt(quebraFim[0]); i++){//Contagem Hora
             for(int j = Integer.parseInt(quebraInicio[1]); j < 60; j = j + tempo){//Contagem Minutos
-                String dataAgenda = data;
                 String horario;
                 if(j < 9){
                     horario = "" + i + ":" + j + "0";
@@ -59,7 +63,7 @@ public class ControleAgenda {
                     horario = "" + i + ":" + j;
                 }
                 
-                Agenda agenda = new Agenda(data, horario, true);
+                Agenda agenda = new Agenda(data, horario, 0);
                 listaHorarios.add(agenda);
                 cont++;
             }
