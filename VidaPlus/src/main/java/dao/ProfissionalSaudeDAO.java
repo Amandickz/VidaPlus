@@ -100,6 +100,80 @@ public class ProfissionalSaudeDAO {
         return null;        
     }
     
+    public ProfissionalSaude buscaProfissionalPorID(int id){
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from profissionalsaude where id = '" + id + "'");
+            
+            while(rs.next()){
+                String cpf = rs.getString("cpf");
+                String nome = rs.getString("nome");
+                String telefone = rs.getString("telefone");
+                String email = rs.getString("email");
+                String dataNascimento = rs.getString("dataNascimento");
+                String dataContratacao = rs.getString("dataContratacao");
+                
+                ProfissionalSaude profissionalSaude = new ProfissionalSaude(id, cpf, nome, telefone, email, dataNascimento, dataContratacao);
+                
+                return profissionalSaude;
+            }
+            
+        } catch (SQLException e){
+            System.err.println("********Erro ao Recuperar dados!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        
+        return null;
+    }
+    
+    public ProfissionalSaude buscaProfissionalPorNome(String nome){
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from profissionalsaude where nome = '" + nome + "'");
+            
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String cpf = rs.getString("cpf");
+                String telefone = rs.getString("telefone");
+                String email = rs.getString("email");
+                String dataNascimento = rs.getString("dataNascimento");
+                String dataContratacao = rs.getString("dataContratacao");
+                
+                ProfissionalSaude profissionalSaude = new ProfissionalSaude(id, cpf, nome, telefone, email, dataNascimento, dataContratacao);
+                
+                return profissionalSaude;
+            }
+            
+        } catch (SQLException e){
+            System.err.println("********Erro ao Recuperar dados!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        
+        return null;
+    }
+    
     public Medico buscaMedicoPorID(ProfissionalSaude profissional){
         Connection conn = null;
         Statement stmt = null;

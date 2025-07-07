@@ -56,7 +56,7 @@ public class TelaInicialPaciente extends javax.swing.JFrame {
         jMenuBar2 = new javax.swing.JMenuBar();
         sair = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        marcarConsulta = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -118,9 +118,19 @@ public class TelaInicialPaciente extends javax.swing.JFrame {
         jMenuBar2.add(sair);
 
         jMenu1.setText("Consultas");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
-        jMenuItem2.setText("Marcar Consulta");
-        jMenu1.add(jMenuItem2);
+        marcarConsulta.setText("Marcar Consulta");
+        marcarConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                marcarConsultaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(marcarConsulta);
 
         jMenuBar2.add(jMenu1);
 
@@ -182,6 +192,16 @@ public class TelaInicialPaciente extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_sairMouseClicked
 
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void marcarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcarConsultaActionPerformed
+        // TODO add your handling code here:
+        new TelaMarcarConsulta(paciente).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_marcarConsultaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable consultasDia;
@@ -191,9 +211,9 @@ public class TelaInicialPaciente extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JMenuItem marcarConsulta;
     private javax.swing.JLabel nomePaciente;
     private javax.swing.JMenu sair;
     // End of variables declaration//GEN-END:variables

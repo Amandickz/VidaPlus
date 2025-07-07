@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -76,6 +77,45 @@ public class MedicoDAO {
                 Medico medico = new Medico(crm, uf, dataInscricao, especialidade, id, "", "", "", "", "", "");
                 return medico;
             }
+            
+        } catch (SQLException e){
+            System.err.println("********Erro ao Recuperar dados!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        return null;
+    }
+    
+    public ArrayList<Medico> retornaListaMedica(){
+        ArrayList<Medico> medicos = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from medico");
+            
+            System.out.println(rs);
+            
+            while(rs.next()){
+                int id = rs.getInt("idProfissionalSaude");
+                String crm = rs.getString("crm");
+                String uf = rs.getString("uf");
+                String dataInscricao = rs.getString("dataInscricao");
+                int especialidade = rs.getInt("especialidade");
+                
+                Medico medico = new Medico(crm, uf, dataInscricao, especialidade, id, "", "", "", "", "", "");
+                medicos.add(medico);
+            }
+            
+            return medicos;
             
         } catch (SQLException e){
             System.err.println("********Erro ao Recuperar dados!");

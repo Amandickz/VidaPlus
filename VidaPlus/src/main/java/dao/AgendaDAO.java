@@ -93,4 +93,77 @@ public class AgendaDAO {
         return null;
     }
     
+    public ArrayList<Agenda> retornaDatasDisponiveis(String dataAtual, int idMedico){
+        ArrayList<Agenda> datasDisponiveis = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from agenda where data >= " + dataAtual 
+                    + " and idMedico = " + idMedico + " and status = 0");
+            
+            System.out.println(rs);
+            
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String data = rs.getString("data");
+                String hora = rs.getString("hora");
+                int status = rs.getInt("status");
+                
+                Agenda agenda = new Agenda(id, data, hora, status);
+                datasDisponiveis.add(agenda);
+            }
+            
+            return datasDisponiveis;
+            
+        } catch (SQLException e){
+            System.out.println("********Erro ao Recuperar dados!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        
+        return null;
+    }
+    
+    public boolean marcaConsulta(int idMedico, Agenda agenda, int idPaciente){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            pstmt = conn.prepareStatement("update agenda set idPaciente = ?, status = 1"
+                    + " where data = ? and hora = ? and idMedico = ?",
+                    Statement.RETURN_GENERATED_KEYS);
+            
+            pstmt.setInt(1, idPaciente);
+            pstmt.setString(2, agenda.getData());
+            pstmt.setString(3, agenda.getHora());
+            pstmt.setInt(4, idMedico);
+            
+            int rollsAffected = pstmt.executeUpdate();
+
+            if(rollsAffected > 0){
+                return true;
+            }
+            
+        } catch (SQLException e){
+            System.out.println("********Erro ao Recuperar dados!");
+        } finally {
+            DB.closeStatement(pstmt);
+            DB.closeConnection();
+        }
+        
+        return false;
+    }
+    
 }

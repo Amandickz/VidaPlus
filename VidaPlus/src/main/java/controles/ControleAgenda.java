@@ -36,6 +36,11 @@ public class ControleAgenda {
         return agendacompleta;
     }
     
+    public boolean marcarConsulta(int idMedico, Agenda agenda, int idPaciente){
+        boolean confirmacao = agendaDAO.marcaConsulta(idMedico, agenda, idPaciente);
+        return confirmacao;
+    }
+    
     public ArrayList<Agenda> gerarNovasConsultas(String data, String horaInicial, String horaFinal, IntervaloConsultas intervalo){
         ArrayList<Agenda> listaHorarios = new ArrayList<>();
         int tempo = 0, cont = 0;
