@@ -14,6 +14,7 @@ public class Agenda {
     private String data;
     private String hora;
     private int status;
+    private int idPaciente;
 
     public Agenda(String data, String hora, int status) {
         this.data = data;
@@ -60,9 +61,17 @@ public class Agenda {
         this.status = status;
     }
 
+    public int getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
     @Override
     public String toString() {
-        return "Agenda{" + "id=" + id + ", data=" + data + ", hora=" + hora + ", status=" + status + '}';
+        return "Agenda{" + "id=" + id + ", data=" + data + ", hora=" + hora + ", status=" + status + ", idPaciente=" + idPaciente + '}';
     }
     
 }

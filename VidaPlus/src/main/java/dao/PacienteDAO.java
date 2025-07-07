@@ -91,4 +91,41 @@ public class PacienteDAO {
         return null;
     }
     
+    public Paciente buscaPacientePorID(int id){
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from paciente where id = '" + id + "'");
+            
+            System.out.println(rs);
+            
+            while(rs.next()){
+                String cpf = rs.getString("cpf");
+                String nome = rs.getString("nome");
+                String email = rs.getString("email");
+                String telefone = rs.getString("telefone");
+                String dataNascimento = rs.getString("dataNascimento");
+                int sexo = rs.getInt("sexo");
+                
+                Paciente paciente = new Paciente(id, cpf, nome, email, telefone, dataNascimento, sexo);
+                return paciente;
+            }
+            
+        } catch (SQLException e){
+            System.err.println("********Erro ao Recuperar dados!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        return null;
+    }
+    
 }

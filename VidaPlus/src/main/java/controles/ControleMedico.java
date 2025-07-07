@@ -6,9 +6,11 @@ package controles;
 
 import classes.Agenda;
 import classes.Medico;
+import classes.Paciente;
 import classes.ProfissionalSaude;
 import dao.AgendaDAO;
 import dao.MedicoDAO;
+import dao.PacienteDAO;
 import dao.ProfissionalSaudeDAO;
 import java.util.ArrayList;
 
@@ -21,11 +23,18 @@ public class ControleMedico {
     private MedicoDAO medicoDAO;
     private ProfissionalSaudeDAO profissionalSaudeDAO;
     private AgendaDAO agendaDAO;
+    private PacienteDAO pacienteDAO;
 
     public ControleMedico() {
         this.medicoDAO = new MedicoDAO();
         this.profissionalSaudeDAO = new ProfissionalSaudeDAO();
         this.agendaDAO = new AgendaDAO();
+        this.pacienteDAO = new PacienteDAO();
+    }
+    
+    public ArrayList<Agenda> consultasDoDia(String data, Medico medico){
+        ArrayList<Agenda> agendaDoDia = agendaDAO.retornaAgendaDia(data, medico.getId());
+        return agendaDoDia;
     }
     
     public Medico buscaMedicoCRM(String crm){
@@ -36,6 +45,11 @@ public class ControleMedico {
     public ProfissionalSaude buscaProfissionalPorNome(String nome){
         ProfissionalSaude profissionalSaude = profissionalSaudeDAO.buscaProfissionalPorNome(nome);
         return profissionalSaude;
+    }
+    
+    public Paciente buscaPacientePorID(int id){
+        Paciente paciente = pacienteDAO.buscaPacientePorID(id);
+        return paciente;
     }
     
     public boolean cadastraMedico(Medico medico, int idAdministrador){

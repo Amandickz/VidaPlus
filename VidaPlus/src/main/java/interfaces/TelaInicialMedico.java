@@ -4,9 +4,14 @@
  */
 package interfaces;
 
+import classes.Agenda;
 import classes.Medico;
+import classes.Paciente;
+import controles.ControleMedico;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,6 +21,8 @@ public class TelaInicialMedico extends javax.swing.JFrame {
 
     String dataConvertida;
     Medico medico;
+    DefaultTableModel consultasDoDia;
+    ControleMedico controleMedico = new ControleMedico();
     
     /**
      * Creates new form TelaInicialAdministrador
@@ -29,8 +36,22 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         dataConvertida = hoje.format(formataData);
         this.nomeDr.setText("Seja Bem-vindo Drº " + this.medico.getNome());
         this.dataAtual.setText("Data: " + dataConvertida);
+        
+        consultasDoDia = (DefaultTableModel) consultasDia.getModel();
+        
+        preencheConsultasdoDia();
     }
     
+    private void preencheConsultasdoDia(){
+        consultasDoDia.setRowCount(0);
+        ArrayList<Agenda> agendaDoDia = controleMedico.consultasDoDia(dataConvertida, medico);
+        if(agendaDoDia != null){
+            for(Agenda a : agendaDoDia){
+                Paciente paciente = controleMedico.buscaPacientePorID(a.getIdPaciente());
+                consultasDoDia.addRow(new Object[]{a.getHora(),paciente.getNome()});
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
