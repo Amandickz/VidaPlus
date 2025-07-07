@@ -4,10 +4,15 @@
  */
 package interfaces;
 
+import classes.Agenda;
 import classes.Medico;
 import classes.Paciente;
+import classes.ProfissionalSaude;
+import controles.ControlePaciente;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,6 +22,8 @@ public class TelaInicialPaciente extends javax.swing.JFrame {
 
     String dataConvertida;
     Paciente paciente;
+    DefaultTableModel consultas;
+    ControlePaciente controlePaciente = new ControlePaciente();
     
     /**
      * Creates new form TelaInicialAdministrador
@@ -33,9 +40,28 @@ public class TelaInicialPaciente extends javax.swing.JFrame {
         this.dataAtual.setText("Data: " + dataConvertida);
         
         consultasProximasLabel.setVisible(false);
+        
+        consultas = (DefaultTableModel) consultasMarcadas.getModel();
+        consultasMarcadas();
     }
     
-
+    private void consultasMarcadas(){
+        consultas.setRowCount(0);
+        ArrayList<Agenda> agenda = controlePaciente.proximasConsultas(paciente.getId());
+        if(agenda != null){
+            for(Agenda a : agenda){
+                ProfissionalSaude profissional = controlePaciente.buscaProfissional(a.getIdMedico());
+                consultas.addRow(new Object[]{a.getData(),
+                a.getHora(),profissional.getNome()});
+                
+                if(a.getData().equals(dataConvertida)){
+                    consultasProximasLabel.setVisible(true);
+                }
+            }
+        }
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,7 +77,7 @@ public class TelaInicialPaciente extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        consultasDia = new javax.swing.JTable();
+        consultasMarcadas = new javax.swing.JTable();
         consultasProximasLabel = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         sair = new javax.swing.JMenu();
@@ -73,7 +99,7 @@ public class TelaInicialPaciente extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Próximas Consultas");
 
-        consultasDia.setModel(new javax.swing.table.DefaultTableModel(
+        consultasMarcadas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -89,14 +115,14 @@ public class TelaInicialPaciente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        consultasDia.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(consultasDia);
-        if (consultasDia.getColumnModel().getColumnCount() > 0) {
-            consultasDia.getColumnModel().getColumn(0).setResizable(false);
-            consultasDia.getColumnModel().getColumn(0).setPreferredWidth(5);
-            consultasDia.getColumnModel().getColumn(1).setResizable(false);
-            consultasDia.getColumnModel().getColumn(1).setPreferredWidth(5);
-            consultasDia.getColumnModel().getColumn(2).setResizable(false);
+        consultasMarcadas.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(consultasMarcadas);
+        if (consultasMarcadas.getColumnModel().getColumnCount() > 0) {
+            consultasMarcadas.getColumnModel().getColumn(0).setResizable(false);
+            consultasMarcadas.getColumnModel().getColumn(0).setPreferredWidth(5);
+            consultasMarcadas.getColumnModel().getColumn(1).setResizable(false);
+            consultasMarcadas.getColumnModel().getColumn(1).setPreferredWidth(5);
+            consultasMarcadas.getColumnModel().getColumn(2).setResizable(false);
         }
 
         consultasProximasLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -204,7 +230,7 @@ public class TelaInicialPaciente extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable consultasDia;
+    private javax.swing.JTable consultasMarcadas;
     private javax.swing.JLabel consultasProximasLabel;
     private javax.swing.JLabel dataAtual;
     private javax.swing.JLabel jLabel2;

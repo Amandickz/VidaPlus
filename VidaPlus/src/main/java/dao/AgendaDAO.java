@@ -207,4 +207,44 @@ public class AgendaDAO {
         
         return null;
     }
+    
+    public ArrayList<Agenda> retornaConsultasPaciente(int idPaciente){
+        ArrayList<Agenda> agendacompleta = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from agenda where idPaciente = " + idPaciente);
+            
+            while(rs.next()){
+                int id = rs.getInt("id");
+                int idMedico = rs.getInt("idMedico");
+                String data = rs.getString("data");
+                String hora = rs.getString("hora");
+                int status = rs.getInt("status");
+                
+                Agenda agenda = new Agenda(id, data, hora, status);
+                agenda.setIdPaciente(idPaciente);
+                agenda.setIdMedico(idMedico);
+                agendacompleta.add(agenda);
+            }
+            
+            return agendacompleta;
+            
+        } catch (SQLException e){
+            System.out.println("********Erro ao Recuperar dados!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        
+        return null;
+    }
 }

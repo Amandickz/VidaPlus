@@ -4,8 +4,13 @@
  */
 package controles;
 
+import classes.Agenda;
 import classes.Paciente;
+import classes.ProfissionalSaude;
+import dao.AgendaDAO;
 import dao.PacienteDAO;
+import dao.ProfissionalSaudeDAO;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,9 +19,13 @@ import dao.PacienteDAO;
 public class ControlePaciente {
     
     private PacienteDAO pacienteDAO;
-
+    private AgendaDAO agendaDAO;
+    private ProfissionalSaudeDAO profissionalSaudeDAO;
+    
     public ControlePaciente() {
         this.pacienteDAO = new PacienteDAO();
+        this.agendaDAO = new AgendaDAO();
+        this.profissionalSaudeDAO = new ProfissionalSaudeDAO();
     }
     
     public Paciente buscaPaciente(String cpf){
@@ -24,4 +33,13 @@ public class ControlePaciente {
         return paciente;
     }
     
+    public ArrayList<Agenda> proximasConsultas(int idPaciente){
+        ArrayList<Agenda> agendaPaciente = agendaDAO.retornaConsultasPaciente(idPaciente);
+        return agendaPaciente;
+    }
+    
+    public ProfissionalSaude buscaProfissional(int idMedico){
+        ProfissionalSaude profissional = profissionalSaudeDAO.buscaProfissionalPorID(idMedico);
+        return profissional;
+    }
 }
