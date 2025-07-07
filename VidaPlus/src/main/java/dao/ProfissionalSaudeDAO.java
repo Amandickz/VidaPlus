@@ -197,10 +197,9 @@ public class ProfissionalSaudeDAO {
                 String crf = rs.getString("crf");
                 String uf = rs.getString("uf");
                 int categoriaProfissional = rs.getInt("categoriaProfissional");
-                String dataConclusao = rs.getString("dataConclusao");
                 String dataExpedicao = rs.getString("dataExpedicao");
                 
-                Farmaceutico farmaceutico = new Farmaceutico(crf, uf, categoriaProfissional, dataConclusao, dataExpedicao,
+                Farmaceutico farmaceutico = new Farmaceutico(crf, uf, categoriaProfissional, dataExpedicao,
                         profissional.getId(), profissional.getCpf(), profissional.getNome(),
                         profissional.getTelefone(), profissional.getEmail(),
                         profissional.getDataNascimento(), profissional.getDataContratacao());

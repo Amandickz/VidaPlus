@@ -4,8 +4,7 @@
  */
 package dao;
 
-import classes.Enfermeiro;
-import classes.Medico;
+import classes.Farmaceutico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,9 +15,9 @@ import java.sql.Statement;
  *
  * @author Amanda
  */
-public class EnfermeiroDAO {
+public class FarmaceuticoDAO {
     
-    public boolean cadastrarEnfermeiro(Enfermeiro enfermeiro){
+    public boolean cadastrarFarmaceutico(Farmaceutico farmaceutico){
         Connection conn = null;
         PreparedStatement pstmt = null;
         
@@ -26,16 +25,16 @@ public class EnfermeiroDAO {
             
             conn = DB.getConeConnection();
             
-            pstmt = conn.prepareStatement("INSERT INTO enfermeiro" +
-                    "(idProfissionalSaude, coren, uf, dataEmissao, tipo)" +
+            pstmt = conn.prepareStatement("INSERT INTO farmaceutico" +
+                    "(idProfissionalSaude, crf, uf, categoriaProfissional, dataExpedicao)" +
                     " VALUES(?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             
-            pstmt.setInt(1, enfermeiro.getId());
-            pstmt.setString(2, enfermeiro.getCoren());
-            pstmt.setString(3, enfermeiro.getUf());
-            pstmt.setString(4, enfermeiro.getDataEmissao());
-            pstmt.setInt(5, enfermeiro.getTipo());
+            pstmt.setInt(1, farmaceutico.getId());
+            pstmt.setString(2, farmaceutico.getCrf());
+            pstmt.setString(3, farmaceutico.getUf());
+            pstmt.setInt(4, farmaceutico.getCategoriaProfissional());
+            pstmt.setString(5, farmaceutico.getDataExpedicao());
             
             int rollsAffected = pstmt.executeUpdate();
 
@@ -53,7 +52,7 @@ public class EnfermeiroDAO {
         return false;
     }
     
-    public Enfermeiro buscaEnfermeiroPorCOREN(String coren){
+    public Farmaceutico buscaEnfermeiroPorCRF(String crf){
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -64,18 +63,18 @@ public class EnfermeiroDAO {
             
             stmt = conn.createStatement();
             
-            rs = stmt.executeQuery("select * from enfermeiro where coren = '" + coren + "'");
+            rs = stmt.executeQuery("select * from farmaceutico where crf = '" + crf + "'");
             
             System.out.println(rs);
             
             while(rs.next()){
                 int id = rs.getInt("idProfissionalSaude");
                 String uf = rs.getString("uf");
-                String dataEmissao = rs.getString("dataEmissao");
-                int tipo = rs.getInt("tipo");
+                int categoriaProfissional = rs.getInt("categoriaProfissional");
+                String dataExpedicao = rs.getString("dataExpedicao");
                 
-                Enfermeiro enfermeiro = new Enfermeiro(coren, uf, dataEmissao, tipo, id, "", "", "", "", "", "");
-                return enfermeiro;
+                Farmaceutico farmaceutico = new Farmaceutico(crf, uf, categoriaProfissional, dataExpedicao, id, "", "", "", "", "", "");
+                return farmaceutico;
             }
             
         } catch (SQLException e){

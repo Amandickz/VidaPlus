@@ -67,10 +67,6 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         novoEnfermeiro = new javax.swing.JMenuItem();
         alterarDadosEnfermeiro = new javax.swing.JMenuItem();
         listaEnfermeiros = new javax.swing.JMenuItem();
-        tecnicos = new javax.swing.JMenu();
-        novoTecnico = new javax.swing.JMenuItem();
-        alterarDadosTecnico = new javax.swing.JMenuItem();
-        listaTecnicos = new javax.swing.JMenuItem();
         farmaceuticos = new javax.swing.JMenu();
         novoFarmaceutico = new javax.swing.JMenuItem();
         alterarDadosFarmaceutico = new javax.swing.JMenuItem();
@@ -250,29 +246,6 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
 
         recursosHumanos.add(enfermeiros);
 
-        tecnicos.setText("Técnicos de Enfermagem");
-
-        novoTecnico.setText("Novo Técnico");
-        novoTecnico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                novoTecnicoActionPerformed(evt);
-            }
-        });
-        tecnicos.add(novoTecnico);
-
-        alterarDadosTecnico.setText("Alterar Dados do Técnico");
-        tecnicos.add(alterarDadosTecnico);
-
-        listaTecnicos.setText("Lista de Técnicos");
-        listaTecnicos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaTecnicosActionPerformed(evt);
-            }
-        });
-        tecnicos.add(listaTecnicos);
-
-        recursosHumanos.add(tecnicos);
-
         farmaceuticos.setText("Farmacêuticos");
 
         novoFarmaceutico.setText("Novo Farmacêutico");
@@ -371,16 +344,10 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_listaEnfermeirosActionPerformed
 
-    private void novoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoTecnicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_novoTecnicoActionPerformed
-
-    private void listaTecnicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaTecnicosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listaTecnicosActionPerformed
-
     private void novoFarmaceuticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoFarmaceuticoActionPerformed
         // TODO add your handling code here:
+        new TelaCadastrarFarmaceutico(adm).setVisible(true);
+        dispose();
     }//GEN-LAST:event_novoFarmaceuticoActionPerformed
 
     private void listaFarmaceuticosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaFarmaceuticosActionPerformed
@@ -404,7 +371,6 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem alterarDadosEnfermeiro;
     private javax.swing.JMenuItem alterarDadosFarmaceutico;
     private javax.swing.JMenuItem alterarDadosMedico;
-    private javax.swing.JMenuItem alterarDadosTecnico;
     private javax.swing.JMenuItem alterarEstoque;
     private javax.swing.JMenuItem alterarLeito;
     private javax.swing.JMenuItem alterarStatus;
@@ -425,19 +391,16 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem listaEnfermeiros;
     private javax.swing.JMenuItem listaFarmaceuticos;
     private javax.swing.JMenuItem listaMedicos;
-    private javax.swing.JMenuItem listaTecnicos;
     private javax.swing.JMenuItem logout;
     private javax.swing.JMenu medicos;
     private javax.swing.JMenuItem novoEnfermeiro;
     private javax.swing.JMenuItem novoFarmaceutico;
     private javax.swing.JMenuItem novoMedico;
     private javax.swing.JMenuItem novoSuprimento;
-    private javax.swing.JMenuItem novoTecnico;
     private javax.swing.JMenu pacientes;
     private javax.swing.JMenu recursosHumanos;
     private javax.swing.JMenuItem sair;
     private javax.swing.JMenu suprimentos;
-    private javax.swing.JMenu tecnicos;
     private javax.swing.JMenuItem verificarInternacoes;
     private javax.swing.JMenuItem verificarLeitos;
     private javax.swing.JMenuItem verificarPacientes;

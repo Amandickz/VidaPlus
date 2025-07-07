@@ -129,6 +129,7 @@ public class TelaCNPJ extends javax.swing.JFrame {
                     + "Verifique e tente novamente");
         } else {
             new TelaInicialAdministrador(adm).setVisible(true);
+            dispose();
         }
     }//GEN-LAST:event_continuarActionPerformed
 
