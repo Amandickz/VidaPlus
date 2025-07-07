@@ -141,6 +141,9 @@ public class TelaCPFProfissional extends javax.swing.JFrame {
                                 + "\nVerifique seu CPF e tente novamente.");
                     }
                 }
+            } else {
+                new TelaInicialMedico(medico).setVisible(true);
+                dispose();
             }
         }
     }//GEN-LAST:event_continuarActionPerformed

@@ -37,7 +37,7 @@
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="sair" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="voltar" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="continuar" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
@@ -64,7 +64,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="continuar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="sair" alignment="3" max="32767" attributes="0"/>
+                  <Component id="voltar" alignment="3" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
@@ -103,12 +103,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="continuarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="sair">
+    <Component class="javax.swing.JButton" name="voltar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Sair"/>
+        <Property name="text" type="java.lang.String" value="Voltar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sairActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="voltarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="cnpj">
