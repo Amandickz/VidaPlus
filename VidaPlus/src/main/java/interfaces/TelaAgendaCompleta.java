@@ -4,31 +4,56 @@
  */
 package interfaces;
 
+import classes.Agenda;
 import classes.Medico;
+import controles.ControleAgenda;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Amanda
  */
-public class TelaInicialMedico extends javax.swing.JFrame {
+public class TelaAgendaCompleta extends javax.swing.JFrame {
 
     String dataConvertida;
     Medico medico;
+    ControleAgenda controleAgenda = new ControleAgenda();
+    DefaultTableModel agenda;
     
     /**
      * Creates new form TelaInicialAdministrador
      */
-    public TelaInicialMedico(Medico medico){
+    public TelaAgendaCompleta(Medico medico){
         initComponents();
         this.setLocationRelativeTo(null);
         this.medico = medico;
         LocalDate hoje = LocalDate.now();
         DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         dataConvertida = hoje.format(formataData);
-        this.nomeDr.setText("Seja Bem-vindo Drº " + this.medico.getNome());
-        this.dataAtual.setText("Data: " + dataConvertida);
+        
+        this.agenda = (DefaultTableModel) listaAgenda.getModel();
+        
+        preencheTabela();
+    }
+    
+    private void preencheTabela(){
+        agenda.setRowCount(0);
+        ArrayList<Agenda> agendacompleta = controleAgenda.retornaAgendaCompleta(dataConvertida, medico.getId());
+        if(agendacompleta == null){
+            JOptionPane.showMessageDialog(null, "Nenhuma Agenda encontrada");
+        } else {
+            for(Agenda a : agendacompleta){
+                if(a.getStatus() == 0){
+                    agenda.addRow(new Object[]{
+                        a.getData(), a.getHora(),
+                        "Disponível", ""});
+                }
+            }
+        }
     }
     
 
@@ -42,13 +67,10 @@ public class TelaInicialMedico extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
-        nomeDr = new javax.swing.JLabel();
-        dataAtual = new javax.swing.JLabel();
-        iniciarConsulta = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
+        voltar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaAgenda = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        consultasDia = new javax.swing.JTable();
         jMenuBar2 = new javax.swing.JMenuBar();
         sair = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
@@ -62,42 +84,41 @@ public class TelaInicialMedico extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        nomeDr.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        nomeDr.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        nomeDr.setText("Label Bem Vindo Dr.");
+        voltar.setText("Voltar");
+        voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarActionPerformed(evt);
+            }
+        });
 
-        dataAtual.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        dataAtual.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        dataAtual.setText("Label da Data Atual");
-
-        iniciarConsulta.setText("Iniciar Consulta");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Consultas Agendadas do Dia");
-
-        consultasDia.setModel(new javax.swing.table.DefaultTableModel(
+        listaAgenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Horário", "Paciente"
+                "Data", "Horário", "Status", "Paciente"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        consultasDia.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(consultasDia);
-        if (consultasDia.getColumnModel().getColumnCount() > 0) {
-            consultasDia.getColumnModel().getColumn(0).setResizable(false);
-            consultasDia.getColumnModel().getColumn(0).setPreferredWidth(10);
-            consultasDia.getColumnModel().getColumn(1).setHeaderValue("Paciente");
+        listaAgenda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        listaAgenda.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(listaAgenda);
+        if (listaAgenda.getColumnModel().getColumnCount() > 0) {
+            listaAgenda.getColumnModel().getColumn(0).setResizable(false);
+            listaAgenda.getColumnModel().getColumn(1).setResizable(false);
+            listaAgenda.getColumnModel().getColumn(2).setResizable(false);
+            listaAgenda.getColumnModel().getColumn(3).setResizable(false);
         }
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("Minha Agenda");
 
         sair.setText("Sair");
         sair.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -149,41 +170,26 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nomeDr, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(30, 30, 30)
-                            .addComponent(dataAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(133, 133, 133)
-                            .addComponent(iniciarConsulta))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addGap(30, 30, 30))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(172, 172, 172)
+                        .addComponent(voltar)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(nomeDr)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dataAtual)
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(iniciarConsulta)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(voltar)
                 .addGap(30, 30, 30))
         );
 
@@ -208,17 +214,18 @@ public class TelaInicialMedico extends javax.swing.JFrame {
 
     private void agendaCompletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agendaCompletaActionPerformed
         // TODO add your handling code here:
-        new TelaAgendaCompleta(medico).setVisible(true);
-        dispose();
     }//GEN-LAST:event_agendaCompletaActionPerformed
+
+    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
+        // TODO add your handling code here:
+        new TelaInicialMedico(medico).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_voltarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addNovasDatas;
     private javax.swing.JMenuItem agendaCompleta;
-    private javax.swing.JTable consultasDia;
-    private javax.swing.JLabel dataAtual;
-    private javax.swing.JButton iniciarConsulta;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
@@ -226,9 +233,9 @@ public class TelaInicialMedico extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel nomeDr;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable listaAgenda;
     private javax.swing.JMenu sair;
+    private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }

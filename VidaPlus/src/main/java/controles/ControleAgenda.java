@@ -31,6 +31,11 @@ public class ControleAgenda {
         return confirmacao;
     }
     
+    public ArrayList<Agenda> retornaAgendaCompleta(String data, int idMedico){
+        ArrayList<Agenda> agendacompleta = agendaDAO.retornaAgendaCompleta(data, idMedico);
+        return agendacompleta;
+    }
+    
     public ArrayList<Agenda> gerarNovasConsultas(String data, String horaInicial, String horaFinal, IntervaloConsultas intervalo){
         ArrayList<Agenda> listaHorarios = new ArrayList<>();
         int tempo = 0, cont = 0;

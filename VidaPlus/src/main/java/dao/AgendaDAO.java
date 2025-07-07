@@ -6,10 +6,13 @@ package dao;
 
 import classes.Agenda;
 import classes.Medico;
+import classes.Suprimento;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -49,6 +52,45 @@ public class AgendaDAO {
         }
         
         return false;
+    }
+    
+    public ArrayList<Agenda> retornaAgendaCompleta(String dataAtual, int idMedico){
+        ArrayList<Agenda> agendacompleta = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from agenda where data >= " + dataAtual + " and idMedico = " + idMedico);
+            
+            System.out.println(rs);
+            
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String data = rs.getString("data");
+                String hora = rs.getString("hora");
+                int status = rs.getInt("status");
+                
+                Agenda agenda = new Agenda(id, data, hora, status);
+                agendacompleta.add(agenda);
+            }
+            
+            return agendacompleta;
+            
+        } catch (SQLException e){
+            System.out.println("********Erro ao Recuperar dados!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        
+        return null;
     }
     
 }
