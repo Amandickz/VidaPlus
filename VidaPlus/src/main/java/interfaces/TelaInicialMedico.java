@@ -11,6 +11,7 @@ import controles.ControleMedico;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,6 +24,7 @@ public class TelaInicialMedico extends javax.swing.JFrame {
     Medico medico;
     DefaultTableModel consultasDoDia;
     ControleMedico controleMedico = new ControleMedico();
+    String nomePaciente = "";
     
     /**
      * Creates new form TelaInicialAdministrador
@@ -92,6 +94,11 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         dataAtual.setText("Label da Data Atual");
 
         iniciarConsulta.setText("Iniciar Consulta");
+        iniciarConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iniciarConsultaActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Consultas Agendadas do Dia");
@@ -113,6 +120,11 @@ public class TelaInicialMedico extends javax.swing.JFrame {
             }
         });
         consultasDia.getTableHeader().setReorderingAllowed(false);
+        consultasDia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                consultasDiaMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(consultasDia);
         if (consultasDia.getColumnModel().getColumnCount() > 0) {
             consultasDia.getColumnModel().getColumn(0).setResizable(false);
@@ -232,6 +244,27 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         new TelaAgendaCompleta(medico).setVisible(true);
         dispose();
     }//GEN-LAST:event_agendaCompletaActionPerformed
+
+    private void iniciarConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarConsultaActionPerformed
+        // TODO add your handling code here:
+        
+        if(nomePaciente.isBlank()){
+            JOptionPane.showMessageDialog(null, "Nenhuma consulta selecionada!");
+        } else {
+            Paciente paciente = controleMedico.buscaPacientePorNome(nomePaciente);
+            new TelaAnamnesePaciente(medico, paciente).setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_iniciarConsultaActionPerformed
+
+    private void consultasDiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_consultasDiaMouseClicked
+        // TODO add your handling code here:
+        int linha = consultasDia.getSelectedRow();
+        
+        nomePaciente = String.valueOf(consultasDia.getValueAt(linha, 1));
+        
+        System.out.println(nomePaciente);
+    }//GEN-LAST:event_consultasDiaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -11,9 +11,18 @@ package classes;
 public class ProntuarioMedico {
     
     private int id;
+    private int idPaciente;
+    private int idAnamnese;
 
-    public ProntuarioMedico(int id) {
+    public ProntuarioMedico(int idPaciente, int idAnamnese) {
+        this.idPaciente = idPaciente;
+        this.idAnamnese = idAnamnese;
+    }
+
+    public ProntuarioMedico(int id, int idPaciente, int idAnamnese) {
         this.id = id;
+        this.idPaciente = idPaciente;
+        this.idAnamnese = idAnamnese;
     }
 
     public int getId() {
@@ -24,9 +33,25 @@ public class ProntuarioMedico {
         this.id = id;
     }
 
+    public int getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
+    public int getIdAnamnese() {
+        return idAnamnese;
+    }
+
+    public void setIdAnamnese(int idAnamnese) {
+        this.idAnamnese = idAnamnese;
+    }
+
     @Override
     public String toString() {
-        return "ProntuarioMedico{" + "id=" + id + '}';
+        return "ProntuarioMedico{" + "id=" + id + ", idPaciente=" + idPaciente + ", idAnamnese=" + idAnamnese + '}';
     }
     
 }

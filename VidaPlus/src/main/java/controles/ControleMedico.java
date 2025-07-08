@@ -52,6 +52,11 @@ public class ControleMedico {
         return paciente;
     }
     
+    public Paciente buscaPacientePorNome(String nome){
+        Paciente paciente = pacienteDAO.buscaPacientePorNome(nome);
+        return paciente;
+    }
+    
     public boolean cadastraMedico(Medico medico, int idAdministrador){
         boolean confirmacao = medicoDAO.cadastrarMedico(medico, idAdministrador);
         return confirmacao;
