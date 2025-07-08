@@ -11,6 +11,7 @@ import classes.Paciente;
 import classes.ProntuarioMedico;
 import controles.ControleProntuario;
 import enums.CicloMenstrual;
+import enums.ServicoProntuario;
 import enums.TipoAnticoncepcional;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -720,6 +721,8 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
             anamnese = controleProntuario.cadastraAnamnese(anamnese);
             if(anamnese != null){
                 prontuario = new ProntuarioMedico(paciente.getId(), anamnese.getId());
+                prontuario.setDataAtualizacao(dataConvertida);
+                prontuario.setServico(ServicoProntuario.UM.getServico());
                 prontuario = controleProntuario.criarProntuario(prontuario);
                 if(prontuario != null){
                     if(paciente.getSexo() == 0){
@@ -748,6 +751,9 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
         } else {
             boolean confirmacao = controleProntuario.alterarAnamnese(anamnese);
             if(confirmacao){
+                prontuario.setDataAtualizacao(dataConvertida);
+                prontuario.setServico(ServicoProntuario.UM.getServico());
+                confirmacao = controleProntuario.atualizacaoPronturario(prontuario);
                 if(paciente.getSexo() == 0){
                     boolean confirmacaoF = controleProntuario.alterarAnamneseFeminina(anamneseFeminina);
                     if(confirmacaoF){

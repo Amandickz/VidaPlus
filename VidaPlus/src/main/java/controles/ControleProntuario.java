@@ -29,6 +29,11 @@ public class ControleProntuario {
         return prontuario;
     }
     
+    public boolean atualizacaoPronturario(ProntuarioMedico prontuarioMedico){
+        boolean confirmacao = prontuarioDAO.atualizacaoPronturario(prontuarioMedico);
+        return confirmacao;
+    }
+    
     public ProntuarioMedico buscaProntuarioPorIDPaciente(int idPaciente){
         ProntuarioMedico prontuario = prontuarioDAO.buscaProntuarioPorIDPaciente(idPaciente);
         return prontuario;

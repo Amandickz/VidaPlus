@@ -4,7 +4,6 @@
  */
 package dao;
 
-import classes.Paciente;
 import classes.ProntuarioMedico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -71,8 +70,19 @@ public class ProntuarioDAO {
             while(rs.next()){
                 int id = rs.getInt("id");
                 int idAnamnese = rs.getInt("idAnamnese");
+                String dataAtualizacao = rs.getString("dataAtualizacao");
+                String servico = rs.getString("servico");
                 
                 ProntuarioMedico prontuarioMedico = new ProntuarioMedico(id, idPaciente, idAnamnese);
+                
+                if(!dataAtualizacao.isEmpty()){
+                    prontuarioMedico.setDataAtualizacao(dataAtualizacao);
+                }
+                
+                if(servico.isEmpty()){
+                    prontuarioMedico.setServico(servico);
+                }
+                
                 return prontuarioMedico;               
             }
             
@@ -84,6 +94,36 @@ public class ProntuarioDAO {
             DB.closeConnection();
         }
         return null;
+    }
+    
+    public boolean atualizacaoPronturario(ProntuarioMedico prontuarioMedico){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            pstmt = conn.prepareStatement("UPDATE prontuario SET dataAtualizacao = ?, "
+                    + "servico = ? WHERE id = ?");
+            
+            pstmt.setString(1, prontuarioMedico.getDataAtualizacao());
+            pstmt.setString(2, prontuarioMedico.getServico());
+            pstmt.setInt(3, prontuarioMedico.getId());
+            
+            int rollsAffected = pstmt.executeUpdate();
+
+            if(rollsAffected > 0){
+                return true;
+            }
+            
+        } catch (SQLException e){
+            System.err.println("********Erro ao Recuperar dados!");
+        } finally {
+            DB.closeStatement(pstmt);
+            DB.closeConnection();
+        }
+        return false;
     }
     
 }
