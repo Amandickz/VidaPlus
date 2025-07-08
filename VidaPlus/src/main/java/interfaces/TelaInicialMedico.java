@@ -98,7 +98,7 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Consultas Agendadas do Dia");
+        jLabel2.setText("Consultas Agendadas para Hoje");
 
         consultasDia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -200,7 +200,7 @@ public class TelaInicialMedico extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(iniciarConsulta)

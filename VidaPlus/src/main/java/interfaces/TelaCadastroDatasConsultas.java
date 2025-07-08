@@ -47,7 +47,7 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
     private void atualizaTabela(){
         consultas.setRowCount(0);
         for(Agenda a : todosHorarios){
-            consultas.addRow(new Object[]{a.getData(), a.getHora(), a.getStatus()});
+            consultas.addRow(new Object[]{a.getData(), a.getHora()});
         }
     }
     
@@ -100,6 +100,7 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
         jMenuBar2 = new javax.swing.JMenuBar();
         sair = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
+        agendaCompleta = new javax.swing.JMenuItem();
         addNovasDatas = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
@@ -155,11 +156,11 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Data", "Horário", "Disponibilidade"
+                "Data", "Horário"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -171,7 +172,6 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
         if (consultasCriadas.getColumnModel().getColumnCount() > 0) {
             consultasCriadas.getColumnModel().getColumn(0).setResizable(false);
             consultasCriadas.getColumnModel().getColumn(1).setResizable(false);
-            consultasCriadas.getColumnModel().getColumn(2).setResizable(false);
         }
 
         finalizar.setText("Finalizar");
@@ -209,6 +209,14 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
         jMenuBar2.add(sair);
 
         jMenu1.setText("Minha Agenda");
+
+        agendaCompleta.setText("Agenda Completa");
+        agendaCompleta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agendaCompletaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(agendaCompleta);
 
         addNovasDatas.setText("Adicionar Novas Datas");
         addNovasDatas.addActionListener(new java.awt.event.ActionListener() {
@@ -251,20 +259,20 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(437, 437, 437)
+                                    .addGap(340, 340, 340)
                                     .addComponent(finalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(layout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(remover))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
-                                    .addComponent(jSeparator2)))
-                            .addComponent(jSeparator1)
+                                    .addComponent(jSeparator2)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)))
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(287, 287, 287)
+                        .addGap(238, 238, 238)
                         .addComponent(criarConsultas)))
                 .addGap(30, 30, 30))
         );
@@ -310,22 +318,6 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_sairActionPerformed
-
-    private void sairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sairMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_sairMouseClicked
-
-    private void addNovasDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNovasDatasActionPerformed
-        // TODO add your handling code here:
-        //new TelaNovasDatas(agendaMedica).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_addNovasDatasActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         // TODO add your handling code here:
@@ -394,9 +386,32 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_finalizarActionPerformed
 
+    private void sairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sairMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_sairMouseClicked
+
+    private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_sairActionPerformed
+
+    private void agendaCompletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agendaCompletaActionPerformed
+        // TODO add your handling code here:
+        new TelaAgendaCompleta(medico).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_agendaCompletaActionPerformed
+
+    private void addNovasDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNovasDatasActionPerformed
+        // TODO add your handling code here:
+        new TelaCadastroDatasConsultas(medico).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_addNovasDatasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addNovasDatas;
+    private javax.swing.JMenuItem agendaCompleta;
     private javax.swing.JButton cancelar;
     private javax.swing.JTable consultasCriadas;
     private javax.swing.JButton criarConsultas;
