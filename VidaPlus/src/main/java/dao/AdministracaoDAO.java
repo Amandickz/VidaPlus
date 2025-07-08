@@ -31,7 +31,7 @@ public class AdministracaoDAO {
             
             rs = stmt.executeQuery("select * from administracao");
             
-            System.out.println("\n\n----->Administradores Recuperados:");
+            System.out.println("\n----->Administradores Recuperados:");
             
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -45,10 +45,10 @@ public class AdministracaoDAO {
                 System.out.println(adm);
             }
             
-            System.out.println("\n\n");
+            System.out.println("\n");
             
         } catch (SQLException e){
-            System.err.println("!!!!!Erro ao Recuperar dados dos Administradores!!!!!");
+            System.out.println("!!!!!Erro ao RECUPERAR dados dos Administradores!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -70,7 +70,7 @@ public class AdministracaoDAO {
             
             rs = stmt.executeQuery("select * from administracao where cnpj = '" + cnpj + "'");
             
-            System.out.println("\n\n----->Administrador Recuperado:");
+            System.out.println("\n----->Administrador Recuperado:");
             
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -80,12 +80,12 @@ public class AdministracaoDAO {
                 
                 Administracao adm = new Administracao(id, cnpj, razaoSocial, email, telefone);
                 System.out.println(adm);
-                System.out.println("\n\n");
+                System.out.println("\n");
                 return adm;
             }
             
         } catch (SQLException e){
-            System.err.println("!!!!!Erro ao Recuperar dados dos Administradores!!!!!");
+            System.out.println("!!!!!Erro ao BUSCAR dados dos Administradores!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
