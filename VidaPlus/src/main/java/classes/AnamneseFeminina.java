@@ -20,15 +20,15 @@ public class AnamneseFeminina extends Anamnese{
         this.cicloMenstrual = cicloMenstrual;
     }
 
-    public AnamneseFeminina(boolean anticoncepcional, int tipoAnticoncepcional, int cicloMenstrual, boolean diabetes, boolean hipertensao, boolean hipotensao, boolean tabagismo, boolean epilepsia, boolean proteseDentaria, boolean problemasRespiratorios, String anotacoesProblemasRespiratorios, boolean cirurgias, String anotacoesCirurgias, boolean exerciciosFisicos, int frequenciaExercicios, boolean alcool, int frequenciaAlcool, boolean alergiaMedicacao, String anotacoesAlergiaMedicacao, boolean alergiaAlimento, String anotacoesAlergiaAlimento, boolean tratamentoMedicoAtual, String anotacoesTratamento, boolean marcaPasso, boolean medicamentoContinuo, String anotacoesMedicamentoContinuo) {
-        super(diabetes, hipertensao, hipotensao, tabagismo, epilepsia, proteseDentaria, problemasRespiratorios, anotacoesProblemasRespiratorios, cirurgias, anotacoesCirurgias, exerciciosFisicos, frequenciaExercicios, alcool, frequenciaAlcool, alergiaMedicacao, anotacoesAlergiaMedicacao, alergiaAlimento, anotacoesAlergiaAlimento, tratamentoMedicoAtual, anotacoesTratamento, marcaPasso, medicamentoContinuo, anotacoesMedicamentoContinuo);
+    public AnamneseFeminina(boolean anticoncepcional, int tipoAnticoncepcional, int cicloMenstrual, String dataAtualizacao, boolean diabetes, boolean hipertensao, boolean hipotensao, boolean tabagismo, boolean epilepsia, boolean proteseDentaria, boolean problemasRespiratorios, String anotacoesProblemasRespiratorios, boolean cirurgias, String anotacoesCirurgias, boolean exerciciosFisicos, int frequenciaExercicios, boolean alcool, int frequenciaAlcool, boolean alergiaMedicacao, String anotacoesAlergiaMedicacao, boolean alergiaAlimento, String anotacoesAlergiaAlimento, boolean tratamentoMedicoAtual, String anotacoesTratamento, boolean marcaPasso, boolean medicamentoContinuo, String anotacoesMedicamentoContinuo) {
+        super(dataAtualizacao, diabetes, hipertensao, hipotensao, tabagismo, epilepsia, proteseDentaria, problemasRespiratorios, anotacoesProblemasRespiratorios, cirurgias, anotacoesCirurgias, exerciciosFisicos, frequenciaExercicios, alcool, frequenciaAlcool, alergiaMedicacao, anotacoesAlergiaMedicacao, alergiaAlimento, anotacoesAlergiaAlimento, tratamentoMedicoAtual, anotacoesTratamento, marcaPasso, medicamentoContinuo, anotacoesMedicamentoContinuo);
         this.anticoncepcional = anticoncepcional;
         this.tipoAnticoncepcional = tipoAnticoncepcional;
         this.cicloMenstrual = cicloMenstrual;
     }
 
-    public AnamneseFeminina(boolean anticoncepcional, int tipoAnticoncepcional, int cicloMenstrual, int id, boolean diabetes, boolean hipertensao, boolean hipotensao, boolean tabagismo, boolean epilepsia, boolean proteseDentaria, boolean problemasRespiratorios, String anotacoesProblemasRespiratorios, boolean cirurgias, String anotacoesCirurgias, boolean exerciciosFisicos, int frequenciaExercicios, boolean alcool, int frequenciaAlcool, boolean alergiaMedicacao, String anotacoesAlergiaMedicacao, boolean alergiaAlimento, String anotacoesAlergiaAlimento, boolean tratamentoMedicoAtual, String anotacoesTratamento, boolean marcaPasso, boolean medicamentoContinuo, String anotacoesMedicamentoContinuo) {
-        super(id, diabetes, hipertensao, hipotensao, tabagismo, epilepsia, proteseDentaria, problemasRespiratorios, anotacoesProblemasRespiratorios, cirurgias, anotacoesCirurgias, exerciciosFisicos, frequenciaExercicios, alcool, frequenciaAlcool, alergiaMedicacao, anotacoesAlergiaMedicacao, alergiaAlimento, anotacoesAlergiaAlimento, tratamentoMedicoAtual, anotacoesTratamento, marcaPasso, medicamentoContinuo, anotacoesMedicamentoContinuo);
+    public AnamneseFeminina(boolean anticoncepcional, int tipoAnticoncepcional, int cicloMenstrual, int id, String dataAtualizacao, boolean diabetes, boolean hipertensao, boolean hipotensao, boolean tabagismo, boolean epilepsia, boolean proteseDentaria, boolean problemasRespiratorios, String anotacoesProblemasRespiratorios, boolean cirurgias, String anotacoesCirurgias, boolean exerciciosFisicos, int frequenciaExercicios, boolean alcool, int frequenciaAlcool, boolean alergiaMedicacao, String anotacoesAlergiaMedicacao, boolean alergiaAlimento, String anotacoesAlergiaAlimento, boolean tratamentoMedicoAtual, String anotacoesTratamento, boolean marcaPasso, boolean medicamentoContinuo, String anotacoesMedicamentoContinuo) {
+        super(id, dataAtualizacao, diabetes, hipertensao, hipotensao, tabagismo, epilepsia, proteseDentaria, problemasRespiratorios, anotacoesProblemasRespiratorios, cirurgias, anotacoesCirurgias, exerciciosFisicos, frequenciaExercicios, alcool, frequenciaAlcool, alergiaMedicacao, anotacoesAlergiaMedicacao, alergiaAlimento, anotacoesAlergiaAlimento, tratamentoMedicoAtual, anotacoesTratamento, marcaPasso, medicamentoContinuo, anotacoesMedicamentoContinuo);
         this.anticoncepcional = anticoncepcional;
         this.tipoAnticoncepcional = tipoAnticoncepcional;
         this.cicloMenstrual = cicloMenstrual;
@@ -62,5 +62,5 @@ public class AnamneseFeminina extends Anamnese{
     public String toString() {
         return "AnamneseFeminina{" + "anticoncepcional=" + anticoncepcional + ", tipoAnticoncepcional=" + tipoAnticoncepcional + ", cicloMenstrual=" + cicloMenstrual + '}';
     }
-    
+   
 }

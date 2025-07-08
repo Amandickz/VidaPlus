@@ -13,6 +13,8 @@ public class ProntuarioMedico {
     private int id;
     private int idPaciente;
     private int idAnamnese;
+    private String dataAtualizacao;
+    private String servico;
 
     public ProntuarioMedico(int idPaciente, int idAnamnese) {
         this.idPaciente = idPaciente;
@@ -49,9 +51,25 @@ public class ProntuarioMedico {
         this.idAnamnese = idAnamnese;
     }
 
+    public String getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(String dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public String getServico() {
+        return servico;
+    }
+
+    public void setServico(String servico) {
+        this.servico = servico;
+    }
+
     @Override
     public String toString() {
-        return "ProntuarioMedico{" + "id=" + id + ", idPaciente=" + idPaciente + ", idAnamnese=" + idAnamnese + '}';
+        return "ProntuarioMedico{" + "id=" + id + ", idPaciente=" + idPaciente + ", idAnamnese=" + idAnamnese + ", dataAtualizacao=" + dataAtualizacao + ", servico=" + servico + '}';
     }
     
 }

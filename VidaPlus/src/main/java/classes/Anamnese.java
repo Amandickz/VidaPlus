@@ -11,6 +11,7 @@ package classes;
 public class Anamnese {
     
     private int id;
+    private String dataAtualizacao;
     private boolean diabetes;
     private boolean hipertensao;
     private boolean hipotensao;
@@ -38,7 +39,8 @@ public class Anamnese {
     public Anamnese() {
     }
 
-    public Anamnese(boolean diabetes, boolean hipertensao, boolean hipotensao, boolean tabagismo, boolean epilepsia, boolean proteseDentaria, boolean problemasRespiratorios, String anotacoesProblemasRespiratorios, boolean cirurgias, String anotacoesCirurgias, boolean exerciciosFisicos, int frequenciaExercicios, boolean alcool, int frequenciaAlcool, boolean alergiaMedicacao, String anotacoesAlergiaMedicacao, boolean alergiaAlimento, String anotacoesAlergiaAlimento, boolean tratamentoMedicoAtual, String anotacoesTratamento, boolean marcaPasso, boolean medicamentoContinuo, String anotacoesMedicamentoContinuo) {
+    public Anamnese(String dataAtualizacao, boolean diabetes, boolean hipertensao, boolean hipotensao, boolean tabagismo, boolean epilepsia, boolean proteseDentaria, boolean problemasRespiratorios, String anotacoesProblemasRespiratorios, boolean cirurgias, String anotacoesCirurgias, boolean exerciciosFisicos, int frequenciaExercicios, boolean alcool, int frequenciaAlcool, boolean alergiaMedicacao, String anotacoesAlergiaMedicacao, boolean alergiaAlimento, String anotacoesAlergiaAlimento, boolean tratamentoMedicoAtual, String anotacoesTratamento, boolean marcaPasso, boolean medicamentoContinuo, String anotacoesMedicamentoContinuo) {
+        this.dataAtualizacao = dataAtualizacao;
         this.diabetes = diabetes;
         this.hipertensao = hipertensao;
         this.hipotensao = hipotensao;
@@ -63,9 +65,10 @@ public class Anamnese {
         this.medicamentoContinuo = medicamentoContinuo;
         this.anotacoesMedicamentoContinuo = anotacoesMedicamentoContinuo;
     }
-
-    public Anamnese(int id, boolean diabetes, boolean hipertensao, boolean hipotensao, boolean tabagismo, boolean epilepsia, boolean proteseDentaria, boolean problemasRespiratorios, String anotacoesProblemasRespiratorios, boolean cirurgias, String anotacoesCirurgias, boolean exerciciosFisicos, int frequenciaExercicios, boolean alcool, int frequenciaAlcool, boolean alergiaMedicacao, String anotacoesAlergiaMedicacao, boolean alergiaAlimento, String anotacoesAlergiaAlimento, boolean tratamentoMedicoAtual, String anotacoesTratamento, boolean marcaPasso, boolean medicamentoContinuo, String anotacoesMedicamentoContinuo) {
+    
+    public Anamnese(int id, String dataAtualizacao, boolean diabetes, boolean hipertensao, boolean hipotensao, boolean tabagismo, boolean epilepsia, boolean proteseDentaria, boolean problemasRespiratorios, String anotacoesProblemasRespiratorios, boolean cirurgias, String anotacoesCirurgias, boolean exerciciosFisicos, int frequenciaExercicios, boolean alcool, int frequenciaAlcool, boolean alergiaMedicacao, String anotacoesAlergiaMedicacao, boolean alergiaAlimento, String anotacoesAlergiaAlimento, boolean tratamentoMedicoAtual, String anotacoesTratamento, boolean marcaPasso, boolean medicamentoContinuo, String anotacoesMedicamentoContinuo) {
         this.id = id;
+        this.dataAtualizacao = dataAtualizacao;
         this.diabetes = diabetes;
         this.hipertensao = hipertensao;
         this.hipotensao = hipotensao;
@@ -97,6 +100,14 @@ public class Anamnese {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(String dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
     }
 
     public boolean isDiabetes() {
@@ -285,7 +296,7 @@ public class Anamnese {
 
     @Override
     public String toString() {
-        return "Anamnese{" + "id=" + id + ", diabetes=" + diabetes + ", hipertensao=" + hipertensao + ", hipotensao=" + hipotensao + ", tabagismo=" + tabagismo + ", epilepsia=" + epilepsia + ", proteseDentaria=" + proteseDentaria + ", problemasRespiratorios=" + problemasRespiratorios + ", anotacoesProblemasRespiratorios=" + anotacoesProblemasRespiratorios + ", cirurgias=" + cirurgias + ", anotacoesCirurgias=" + anotacoesCirurgias + ", exerciciosFisicos=" + exerciciosFisicos + ", frequenciaExercicios=" + frequenciaExercicios + ", alcool=" + alcool + ", frequenciaAlcool=" + frequenciaAlcool + ", alergiaMedicacao=" + alergiaMedicacao + ", anotacoesAlergiaMedicacao=" + anotacoesAlergiaMedicacao + ", alergiaAlimento=" + alergiaAlimento + ", anotacoesAlergiaAlimento=" + anotacoesAlergiaAlimento + ", tratamentoMedicoAtual=" + tratamentoMedicoAtual + ", anotacoesTratamento=" + anotacoesTratamento + ", marcaPasso=" + marcaPasso + ", medicamentoContinuo=" + medicamentoContinuo + ", anotacoesMedicamentoContinuo=" + anotacoesMedicamentoContinuo + '}';
+        return "Anamnese{" + "id=" + id + ", dataAtualizacao=" + dataAtualizacao + ", diabetes=" + diabetes + ", hipertensao=" + hipertensao + ", hipotensao=" + hipotensao + ", tabagismo=" + tabagismo + ", epilepsia=" + epilepsia + ", proteseDentaria=" + proteseDentaria + ", problemasRespiratorios=" + problemasRespiratorios + ", anotacoesProblemasRespiratorios=" + anotacoesProblemasRespiratorios + ", cirurgias=" + cirurgias + ", anotacoesCirurgias=" + anotacoesCirurgias + ", exerciciosFisicos=" + exerciciosFisicos + ", frequenciaExercicios=" + frequenciaExercicios + ", alcool=" + alcool + ", frequenciaAlcool=" + frequenciaAlcool + ", alergiaMedicacao=" + alergiaMedicacao + ", anotacoesAlergiaMedicacao=" + anotacoesAlergiaMedicacao + ", alergiaAlimento=" + alergiaAlimento + ", anotacoesAlergiaAlimento=" + anotacoesAlergiaAlimento + ", tratamentoMedicoAtual=" + tratamentoMedicoAtual + ", anotacoesTratamento=" + anotacoesTratamento + ", marcaPasso=" + marcaPasso + ", medicamentoContinuo=" + medicamentoContinuo + ", anotacoesMedicamentoContinuo=" + anotacoesMedicamentoContinuo + '}';
     }
     
 }

@@ -27,38 +27,39 @@ public class AnamneseDAO {
             conn = DB.getConeConnection();
             
             pstmt = conn.prepareStatement("INSERT INTO anamnese" +
-                    "(diabetes,hipertensao,hipotensao,tabagismo,epilepsia,proteseDentaria,"
+                    "(dataAtualizacao,diabetes,hipertensao,hipotensao,tabagismo,epilepsia,proteseDentaria,"
                     + "problemasRespitatorios,anotacoesRespiratorias,cirurgias,anotacoesCirurgias,"
                     + "exerciciosFisicos,frequenciaExercicios,alcool,frequenciaAlcool,alergiaMedicacao,"
                     + "anotacoesAlergiasMedicamento,alergiaAlimento,anotacoesAlergiaAlimento,"
                     + "tratamentoAtual,anotacoesTratamento,marcaPasso,medicamentoContinuo,"
                     + "anotacoesMedicamentoContinuo) "
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             
-            pstmt.setBoolean(1, anamnese.isDiabetes());
-            pstmt.setBoolean(2, anamnese.isHipertensao());
-            pstmt.setBoolean(3, anamnese.isHipotensao());
-            pstmt.setBoolean(4, anamnese.isTabagismo());
-            pstmt.setBoolean(5, anamnese.isEpilepsia());
-            pstmt.setBoolean(6, anamnese.isProteseDentaria());
-            pstmt.setBoolean(7, anamnese.isProblemasRespiratorios());
-            pstmt.setString(8, anamnese.getAnotacoesProblemasRespiratorios());
-            pstmt.setBoolean(9, anamnese.isCirurgias());
-            pstmt.setString(10, anamnese.getAnotacoesCirurgias());
-            pstmt.setBoolean(11, anamnese.isExerciciosFisicos());
-            pstmt.setInt(12, anamnese.getFrequenciaExercicios());
-            pstmt.setBoolean(13, anamnese.isAlcool());
-            pstmt.setInt(14, anamnese.getFrequenciaAlcool());
-            pstmt.setBoolean(15, anamnese.isAlergiaMedicacao());
-            pstmt.setString(16, anamnese.getAnotacoesAlergiaMedicacao());
-            pstmt.setBoolean(17, anamnese.isAlergiaAlimento());
-            pstmt.setString(18, anamnese.getAnotacoesAlergiaAlimento());
-            pstmt.setBoolean(19, anamnese.isTratamentoMedicoAtual());
-            pstmt.setString(20, anamnese.getAnotacoesTratamento());
-            pstmt.setBoolean(21, anamnese.isMarcaPasso());
-            pstmt.setBoolean(22, anamnese.isMedicamentoContinuo());
-            pstmt.setString(23, anamnese.getAnotacoesMedicamentoContinuo());
+            pstmt.setString(1, anamnese.getDataAtualizacao());
+            pstmt.setBoolean(2, anamnese.isDiabetes());
+            pstmt.setBoolean(3, anamnese.isHipertensao());
+            pstmt.setBoolean(4, anamnese.isHipotensao());
+            pstmt.setBoolean(5, anamnese.isTabagismo());
+            pstmt.setBoolean(6, anamnese.isEpilepsia());
+            pstmt.setBoolean(7, anamnese.isProteseDentaria());
+            pstmt.setBoolean(8, anamnese.isProblemasRespiratorios());
+            pstmt.setString(9, anamnese.getAnotacoesProblemasRespiratorios());
+            pstmt.setBoolean(10, anamnese.isCirurgias());
+            pstmt.setString(11, anamnese.getAnotacoesCirurgias());
+            pstmt.setBoolean(12, anamnese.isExerciciosFisicos());
+            pstmt.setInt(13, anamnese.getFrequenciaExercicios());
+            pstmt.setBoolean(14, anamnese.isAlcool());
+            pstmt.setInt(15, anamnese.getFrequenciaAlcool());
+            pstmt.setBoolean(16, anamnese.isAlergiaMedicacao());
+            pstmt.setString(17, anamnese.getAnotacoesAlergiaMedicacao());
+            pstmt.setBoolean(18, anamnese.isAlergiaAlimento());
+            pstmt.setString(19, anamnese.getAnotacoesAlergiaAlimento());
+            pstmt.setBoolean(20, anamnese.isTratamentoMedicoAtual());
+            pstmt.setString(21, anamnese.getAnotacoesTratamento());
+            pstmt.setBoolean(22, anamnese.isMarcaPasso());
+            pstmt.setBoolean(23, anamnese.isMedicamentoContinuo());
+            pstmt.setString(24, anamnese.getAnotacoesMedicamentoContinuo());
 
             int rollsAffected = pstmt.executeUpdate();
 
@@ -128,6 +129,7 @@ public class AnamneseDAO {
             rs = stmt.executeQuery("select * from anamnese where id = " + id + "");
             
             while(rs.next()){
+                String dataAtualizacao = rs.getString("dataAtualizacao");
                 boolean diabetes = rs.getBoolean("diabetes");
                 boolean hipertensao = rs.getBoolean("hipertensao");
                 boolean hipotensao = rs.getBoolean("hipotensao");
@@ -152,7 +154,7 @@ public class AnamneseDAO {
                 boolean medicamentoContinuo = rs.getBoolean("medicamentoContinuo");
                 String anotacoesMedicamentoContinuo = rs.getString("anotacoesMedicamentoContinuo"); 
                 
-                Anamnese anamnese = new Anamnese(id, diabetes, hipertensao, hipotensao, tabagismo,
+                Anamnese anamnese = new Anamnese(id, dataAtualizacao, diabetes, hipertensao, hipotensao, tabagismo,
                         epilepsia, proteseDentaria, problemasRespitatorios, anotacoesRespiratorias,
                         cirurgias, anotacoesCirurgias, exerciciosFisicos, frequenciaExercicios, alcool,
                         frequenciaAlcool, alergiaMedicacao, anotacoesAlergiasMedicamento, alergiaAlimento,
@@ -191,7 +193,7 @@ public class AnamneseDAO {
                 int cicloMenstrual = rs.getInt("cicloMenstrual");
                 
                 AnamneseFeminina anamneseFeminina = new AnamneseFeminina(anticoncepcional, tipoAnticoncepcional, cicloMenstrual, anamnese.getId(),
-                        anamnese.isDiabetes(), anamnese.isHipertensao(), anamnese.isHipotensao(), anamnese.isTabagismo(),
+                        anamnese.getDataAtualizacao(), anamnese.isDiabetes(), anamnese.isHipertensao(), anamnese.isHipotensao(), anamnese.isTabagismo(),
                         anamnese.isEpilepsia(), anamnese.isProteseDentaria(), anamnese.isProblemasRespiratorios(),
                         anamnese.getAnotacoesProblemasRespiratorios(), anamnese.isCirurgias(), anamnese.getAnotacoesCirurgias(),
                         anamnese.isExerciciosFisicos(), anamnese.getFrequenciaExercicios(), anamnese.isAlcool(),
@@ -221,8 +223,8 @@ public class AnamneseDAO {
             
             conn = DB.getConeConnection();
             
-            pstmt = conn.prepareStatement("UPDATE anamnese SET " +
-                    "diabetes = ?, hipertensao = ?, hipotensao = ?, tabagismo = ?, epilepsia = ?, proteseDentaria = ?, "
+            pstmt = conn.prepareStatement("UPDATE anamnese SET "
+                    + "dataAtualizacao = ?, diabetes = ?, hipertensao = ?, hipotensao = ?, tabagismo = ?, epilepsia = ?, proteseDentaria = ?, "
                     + "problemasRespitatorios = ?, anotacoesRespiratorias = ?, cirurgias  = ?,anotacoesCirurgias  = ?, "
                     + "exerciciosFisicos  = ?, frequenciaExercicios  = ?, alcool = ?, frequenciaAlcool  = ?, alergiaMedicacao = ?, "
                     + "anotacoesAlergiasMedicamento,alergiaAlimento,alergiaAlimento,anotacoesAlergiaAlimento,"
@@ -230,30 +232,31 @@ public class AnamneseDAO {
                     + "anotacoesMedicamentoContinuo = ? "
                     + "WHERE id = ?", Statement.RETURN_GENERATED_KEYS);
             
-            pstmt.setBoolean(1, anamnese.isDiabetes());
-            pstmt.setBoolean(2, anamnese.isHipertensao());
-            pstmt.setBoolean(3, anamnese.isHipotensao());
-            pstmt.setBoolean(4, anamnese.isTabagismo());
-            pstmt.setBoolean(5, anamnese.isEpilepsia());
-            pstmt.setBoolean(6, anamnese.isProteseDentaria());
-            pstmt.setBoolean(7, anamnese.isProblemasRespiratorios());
-            pstmt.setString(8, anamnese.getAnotacoesProblemasRespiratorios());
-            pstmt.setBoolean(9, anamnese.isCirurgias());
-            pstmt.setString(10, anamnese.getAnotacoesCirurgias());
-            pstmt.setBoolean(11, anamnese.isExerciciosFisicos());
-            pstmt.setInt(12, anamnese.getFrequenciaExercicios());
-            pstmt.setBoolean(13, anamnese.isAlcool());
-            pstmt.setInt(14, anamnese.getFrequenciaAlcool());
-            pstmt.setBoolean(15, anamnese.isAlergiaMedicacao());
-            pstmt.setString(16, anamnese.getAnotacoesAlergiaMedicacao());
-            pstmt.setBoolean(17, anamnese.isAlergiaAlimento());
-            pstmt.setString(18, anamnese.getAnotacoesAlergiaAlimento());
-            pstmt.setBoolean(19, anamnese.isTratamentoMedicoAtual());
-            pstmt.setString(20, anamnese.getAnotacoesTratamento());
-            pstmt.setBoolean(21, anamnese.isMarcaPasso());
-            pstmt.setBoolean(22, anamnese.isMedicamentoContinuo());
-            pstmt.setString(23, anamnese.getAnotacoesMedicamentoContinuo());
-            pstmt.setInt(24, anamnese.getId());
+            pstmt.setString(1, anamnese.getDataAtualizacao());
+            pstmt.setBoolean(2, anamnese.isDiabetes());
+            pstmt.setBoolean(3, anamnese.isHipertensao());
+            pstmt.setBoolean(4, anamnese.isHipotensao());
+            pstmt.setBoolean(5, anamnese.isTabagismo());
+            pstmt.setBoolean(6, anamnese.isEpilepsia());
+            pstmt.setBoolean(7, anamnese.isProteseDentaria());
+            pstmt.setBoolean(8, anamnese.isProblemasRespiratorios());
+            pstmt.setString(9, anamnese.getAnotacoesProblemasRespiratorios());
+            pstmt.setBoolean(10, anamnese.isCirurgias());
+            pstmt.setString(11, anamnese.getAnotacoesCirurgias());
+            pstmt.setBoolean(12, anamnese.isExerciciosFisicos());
+            pstmt.setInt(13, anamnese.getFrequenciaExercicios());
+            pstmt.setBoolean(14, anamnese.isAlcool());
+            pstmt.setInt(15, anamnese.getFrequenciaAlcool());
+            pstmt.setBoolean(16, anamnese.isAlergiaMedicacao());
+            pstmt.setString(17, anamnese.getAnotacoesAlergiaMedicacao());
+            pstmt.setBoolean(18, anamnese.isAlergiaAlimento());
+            pstmt.setString(19, anamnese.getAnotacoesAlergiaAlimento());
+            pstmt.setBoolean(20, anamnese.isTratamentoMedicoAtual());
+            pstmt.setString(21, anamnese.getAnotacoesTratamento());
+            pstmt.setBoolean(22, anamnese.isMarcaPasso());
+            pstmt.setBoolean(23, anamnese.isMedicamentoContinuo());
+            pstmt.setString(24, anamnese.getAnotacoesMedicamentoContinuo());
+            pstmt.setInt(25, anamnese.getId());
 
             int rollsAffected = pstmt.executeUpdate();
 
