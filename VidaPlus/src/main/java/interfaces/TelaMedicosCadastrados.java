@@ -5,7 +5,10 @@
 package interfaces;
 
 import classes.Administracao;
-import controles.ControleProfissional;
+import classes.Medico;
+import controles.ControleMedico;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,7 +22,7 @@ public class TelaMedicosCadastrados extends javax.swing.JFrame {
     
     Administracao adm;
     DefaultTableModel modeloLista;
-    ControleProfissional controleProfissional = new ControleProfissional();
+    ControleMedico controleMedico = new ControleMedico();
     
     public TelaMedicosCadastrados(Administracao adm) {
         initComponents();
@@ -27,10 +30,23 @@ public class TelaMedicosCadastrados extends javax.swing.JFrame {
         this.adm = adm;
         
         modeloLista = (DefaultTableModel) listaMedicos.getModel();
+        
+        preencheTabela();
+        
+        if(modeloLista.getRowCount() <= 0){
+            JOptionPane.showMessageDialog(null, "Nenhum Médico cadastrado nessa Unidade.");
+        }
     }
     
     private void preencheTabela(){
-        
+        ArrayList<Medico> listaMedica = controleMedico.retornaListaMedica();
+        for(Medico m : listaMedica){
+            if(m.getIdAdministracao() == adm.getId()){
+                modeloLista.addRow(new Object[]{
+                m.getNome(), m.getCrm() + "/" + m.getUf(),
+                m.getTelefone(), m.getTelefone(), m.getDataContratacao()});
+            }
+        }
     }
 
     /**
@@ -47,7 +63,7 @@ public class TelaMedicosCadastrados extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaMedicos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        voltar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         logout = new javax.swing.JMenuItem();
@@ -106,9 +122,14 @@ public class TelaMedicosCadastrados extends javax.swing.JFrame {
             listaMedicos.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        jButton1.setText("Voltar");
-        jButton1.setHideActionText(true);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        voltar.setText("Voltar");
+        voltar.setHideActionText(true);
+        voltar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Geral");
 
@@ -240,7 +261,7 @@ public class TelaMedicosCadastrados extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(373, 373, 373)
-                        .addComponent(jButton1)))
+                        .addComponent(voltar)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -251,7 +272,7 @@ public class TelaMedicosCadastrados extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(voltar)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -309,6 +330,12 @@ public class TelaMedicosCadastrados extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_logoutActionPerformed
 
+    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
+        // TODO add your handling code here:
+        new TelaInicialAdministrador(adm).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_voltarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem cadastrarLeito;
@@ -317,7 +344,6 @@ public class TelaMedicosCadastrados extends javax.swing.JFrame {
     private javax.swing.JMenu farmaceuticos;
     private javax.swing.JMenu gerenciar;
     private javax.swing.JMenu internacoes;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
@@ -338,5 +364,6 @@ public class TelaMedicosCadastrados extends javax.swing.JFrame {
     private javax.swing.JMenuItem sair;
     private javax.swing.JMenu suprimentos;
     private javax.swing.JMenuItem verificarInternacoes;
+    private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }

@@ -457,7 +457,7 @@ public class TelaCadastrarMedico extends javax.swing.JFrame {
                         profissional.getTelefone(), profissional.getEmail(),
                         profissional.getDataNascimento(), profissional.getDataContratacao());
                 
-                boolean confirmacao = controleMedico.cadastraMedico(medico, adm.getId());
+                boolean confirmacao = controleMedico.cadastraMedico(medico);
                 
                 if(confirmacao){
                     JOptionPane.showMessageDialog(null, "Médico Cadastrado com Sucesso!");

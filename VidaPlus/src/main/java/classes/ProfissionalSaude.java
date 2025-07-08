@@ -11,6 +11,7 @@ package classes;
 public class ProfissionalSaude {
     
     private int id;
+    private int idAdministracao;
     private String cpf;
     private String nome;
     private String telefone;
@@ -93,6 +94,14 @@ public class ProfissionalSaude {
         this.dataContratacao = dataContratacao;
     }
 
+    public int getIdAdministracao() {
+        return idAdministracao;
+    }
+
+    public void setIdAdministracao(int idAdministracao) {
+        this.idAdministracao = idAdministracao;
+    }
+    
     @Override
     public String toString() {
         return "ProfissionalSaude{" + "id=" + id + ", cpf=" + cpf + ", nome=" + nome + ", telefone=" + telefone + ", email=" + email + ", dataNascimento=" + dataNascimento + ", dataContratacao=" + dataContratacao + '}';

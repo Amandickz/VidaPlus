@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -103,6 +104,48 @@ public class ProfissionalSaudeDAO {
         return null;        
     }
     
+    public ArrayList<ProfissionalSaude> retornarProfissionais(int idAdministrador){
+        ArrayList<ProfissionalSaude> profissionais = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from profissionalsaude where idAdministracao = " + idAdministrador);
+            
+            System.out.println("\n----->Profissionas Encontrados:");
+            
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String cpf = rs.getString("cpf");
+                String nome = rs.getString("nome");
+                String telefone = rs.getString("telefone");
+                String email = rs.getString("email");
+                String dataNascimento = rs.getString("dataNascimento");
+                String dataContratacao = rs.getString("dataContratacao");
+                
+                ProfissionalSaude profissional = new ProfissionalSaude(id, cpf, nome, telefone, email, dataNascimento, dataContratacao);
+                System.out.println(profissional);
+            }
+            
+            return profissionais;
+            
+        } catch (SQLException e){
+            System.out.println("!!!!!Erro ao BUSCAR Profissionais!!!!!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        
+        return null;        
+    }
+    
     public ProfissionalSaude buscaProfissionalPorID(int id){
         Connection conn = null;
         Statement stmt = null;
@@ -119,6 +162,7 @@ public class ProfissionalSaudeDAO {
             System.out.println("\n----->Profissional Encontrado:");
             
             while(rs.next()){
+                int idAdministracao = rs.getInt("idAdministracao");
                 String cpf = rs.getString("cpf");
                 String nome = rs.getString("nome");
                 String telefone = rs.getString("telefone");
@@ -127,6 +171,7 @@ public class ProfissionalSaudeDAO {
                 String dataContratacao = rs.getString("dataContratacao");
                 
                 ProfissionalSaude profissionalSaude = new ProfissionalSaude(id, cpf, nome, telefone, email, dataNascimento, dataContratacao);
+                profissionalSaude.setIdAdministracao(idAdministracao);
                 System.out.println(profissionalSaude);
                 System.out.println("\n");
                 return profissionalSaude;

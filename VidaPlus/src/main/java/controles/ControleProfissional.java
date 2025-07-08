@@ -9,6 +9,7 @@ import classes.Farmaceutico;
 import classes.Medico;
 import classes.ProfissionalSaude;
 import dao.ProfissionalSaudeDAO;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,6 +26,11 @@ public class ControleProfissional {
     public ProfissionalSaude cadastraProfissional(ProfissionalSaude profissional, int idAdministracao){
         profissional = profissionalDAO.cadastraProfissional(profissional, idAdministracao);
         return profissional;
+    }
+    
+    public ArrayList<ProfissionalSaude> retornarProfissionais(int idAdministrador){
+        ArrayList<ProfissionalSaude> profissionais = profissionalDAO.retornarProfissionais(idAdministrador);
+        return profissionais;
     }
     
     public ProfissionalSaude buscaProfissional(String cpf){

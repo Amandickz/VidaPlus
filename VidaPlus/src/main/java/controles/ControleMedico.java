@@ -57,8 +57,8 @@ public class ControleMedico {
         return paciente;
     }
     
-    public boolean cadastraMedico(Medico medico, int idAdministrador){
-        boolean confirmacao = medicoDAO.cadastrarMedico(medico, idAdministrador);
+    public boolean cadastraMedico(Medico medico){
+        boolean confirmacao = medicoDAO.cadastrarMedico(medico);
         return confirmacao;
     }
     
@@ -67,6 +67,7 @@ public class ControleMedico {
         for(Medico m : listaMedicos){
             ProfissionalSaude ps = profissionalSaudeDAO.buscaProfissionalPorID(m.getId());
             if(ps != null){
+                m.setIdAdministracao(ps.getIdAdministracao());
                 m.setCpf(ps.getCpf());
                 m.setNome(ps.getNome());
                 m.setTelefone(ps.getTelefone());

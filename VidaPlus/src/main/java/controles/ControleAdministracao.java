@@ -40,5 +40,7 @@ public class ControleAdministracao {
         boolean confirmacao = pacienteDAO.cadastrarPaciente(paciente, idAdministracao);
         return confirmacao;
     }
+    
+    
        
 }

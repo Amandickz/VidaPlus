@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class MedicoDAO {
     
-    public boolean cadastrarMedico(Medico medico, int idAdministrador){
+    public boolean cadastrarMedico(Medico medico){
         Connection conn = null;
         PreparedStatement pstmt = null;
         
