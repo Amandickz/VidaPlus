@@ -84,38 +84,19 @@ public class TelaCadastrarEnfermeiro extends javax.swing.JFrame {
         gerenciar = new javax.swing.JMenu();
         leitos = new javax.swing.JMenu();
         cadastrarLeito = new javax.swing.JMenuItem();
-        alterarLeito = new javax.swing.JMenuItem();
-        alterarStatus = new javax.swing.JMenuItem();
-        verificarLeitos = new javax.swing.JMenuItem();
         suprimentos = new javax.swing.JMenu();
         novoSuprimento = new javax.swing.JMenuItem();
-        alterarEstoque = new javax.swing.JMenuItem();
-        verificarSuprimentos = new javax.swing.JMenuItem();
         internacoes = new javax.swing.JMenu();
         verificarInternacoes = new javax.swing.JMenuItem();
         pacientes = new javax.swing.JMenu();
         cadastrarPaciente = new javax.swing.JMenuItem();
-        verificarPacientes = new javax.swing.JMenuItem();
         recursosHumanos = new javax.swing.JMenu();
         medicos = new javax.swing.JMenu();
         novoMedico = new javax.swing.JMenuItem();
-        alterarDadosMedico = new javax.swing.JMenuItem();
-        listaMedicos = new javax.swing.JMenuItem();
-        buscarMedicos = new javax.swing.JMenu();
-        especialidadeMedico = new javax.swing.JMenuItem();
-        dataAdmissaoMedico = new javax.swing.JMenuItem();
         enfermeiros = new javax.swing.JMenu();
         novoEnfermeiro = new javax.swing.JMenuItem();
-        alterarDadosEnfermeiro = new javax.swing.JMenuItem();
-        listaEnfermeiros = new javax.swing.JMenuItem();
-        tecnicos = new javax.swing.JMenu();
-        novoTecnico = new javax.swing.JMenuItem();
-        alterarDadosTecnico = new javax.swing.JMenuItem();
-        listaTecnicos = new javax.swing.JMenuItem();
         farmaceuticos = new javax.swing.JMenu();
         novoFarmaceutico = new javax.swing.JMenuItem();
-        alterarDadosFarmaceutico = new javax.swing.JMenuItem();
-        listaFarmaceuticos = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -253,25 +234,6 @@ public class TelaCadastrarEnfermeiro extends javax.swing.JFrame {
         });
         leitos.add(cadastrarLeito);
 
-        alterarLeito.setText("Alterar");
-        leitos.add(alterarLeito);
-
-        alterarStatus.setText("Alterar Status");
-        alterarStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                alterarStatusActionPerformed(evt);
-            }
-        });
-        leitos.add(alterarStatus);
-
-        verificarLeitos.setText("Verificar Leitos");
-        verificarLeitos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                verificarLeitosActionPerformed(evt);
-            }
-        });
-        leitos.add(verificarLeitos);
-
         gerenciar.add(leitos);
 
         suprimentos.setText("Suprimentos");
@@ -283,17 +245,6 @@ public class TelaCadastrarEnfermeiro extends javax.swing.JFrame {
             }
         });
         suprimentos.add(novoSuprimento);
-
-        alterarEstoque.setText("Alterar Estoque");
-        alterarEstoque.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                alterarEstoqueActionPerformed(evt);
-            }
-        });
-        suprimentos.add(alterarEstoque);
-
-        verificarSuprimentos.setText("Verificar Suprimentos");
-        suprimentos.add(verificarSuprimentos);
 
         gerenciar.add(suprimentos);
 
@@ -314,9 +265,6 @@ public class TelaCadastrarEnfermeiro extends javax.swing.JFrame {
         });
         pacientes.add(cadastrarPaciente);
 
-        verificarPacientes.setText("Verificar Pacientes");
-        pacientes.add(verificarPacientes);
-
         gerenciar.add(pacientes);
 
         jMenuBar1.add(gerenciar);
@@ -333,32 +281,6 @@ public class TelaCadastrarEnfermeiro extends javax.swing.JFrame {
         });
         medicos.add(novoMedico);
 
-        alterarDadosMedico.setText("Alterar Dados do Médico");
-        medicos.add(alterarDadosMedico);
-
-        listaMedicos.setText("Lista de Médicos");
-        listaMedicos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaMedicosActionPerformed(evt);
-            }
-        });
-        medicos.add(listaMedicos);
-
-        buscarMedicos.setText("Buscar Médicos");
-
-        especialidadeMedico.setText("Por Especialidade");
-        buscarMedicos.add(especialidadeMedico);
-
-        dataAdmissaoMedico.setText("Por Data de Admisssão");
-        dataAdmissaoMedico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dataAdmissaoMedicoActionPerformed(evt);
-            }
-        });
-        buscarMedicos.add(dataAdmissaoMedico);
-
-        medicos.add(buscarMedicos);
-
         recursosHumanos.add(medicos);
 
         enfermeiros.setText("Enfermeiros");
@@ -371,41 +293,7 @@ public class TelaCadastrarEnfermeiro extends javax.swing.JFrame {
         });
         enfermeiros.add(novoEnfermeiro);
 
-        alterarDadosEnfermeiro.setText("Alterar Dados do Enfermeiro");
-        enfermeiros.add(alterarDadosEnfermeiro);
-
-        listaEnfermeiros.setText("Lista de Enfermeiros");
-        listaEnfermeiros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaEnfermeirosActionPerformed(evt);
-            }
-        });
-        enfermeiros.add(listaEnfermeiros);
-
         recursosHumanos.add(enfermeiros);
-
-        tecnicos.setText("Técnicos de Enfermagem");
-
-        novoTecnico.setText("Novo Técnico");
-        novoTecnico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                novoTecnicoActionPerformed(evt);
-            }
-        });
-        tecnicos.add(novoTecnico);
-
-        alterarDadosTecnico.setText("Alterar Dados do Técnico");
-        tecnicos.add(alterarDadosTecnico);
-
-        listaTecnicos.setText("Lista de Técnicos");
-        listaTecnicos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaTecnicosActionPerformed(evt);
-            }
-        });
-        tecnicos.add(listaTecnicos);
-
-        recursosHumanos.add(tecnicos);
 
         farmaceuticos.setText("Farmacêuticos");
 
@@ -416,17 +304,6 @@ public class TelaCadastrarEnfermeiro extends javax.swing.JFrame {
             }
         });
         farmaceuticos.add(novoFarmaceutico);
-
-        alterarDadosFarmaceutico.setText("Alterar Dados do Farmacêutico");
-        farmaceuticos.add(alterarDadosFarmaceutico);
-
-        listaFarmaceuticos.setText("Lista de Farmacêuticos");
-        listaFarmaceuticos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaFarmaceuticosActionPerformed(evt);
-            }
-        });
-        farmaceuticos.add(listaFarmaceuticos);
 
         recursosHumanos.add(farmaceuticos);
 
@@ -603,6 +480,14 @@ public class TelaCadastrarEnfermeiro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cpfPessoaActionPerformed
 
+    private void corenEnfermeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_corenEnfermeiroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_corenEnfermeiroActionPerformed
+
+    private void listaTipoEnfermeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaTipoEnfermeiroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listaTipoEnfermeiroActionPerformed
+
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         // TODO add your handling code here:
         new TelaInicial().setVisible(true);
@@ -624,95 +509,49 @@ public class TelaCadastrarEnfermeiro extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_cadastrarLeitoActionPerformed
 
-    private void alterarStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarStatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_alterarStatusActionPerformed
-
-    private void verificarLeitosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificarLeitosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_verificarLeitosActionPerformed
-
     private void novoSuprimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoSuprimentoActionPerformed
         // TODO add your handling code here:
+        new TelaCadastroSuprimento(adm).setVisible(true);
+        dispose();
     }//GEN-LAST:event_novoSuprimentoActionPerformed
-
-    private void alterarEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarEstoqueActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_alterarEstoqueActionPerformed
 
     private void cadastrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarPacienteActionPerformed
         // TODO add your handling code here:
-        new TelaCadastrarEnfermeiro(adm).setVisible(true);
+        new TelaCadastrarPaciente(adm).setVisible(true);
         dispose();
     }//GEN-LAST:event_cadastrarPacienteActionPerformed
 
     private void novoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoMedicoActionPerformed
         // TODO add your handling code here:
+        new TelaCadastrarMedico(adm).setVisible(true);
+        dispose();
     }//GEN-LAST:event_novoMedicoActionPerformed
-
-    private void listaMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaMedicosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listaMedicosActionPerformed
-
-    private void dataAdmissaoMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dataAdmissaoMedicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dataAdmissaoMedicoActionPerformed
 
     private void novoEnfermeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoEnfermeiroActionPerformed
         // TODO add your handling code here:
+        new TelaCadastrarEnfermeiro(adm).setVisible(true);
+        dispose();
     }//GEN-LAST:event_novoEnfermeiroActionPerformed
-
-    private void listaEnfermeirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaEnfermeirosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listaEnfermeirosActionPerformed
-
-    private void novoTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoTecnicoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_novoTecnicoActionPerformed
-
-    private void listaTecnicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaTecnicosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listaTecnicosActionPerformed
 
     private void novoFarmaceuticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoFarmaceuticoActionPerformed
         // TODO add your handling code here:
+        new TelaCadastrarFarmaceutico(adm).setVisible(true);
+        dispose();
     }//GEN-LAST:event_novoFarmaceuticoActionPerformed
-
-    private void listaFarmaceuticosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaFarmaceuticosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listaFarmaceuticosActionPerformed
-
-    private void corenEnfermeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_corenEnfermeiroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_corenEnfermeiroActionPerformed
-
-    private void listaTipoEnfermeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaTipoEnfermeiroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listaTipoEnfermeiroActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem alterarDadosEnfermeiro;
-    private javax.swing.JMenuItem alterarDadosFarmaceutico;
-    private javax.swing.JMenuItem alterarDadosMedico;
-    private javax.swing.JMenuItem alterarDadosTecnico;
-    private javax.swing.JMenuItem alterarEstoque;
-    private javax.swing.JMenuItem alterarLeito;
-    private javax.swing.JMenuItem alterarStatus;
-    private javax.swing.JMenu buscarMedicos;
     private javax.swing.JButton cadastrar;
     private javax.swing.JMenuItem cadastrarLeito;
     private javax.swing.JMenuItem cadastrarPaciente;
     private javax.swing.JButton cancelar;
     private javax.swing.JFormattedTextField corenEnfermeiro;
     private javax.swing.JFormattedTextField cpfPessoa;
-    private javax.swing.JMenuItem dataAdmissaoMedico;
     private javax.swing.JFormattedTextField dataContratacaoEnfermeiro;
     private javax.swing.JFormattedTextField dataEmissaoEnfermeiro;
     private javax.swing.JFormattedTextField dataNascimentoDigitado;
     private javax.swing.JTextField emailDigitado;
     private javax.swing.JMenu enfermeiros;
-    private javax.swing.JMenuItem especialidadeMedico;
     private javax.swing.JMenu farmaceuticos;
     private javax.swing.JMenu gerenciar;
     private javax.swing.JMenu internacoes;
@@ -732,10 +571,6 @@ public class TelaCadastrarEnfermeiro extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JMenu leitos;
-    private javax.swing.JMenuItem listaEnfermeiros;
-    private javax.swing.JMenuItem listaFarmaceuticos;
-    private javax.swing.JMenuItem listaMedicos;
-    private javax.swing.JMenuItem listaTecnicos;
     private javax.swing.JComboBox<String> listaTipoEnfermeiro;
     private javax.swing.JMenuItem logout;
     private javax.swing.JMenu medicos;
@@ -744,17 +579,12 @@ public class TelaCadastrarEnfermeiro extends javax.swing.JFrame {
     private javax.swing.JMenuItem novoFarmaceutico;
     private javax.swing.JMenuItem novoMedico;
     private javax.swing.JMenuItem novoSuprimento;
-    private javax.swing.JMenuItem novoTecnico;
     private javax.swing.JMenu pacientes;
     private javax.swing.JMenu recursosHumanos;
     private javax.swing.JMenuItem sair;
     private javax.swing.JMenu suprimentos;
-    private javax.swing.JMenu tecnicos;
     private javax.swing.JFormattedTextField telefoneDigitado;
     private javax.swing.JTextField ufCOREN;
     private javax.swing.JMenuItem verificarInternacoes;
-    private javax.swing.JMenuItem verificarLeitos;
-    private javax.swing.JMenuItem verificarPacientes;
-    private javax.swing.JMenuItem verificarSuprimentos;
     // End of variables declaration//GEN-END:variables
 }

@@ -76,9 +76,6 @@ public class TelaAgendaCompleta extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         agendaCompleta = new javax.swing.JMenuItem();
         addNovasDatas = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -153,16 +150,6 @@ public class TelaAgendaCompleta extends javax.swing.JFrame {
 
         jMenuBar2.add(jMenu1);
 
-        jMenu2.setText("Internações");
-
-        jMenuItem2.setText("Nova Internação");
-        jMenu2.add(jMenuItem2);
-
-        jMenuItem3.setText("Gerenciar Internações");
-        jMenu2.add(jMenuItem3);
-
-        jMenuBar2.add(jMenu2);
-
         setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,15 +183,27 @@ public class TelaAgendaCompleta extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
+    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_sairActionPerformed
+        new TelaInicialMedico(medico).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_voltarActionPerformed
 
     private void sairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sairMouseClicked
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_sairMouseClicked
+
+    private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_sairActionPerformed
+
+    private void agendaCompletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agendaCompletaActionPerformed
+        // TODO add your handling code here:
+        new TelaAgendaCompleta(medico).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_agendaCompletaActionPerformed
 
     private void addNovasDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNovasDatasActionPerformed
         // TODO add your handling code here:
@@ -212,27 +211,14 @@ public class TelaAgendaCompleta extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_addNovasDatasActionPerformed
 
-    private void agendaCompletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agendaCompletaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_agendaCompletaActionPerformed
-
-    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
-        // TODO add your handling code here:
-        new TelaInicialMedico(medico).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_voltarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addNovasDatas;
     private javax.swing.JMenuItem agendaCompleta;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable listaAgenda;
     private javax.swing.JMenu sair;

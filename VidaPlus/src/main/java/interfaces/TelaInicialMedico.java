@@ -77,9 +77,6 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         agendaCompleta = new javax.swing.JMenuItem();
         addNovasDatas = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -164,16 +161,6 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         jMenu1.add(addNovasDatas);
 
         jMenuBar2.add(jMenu1);
-
-        jMenu2.setText("Internações");
-
-        jMenuItem2.setText("Nova Internação");
-        jMenu2.add(jMenuItem2);
-
-        jMenuItem3.setText("Gerenciar Internações");
-        jMenu2.add(jMenuItem3);
-
-        jMenuBar2.add(jMenu2);
 
         setJMenuBar(jMenuBar2);
 
@@ -275,11 +262,8 @@ public class TelaInicialMedico extends javax.swing.JFrame {
     private javax.swing.JButton iniciarConsulta;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel nomeDr;
