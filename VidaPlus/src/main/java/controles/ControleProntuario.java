@@ -24,6 +24,11 @@ public class ControleProntuario {
         this.anamneseDAO = new AnamneseDAO();
     }
     
+    public ProntuarioMedico criarProntuario(ProntuarioMedico prontuarioMedico){
+        ProntuarioMedico prontuario = prontuarioDAO.criarProntuario(prontuarioMedico);
+        return prontuario;
+    }
+    
     public ProntuarioMedico buscaProntuarioPorIDPaciente(int idPaciente){
         ProntuarioMedico prontuario = prontuarioDAO.buscaProntuarioPorIDPaciente(idPaciente);
         return prontuario;

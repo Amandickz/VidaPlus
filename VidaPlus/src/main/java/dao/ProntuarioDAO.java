@@ -7,6 +7,7 @@ package dao;
 import classes.Paciente;
 import classes.ProntuarioMedico;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,6 +17,43 @@ import java.sql.Statement;
  * @author Amanda
  */
 public class ProntuarioDAO {
+    
+    public ProntuarioMedico criarProntuario(ProntuarioMedico prontuarioMedico){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            pstmt = conn.prepareStatement("INSERT INTO prontuario "
+                    + "(idPaciente, idAnamnese) "
+                    + "VALUES (?,?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            
+            pstmt.setInt(1, prontuarioMedico.getIdPaciente());
+            pstmt.setInt(2, prontuarioMedico.getIdAnamnese());
+            
+
+            int rollsAffected = pstmt.executeUpdate();
+
+            if(rollsAffected > 0){
+                ResultSet rs = pstmt.getGeneratedKeys();
+                while (rs.next()){
+                    int id = rs.getInt(1);
+                    prontuarioMedico.setId(id);
+                }
+                return prontuarioMedico;
+            }
+            
+        } catch (SQLException e){
+            System.out.println("********Erro ao Cadastrar dados!");
+        } finally {
+            DB.closeStatement(pstmt);
+            DB.closeConnection();
+        }
+        return null;
+    }
     
     public ProntuarioMedico buscaProntuarioPorIDPaciente(int idPaciente){
         Connection conn = null;

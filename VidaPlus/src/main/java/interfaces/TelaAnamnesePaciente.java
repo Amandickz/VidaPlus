@@ -23,6 +23,7 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
     Paciente paciente;
     Medico medico;
     Anamnese anamnese;
+    ProntuarioMedico prontuario;
     AnamneseFeminina anamneseFeminina;
     ControleProntuario controleProntuario = new ControleProntuario();
     boolean primeiraConsulta;
@@ -43,6 +44,7 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
         ProntuarioMedico prontuario = controleProntuario.buscaProntuarioPorIDPaciente(paciente.getId());
         
         if(prontuario != null){
+            this.prontuario = prontuario;
             anamnese = controleProntuario.buscaAnamnese(prontuario.getIdAnamnese());
             configuraCamposAnamnese();
             if(paciente.getSexo() == 0){
@@ -403,8 +405,8 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(alergiaMedicamento, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(alergiaMedicamento)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(anotacoesAlergias))
@@ -702,25 +704,29 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
         
         if(primeiraConsulta){
             anamnese = controleProntuario.cadastraAnamnese(anamnese);
-            System.out.println(anamnese);
             if(anamnese != null){
-                if(paciente.getSexo() == 0){
-                    anamneseFeminina.setId(anamnese.getId());
-                    System.out.println(anamneseFeminina);
-                    anamneseFeminina = controleProntuario.cadastraAnamneseFeminina(anamneseFeminina);
-                    if(anamneseFeminina != null){
-                        JOptionPane.showMessageDialog(null, "Anamnese Salva!\n"
-                                + "Pode prosseguir com a consulta.");
-                        new TelaConsulta().setVisible(true);
-                        dispose();
+                prontuario = new ProntuarioMedico(paciente.getId(), anamnese.getId());
+                prontuario = controleProntuario.criarProntuario(prontuario);
+                if(prontuario != null){
+                    if(paciente.getSexo() == 0){
+                        anamneseFeminina.setId(anamnese.getId());
+                        anamneseFeminina = controleProntuario.cadastraAnamneseFeminina(anamneseFeminina);
+                        if(anamneseFeminina != null){
+                            JOptionPane.showMessageDialog(null, "Anamnese Salva!\n"
+                                    + "Pode prosseguir com a consulta.");
+                            new TelaConsulta(medico, paciente, prontuario).setVisible(true);
+                            dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Ops! Algo deu errado!");
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Ops! Algo deu errado!");
+                        JOptionPane.showMessageDialog(null, "Anamnese Salva!\n"
+                                    + "Pode prosseguir com a consulta.");
+                        new TelaConsulta(medico, paciente, prontuario).setVisible(true);
+                        dispose();
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Anamnese Salva!\n"
-                                + "Pode prosseguir com a consulta.");
-                    new TelaConsulta().setVisible(true);
-                    dispose();
+                    JOptionPane.showMessageDialog(null, "Ops! Algo deu errado!");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Ops! Algo deu errado!");
@@ -733,7 +739,7 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
                     if(confirmacaoF){
                         JOptionPane.showMessageDialog(null, "Anamnese Atualizada!\n"
                                 + "Pode prosseguir com a consulta.");
-                        new TelaConsulta().setVisible(true);
+                        new TelaConsulta(medico, paciente, prontuario).setVisible(true);
                         dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Ops! Algo deu errado!");
@@ -741,7 +747,7 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Anamnese Atualizada!\n"
                                 + "Pode prosseguir com a consulta.");
-                    new TelaConsulta().setVisible(true);
+                    new TelaConsulta(medico, paciente, prontuario).setVisible(true);
                     dispose();
                 }
             } else {
