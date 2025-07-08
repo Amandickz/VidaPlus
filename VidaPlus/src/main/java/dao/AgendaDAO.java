@@ -5,8 +5,6 @@
 package dao;
 
 import classes.Agenda;
-import classes.Medico;
-import classes.Suprimento;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -10,6 +10,8 @@ import controles.ControleAgenda;
 import enums.IntervaloConsultas;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -54,6 +56,15 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
         horaInicial.setText("");
         horaFinal.setText("");
         preencheListaTempo();
+    }
+    
+    private void centralizarTextos(){
+        DefaultTableCellRenderer centralizar = new DefaultTableCellRenderer();
+        centralizar.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < consultasCriadas.getColumnCount(); i++) {
+            consultasCriadas.getColumnModel().getColumn(i).setCellRenderer(centralizar);
+        }
+
     }
     
 
@@ -155,7 +166,13 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        consultasCriadas.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(consultasCriadas);
+        if (consultasCriadas.getColumnModel().getColumnCount() > 0) {
+            consultasCriadas.getColumnModel().getColumn(0).setResizable(false);
+            consultasCriadas.getColumnModel().getColumn(1).setResizable(false);
+            consultasCriadas.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         finalizar.setText("Finalizar");
         finalizar.addActionListener(new java.awt.event.ActionListener() {
@@ -339,6 +356,7 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
         
         atualizaTabela();
         limpaCampos();
+        centralizarTextos();
     }//GEN-LAST:event_criarConsultasActionPerformed
 
     private void removerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removerActionPerformed

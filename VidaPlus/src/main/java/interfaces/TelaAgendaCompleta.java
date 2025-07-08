@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -38,13 +40,14 @@ public class TelaAgendaCompleta extends javax.swing.JFrame {
         this.agenda = (DefaultTableModel) listaAgenda.getModel();
         
         preencheTabela();
+        centralizarTextos();
     }
     
     private void preencheTabela(){
         agenda.setRowCount(0);
         ArrayList<Agenda> agendacompleta = controleAgenda.retornaAgendaCompleta(dataConvertida, medico.getId());
-        if(agendacompleta == null){
-            JOptionPane.showMessageDialog(null, "Nenhuma Agenda encontrada");
+        if(agendacompleta.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Nenhuma Agenda encontrada!\n");
         } else {
             for(Agenda a : agendacompleta){
                 if(a.getStatus() == 0){
@@ -54,6 +57,15 @@ public class TelaAgendaCompleta extends javax.swing.JFrame {
                 }
             }
         }
+    }
+    
+    private void centralizarTextos(){
+        DefaultTableCellRenderer centralizar = new DefaultTableCellRenderer();
+        centralizar.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < listaAgenda.getColumnCount(); i++) {
+            listaAgenda.getColumnModel().getColumn(i).setCellRenderer(centralizar);
+        }
+
     }
     
 
@@ -109,13 +121,17 @@ public class TelaAgendaCompleta extends javax.swing.JFrame {
         jScrollPane1.setViewportView(listaAgenda);
         if (listaAgenda.getColumnModel().getColumnCount() > 0) {
             listaAgenda.getColumnModel().getColumn(0).setResizable(false);
+            listaAgenda.getColumnModel().getColumn(0).setPreferredWidth(1);
             listaAgenda.getColumnModel().getColumn(1).setResizable(false);
+            listaAgenda.getColumnModel().getColumn(1).setPreferredWidth(1);
             listaAgenda.getColumnModel().getColumn(2).setResizable(false);
+            listaAgenda.getColumnModel().getColumn(2).setPreferredWidth(100);
             listaAgenda.getColumnModel().getColumn(3).setResizable(false);
+            listaAgenda.getColumnModel().getColumn(3).setPreferredWidth(200);
         }
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Minha Agenda");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel2.setText("Minha Agenda Completa");
 
         sair.setText("Sair");
         sair.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -157,22 +173,21 @@ public class TelaAgendaCompleta extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addComponent(voltar)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(voltar)
+                .addGap(307, 307, 307))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jLabel2)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
