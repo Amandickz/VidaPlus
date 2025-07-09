@@ -28,6 +28,11 @@ public class ControlePaciente {
         this.profissionalSaudeDAO = new ProfissionalSaudeDAO();
     }
     
+    public ArrayList<Paciente> listaPacientes(int idAdministracao){
+        ArrayList<Paciente> pacientes = pacienteDAO.retornaListaPacientes(idAdministracao);
+        return pacientes;
+    }
+    
     public Paciente buscaPaciente(String cpf){
         Paciente paciente = pacienteDAO.buscaPacientePorCPF(cpf);
         return paciente;

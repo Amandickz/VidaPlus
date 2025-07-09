@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -45,13 +46,56 @@ public class PacienteDAO {
             }
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Cadastrar dados!");
+            System.out.println("!!!!!Erro ao CADASTRAR o Paciente!!!!!");
         } finally {
             DB.closeStatement(pstmt);
             DB.closeConnection();
         }
         
         return false;
+    }
+    
+    public ArrayList<Paciente> retornaListaPacientes(int idAdministracao){
+        ArrayList<Paciente> pacientes = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from paciente where idAdministracao = " + idAdministracao);
+            
+            System.out.println("\n----->Pacientes Recuperados da Unidade:");
+            
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String cpf = rs.getString("cpf");
+                String nome = rs.getString("nome");
+                String email = rs.getString("email");
+                String telefone = rs.getString("telefone");
+                String dataNascimento = rs.getString("dataNascimento");
+                int sexo = rs.getInt("sexo");
+                
+                Paciente paciente = new Paciente(id, cpf, nome, email, telefone, dataNascimento, sexo);
+                pacientes.add(paciente);
+                System.out.println(paciente);
+                System.out.println("\n");
+            }
+            
+            return pacientes;
+            
+        } catch (SQLException e){
+            System.out.println("!!!!!Erro ao RECUPERAR dados dos Paciente!!!!!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        return null;
     }
     
     public Paciente buscaPacientePorCPF(String cpf){
@@ -67,7 +111,7 @@ public class PacienteDAO {
             
             rs = stmt.executeQuery("select * from paciente where cpf = '" + cpf + "'");
             
-            System.out.println(rs);
+            System.out.println("\n----->Paciente Recuperado pelo CPF digitado:");
             
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -78,11 +122,13 @@ public class PacienteDAO {
                 int sexo = rs.getInt("sexo");
                 
                 Paciente paciente = new Paciente(id, cpf, nome, email, telefone, dataNascimento, sexo);
+                System.out.println(paciente);
+                System.out.println("\n");
                 return paciente;
             }
             
         } catch (SQLException e){
-            System.err.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao RECUPERAR dados do Paciente!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -104,7 +150,7 @@ public class PacienteDAO {
             
             rs = stmt.executeQuery("select * from paciente where id = '" + id + "'");
             
-            System.out.println(rs);
+            System.out.println("\n----->Paciente Recuperado pelo ID digitado:");
             
             while(rs.next()){
                 String cpf = rs.getString("cpf");
@@ -115,11 +161,13 @@ public class PacienteDAO {
                 int sexo = rs.getInt("sexo");
                 
                 Paciente paciente = new Paciente(id, cpf, nome, email, telefone, dataNascimento, sexo);
+                System.out.println(paciente);
+                System.out.println("\n");
                 return paciente;
             }
             
         } catch (SQLException e){
-            System.err.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao RECUPERAR dados do Paciente!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -141,7 +189,7 @@ public class PacienteDAO {
             
             rs = stmt.executeQuery("select * from paciente where nome = '" + nome + "'");
             
-            System.out.println(rs);
+            System.out.println("\n----->Paciente Recuperado pelo NOME digitado:");
             
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -152,11 +200,13 @@ public class PacienteDAO {
                 int sexo = rs.getInt("sexo");
                 
                 Paciente paciente = new Paciente(id, cpf, nome, email, telefone, dataNascimento, sexo);
+                System.out.println(paciente);
+                System.out.println("\n");
                 return paciente;
             }
             
         } catch (SQLException e){
-            System.err.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao RECUPERAR dados do Paciente!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
