@@ -43,7 +43,7 @@ public class AgendaDAO {
             }
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Cadastrar dados!");
+            System.out.println("!!!!!Erro ao CADASTRAR a Agenda!!!!!");
         } finally {
             DB.closeStatement(pstmt);
             DB.closeConnection();
@@ -81,7 +81,7 @@ public class AgendaDAO {
             return agendacompleta;
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao RECUPERAR a Agenda Completa!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -121,7 +121,7 @@ public class AgendaDAO {
             return datasDisponiveis;
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao RECUPERAR as Datas e Horas Disponíveis!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -155,7 +155,7 @@ public class AgendaDAO {
             }
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao MARCAR a Consulta!!!!!");
         } finally {
             DB.closeStatement(pstmt);
             DB.closeConnection();
@@ -196,7 +196,7 @@ public class AgendaDAO {
             return agendacompleta;
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao RECUPERAR a Agenda do Dia!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -236,7 +236,41 @@ public class AgendaDAO {
             return agendacompleta;
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao RECUPERAR as Consultas do Paciente!!!!!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        
+        return null;
+    }
+    
+    public Agenda retornarConsultaMarcada(String data, String hora, int idPaciente){
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from agenda where idPaciente = " + idPaciente + 
+                    " and data = '" + data + "' and hora = '" + hora + "'");
+            
+            while(rs.next()){
+                int id = rs.getInt("id");
+                int idMedico = rs.getInt("idMedico");
+                int status = rs.getInt("status");
+                
+                Agenda agenda = new Agenda(id, idPaciente, idMedico, data, hora, status);
+                return agenda;
+            }
+            
+        } catch (SQLException e){
+            System.out.println("!!!!!Erro ao RECUPERAR a Consulta do Paciente!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -246,3 +280,10 @@ public class AgendaDAO {
         return null;
     }
 }
+
+
+/*
+Status = 0 (Horário disponível)
+Status = 1 (Horário Marcado)
+Status = 2 (Consulta realizada)
+*/

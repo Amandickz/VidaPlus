@@ -65,7 +65,7 @@ public class ProntuarioDAO {
             
             stmt = conn.createStatement();
             
-            rs = stmt.executeQuery("select * from prontuario where idPaciente = '" + idPaciente + "'");
+            rs = stmt.executeQuery("select * from prontuario where idPaciente = " + idPaciente);
             
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -74,14 +74,8 @@ public class ProntuarioDAO {
                 String servico = rs.getString("servico");
                 
                 ProntuarioMedico prontuarioMedico = new ProntuarioMedico(id, idPaciente, idAnamnese);
-                
-                if(!dataAtualizacao.isEmpty()){
-                    prontuarioMedico.setDataAtualizacao(dataAtualizacao);
-                }
-                
-                if(servico.isEmpty()){
-                    prontuarioMedico.setServico(servico);
-                }
+                prontuarioMedico.setDataAtualizacao(dataAtualizacao);
+                prontuarioMedico.setServico(servico);
                 
                 return prontuarioMedico;               
             }

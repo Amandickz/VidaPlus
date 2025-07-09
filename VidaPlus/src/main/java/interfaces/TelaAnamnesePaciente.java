@@ -4,6 +4,7 @@
  */
 package interfaces;
 
+import classes.Agenda;
 import classes.Anamnese;
 import classes.AnamneseFeminina;
 import classes.Medico;
@@ -27,6 +28,7 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
     Medico medico;
     Anamnese anamnese;
     ProntuarioMedico prontuario;
+    Agenda agenda;
     AnamneseFeminina anamneseFeminina;
     ControleProntuario controleProntuario = new ControleProntuario();
     boolean primeiraConsulta;
@@ -35,11 +37,18 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
     /**
      * Creates new form TelaInicialAdministrador
      */
-    public TelaAnamnesePaciente(Medico medico, Paciente paciente){
+    public TelaAnamnesePaciente(Medico medico, Paciente paciente, Agenda agenda){
         initComponents();
         this.setLocationRelativeTo(null);
         this.medico = medico;
         this.paciente = paciente;
+        this.agenda = agenda;
+        
+        System.out.println("----> Consulta Agora (Tela Anamnese Paciente):");
+        System.out.println("Médico -> " + medico);
+        System.out.println("Paciente -> " + paciente);
+        System.out.println("Agenda -> " + agenda);
+        
         LocalDate hoje = LocalDate.now();
         DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         dataConvertida = hoje.format(formataData);
@@ -48,25 +57,27 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
         preencheListaCiclo();
         preencheListaAnticoncepcional();
         
-        ProntuarioMedico prontuario = controleProntuario.buscaProntuarioPorIDPaciente(paciente.getId());
+        prontuario = controleProntuario.buscaProntuarioPorIDPaciente(paciente.getId());
+        
+        System.out.println("Prontuário localizado -> " + prontuario);
         
         if(prontuario != null){
-            this.prontuario = prontuario;
             anamnese = controleProntuario.buscaAnamnese(prontuario.getIdAnamnese());
+            System.out.println("Anamnese localizada -> " + anamnese);
             configuraCamposAnamnese();
             if(paciente.getSexo() == 0){
-                anamneseFeminina = controleProntuario.buscaAnamneseFeminina(anamnese);
+                this.anamneseFeminina = controleProntuario.buscaAnamneseFeminina(anamnese);
                 configuraCamposAnamnesefeminina();
+            } else {
+                if(paciente.getSexo() == 1){
+                    listaCiclo.setEnabled(false);
+                    usoAnticoncepcional.setEnabled(false);
+                    listaAnticoncepcional.setEnabled(false);
+                }
+                JOptionPane.showMessageDialog(null, "Primeira consulta do Paciente!\n"
+                        + "Obrigatório preenchimento da Anamnese.");
+                primeiraConsulta = true;
             }
-        } else {
-            if(paciente.getSexo() == 1){
-                listaCiclo.setEnabled(false);
-                usoAnticoncepcional.setEnabled(false);
-                listaAnticoncepcional.setEnabled(false);
-            }
-            JOptionPane.showMessageDialog(null, "Primeira consulta do Paciente!\n"
-                    + "Obrigatório preenchimento da Anamnese.");
-            primeiraConsulta = true;
         }
     }
     
@@ -589,7 +600,7 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salvar)
                     .addComponent(voltar))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -731,7 +742,7 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
                         if(anamneseFeminina != null){
                             JOptionPane.showMessageDialog(null, "Anamnese Salva!\n"
                                     + "Pode prosseguir com a consulta.");
-                            new TelaConsulta(medico, paciente, prontuario).setVisible(true);
+                            new TelaConsulta(medico, paciente, prontuario, agenda).setVisible(true);
                             dispose();
                         } else {
                             JOptionPane.showMessageDialog(null, "Ops! Algo deu errado!");
@@ -739,7 +750,7 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
                     } else {
                         JOptionPane.showMessageDialog(null, "Anamnese Salva!\n"
                                     + "Pode prosseguir com a consulta.");
-                        new TelaConsulta(medico, paciente, prontuario).setVisible(true);
+                        new TelaConsulta(medico, paciente, prontuario, agenda).setVisible(true);
                         dispose();
                     }
                 } else {
@@ -753,13 +764,13 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
             if(confirmacao){
                 prontuario.setDataAtualizacao(dataConvertida);
                 prontuario.setServico(ServicoProntuario.UM.getServico());
-                confirmacao = controleProntuario.atualizacaoPronturario(prontuario);
+                controleProntuario.atualizacaoPronturario(prontuario);
                 if(paciente.getSexo() == 0){
                     boolean confirmacaoF = controleProntuario.alterarAnamneseFeminina(anamneseFeminina);
                     if(confirmacaoF){
                         JOptionPane.showMessageDialog(null, "Anamnese Atualizada!\n"
                                 + "Pode prosseguir com a consulta.");
-                        new TelaConsulta(medico, paciente, prontuario).setVisible(true);
+                        new TelaConsulta(medico, paciente, prontuario, agenda).setVisible(true);
                         dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Ops! Algo deu errado!");
@@ -767,7 +778,7 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Anamnese Atualizada!\n"
                                 + "Pode prosseguir com a consulta.");
-                    new TelaConsulta(medico, paciente, prontuario).setVisible(true);
+                    new TelaConsulta(medico, paciente, prontuario,agenda).setVisible(true);
                     dispose();
                 }
             } else {

@@ -4,9 +4,12 @@
  */
 package interfaces;
 
+import classes.Agenda;
+import classes.Consulta;
 import classes.Medico;
 import classes.Paciente;
 import classes.ProntuarioMedico;
+import enums.Servico;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,23 +21,36 @@ public class TelaConsulta extends javax.swing.JFrame {
     Paciente paciente;
     Medico medico;
     ProntuarioMedico prontuarioMedico;
+    Agenda agenda;
     
     /**
      * Creates new form TelaInicialAdministrador
      */
-    public TelaConsulta(Medico medico, Paciente paciente, ProntuarioMedico prontuarioMedico){
+    public TelaConsulta(Medico medico, Paciente paciente, ProntuarioMedico prontuario, Agenda agenda){
         initComponents();
         this.setLocationRelativeTo(null);
         this.medico = medico;
         this.paciente = paciente;
-        this.prontuarioMedico = prontuarioMedico;
+        this.prontuarioMedico = prontuario;
+        this.agenda = agenda;
         
+        System.out.println("\nConsultando agora:");
         System.out.println("Medico -> " + this.medico);
         System.out.println("Paciente -> " + this.paciente);
         System.out.println("Prontuário -> " + this.prontuarioMedico);
+        System.out.println("Agenda -> " + this.agenda);
+        System.out.println("\n");
         
         nomePaciente.setText(this.paciente.getNome());
         nomePaciente.setEditable(false);
+        preencherListaSituacao();
+    }
+    
+    private void preencherListaSituacao(){
+        listaSituacao.removeAllItems();
+        for(Servico sc : Servico.values()){
+            listaSituacao.addItem(sc.getSituacaoConsulta());
+        }
     }
 
     /**
@@ -54,15 +70,15 @@ public class TelaConsulta extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         nomePaciente = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        queixa = new javax.swing.JTextField();
+        queixaPrincipal = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         sintomas = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
-        diagnostico = new javax.swing.JTextField();
+        diagnosticoFinal = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        prescricaoMedica = new javax.swing.JTextArea();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         pressaoArterial = new javax.swing.JTextField();
@@ -74,6 +90,10 @@ public class TelaConsulta extends javax.swing.JFrame {
         frequenciaCardiaca = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         temperatura = new javax.swing.JTextField();
+        listaSituacao = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        observacoesMedico = new javax.swing.JTextField();
         jMenuBar2 = new javax.swing.JMenuBar();
         sair = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
@@ -90,7 +110,7 @@ public class TelaConsulta extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Consulta");
 
-        concluir.setText("Concluir Consulta");
+        concluir.setText("Concluir");
         concluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 concluirActionPerformed(evt);
@@ -118,9 +138,9 @@ public class TelaConsulta extends javax.swing.JFrame {
 
         jLabel6.setText("Prescrição Médica:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        prescricaoMedica.setColumns(20);
+        prescricaoMedica.setRows(5);
+        jScrollPane2.setViewportView(prescricaoMedica);
 
         jLabel7.setText("Pressão Arterial:");
 
@@ -136,6 +156,12 @@ public class TelaConsulta extends javax.swing.JFrame {
         jLabel11.setText("Frequência Cardíaca:");
 
         jLabel12.setText("Temperatura:");
+
+        listaSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel13.setText("Situação Final:");
+
+        jLabel14.setText("Observações:");
 
         sair.setText("Sair");
         sair.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -190,15 +216,12 @@ public class TelaConsulta extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(diagnostico))
+                                .addComponent(diagnosticoFinal))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -206,27 +229,13 @@ public class TelaConsulta extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(queixa))
+                                .addComponent(queixaPrincipal))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(nomePaciente))
                             .addComponent(jSeparator1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(concluir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE))
                             .addComponent(jSeparator3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -238,8 +247,33 @@ public class TelaConsulta extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(temperatura, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(30, 30, 30))))
+                                .addComponent(temperatura, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(concluir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(observacoesMedico)
+                                    .addComponent(listaSituacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(30, 30, 30))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,7 +291,7 @@ public class TelaConsulta extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(queixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(queixaPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
@@ -281,11 +315,19 @@ public class TelaConsulta extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(diagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(diagnosticoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(observacoesMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(listaSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(concluir)
@@ -308,6 +350,31 @@ public class TelaConsulta extends javax.swing.JFrame {
 
     private void concluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_concluirActionPerformed
         // TODO add your handling code here:        
+        
+        //Pega as informacoes da Consulta
+        String queixa = queixaPrincipal.getText();
+        String sintomasPaciente = sintomas.getText();
+        int pa = Integer.parseInt(pressaoArterial.getText());
+        int fc = Integer.parseInt(frequenciaCardiaca.getText());
+        int temp = Integer.parseInt(temperatura.getText());
+        String diagnostico = diagnosticoFinal.getText();
+        String prescricao = prescricaoMedica.getText();
+        int situacao = listaSituacao.getSelectedIndex();
+        
+        Consulta novaConsulta = new Consulta(prontuarioMedico.getId(), queixa, sintomasPaciente, pa, fc, temp, diagnostico, prescricao);
+        
+        if(!observacoesMedico.getText().isEmpty()){
+            novaConsulta.setObservacoes(observacoesMedico.getText());
+        }
+        
+        switch (situacao) {
+            case 0 -> {
+                //Salvar Consulta
+                //Atualizar status da Agenda
+                //Atualizar Prontuário
+            }
+            default -> throw new AssertionError();
+        }
     }//GEN-LAST:event_concluirActionPerformed
 
     private void sairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sairMouseClicked
@@ -337,12 +404,14 @@ public class TelaConsulta extends javax.swing.JFrame {
     private javax.swing.JMenuItem addNovasDatas;
     private javax.swing.JMenuItem agendaCompleta;
     private javax.swing.JButton concluir;
-    private javax.swing.JTextField diagnostico;
+    private javax.swing.JTextField diagnosticoFinal;
     private javax.swing.JTextField frequenciaCardiaca;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -362,10 +431,12 @@ public class TelaConsulta extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JComboBox<String> listaSituacao;
     private javax.swing.JTextField nomePaciente;
+    private javax.swing.JTextField observacoesMedico;
+    private javax.swing.JTextArea prescricaoMedica;
     private javax.swing.JTextField pressaoArterial;
-    private javax.swing.JTextField queixa;
+    private javax.swing.JTextField queixaPrincipal;
     private javax.swing.JMenu sair;
     private javax.swing.JTextArea sintomas;
     private javax.swing.JTextField temperatura;

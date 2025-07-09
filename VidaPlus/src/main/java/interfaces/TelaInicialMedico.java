@@ -7,6 +7,7 @@ package interfaces;
 import classes.Agenda;
 import classes.Medico;
 import classes.Paciente;
+import controles.ControleAgenda;
 import controles.ControleMedico;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -26,7 +27,9 @@ public class TelaInicialMedico extends javax.swing.JFrame {
     Medico medico;
     DefaultTableModel consultasDoDia;
     ControleMedico controleMedico = new ControleMedico();
+    ControleAgenda controleAgenda = new ControleAgenda();
     String nomePaciente = "";
+    String hora = "";
     
     /**
      * Creates new form TelaInicialAdministrador
@@ -250,7 +253,8 @@ public class TelaInicialMedico extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Nenhuma consulta selecionada!");
         } else {
             Paciente paciente = controleMedico.buscaPacientePorNome(nomePaciente);
-            new TelaAnamnesePaciente(medico, paciente).setVisible(true);
+            Agenda agenda = controleAgenda.retornaAgenda(dataConvertida, hora, paciente.getId());
+            new TelaAnamnesePaciente(medico, paciente,agenda).setVisible(true);
             dispose();
         }
     }//GEN-LAST:event_iniciarConsultaActionPerformed
@@ -259,9 +263,10 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         // TODO add your handling code here:
         int linha = consultasDia.getSelectedRow();
         
+        hora = String.valueOf(consultasDia.getValueAt(linha, 0));
         nomePaciente = String.valueOf(consultasDia.getValueAt(linha, 1));
         
-        System.out.println(nomePaciente);
+        System.out.println(hora + " -> " + nomePaciente);
     }//GEN-LAST:event_consultasDiaMouseClicked
 
 

@@ -41,8 +41,6 @@ public class TelaCadastrarMedico extends javax.swing.JFrame {
             listaEspecialidades.addItem(e.getEspecialidade());
         }
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.

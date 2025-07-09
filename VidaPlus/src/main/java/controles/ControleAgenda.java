@@ -41,6 +41,11 @@ public class ControleAgenda {
         return confirmacao;
     }
     
+    public Agenda retornaAgenda(String data, String hora, int idPaciente){
+        Agenda agenda = agendaDAO.retornarConsultaMarcada(data, hora, idPaciente);
+        return agenda;
+    }
+    
     public ArrayList<Agenda> gerarNovasConsultas(String data, String horaInicial, String horaFinal, IntervaloConsultas intervalo){
         ArrayList<Agenda> listaHorarios = new ArrayList<>();
         int tempo = 0, cont = 0;

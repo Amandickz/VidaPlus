@@ -185,7 +185,7 @@ public class AnamneseDAO {
             
             stmt = conn.createStatement();
             
-            rs = stmt.executeQuery("select * from anamnese where idAnamnese = " + anamnese.getId() + "");
+            rs = stmt.executeQuery("select * from anamnesefeminina where idAnamnese = " + anamnese.getId());
             
             while(rs.next()){
                 boolean anticoncepcional = rs.getBoolean("anticoncepcional");
