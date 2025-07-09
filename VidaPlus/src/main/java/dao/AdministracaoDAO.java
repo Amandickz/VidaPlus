@@ -5,7 +5,9 @@
 package dao;
 
 import classes.Administracao;
+import classes.Paciente;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,7 +19,41 @@ import java.util.ArrayList;
  */
 public class AdministracaoDAO {
     
-    public void recuperaAdministracao(){
+    public boolean cadastraAdministracao(Administracao adm){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            pstmt = conn.prepareStatement("INSERT INTO administracao" +
+                    "(cnpj, razaoSocial, email, telefone)" +
+                    " VALUES(?,?,?,?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            
+            pstmt.setString(1, adm.getCnpj());
+            pstmt.setString(2, adm.getRazaoSocial());
+            pstmt.setString(3, adm.getEmail());
+            pstmt.setString(4, adm.getTelefone());
+            
+            int rollsAffected = pstmt.executeUpdate();
+
+            if(rollsAffected > 0){
+                return true;
+            }
+            
+        } catch (SQLException e){
+            System.out.println("!!!!!Erro ao CADASTRAR o Administrador!!!!!");
+        } finally {
+            DB.closeStatement(pstmt);
+            DB.closeConnection();
+        }
+        
+        return false;
+    }
+    
+    public ArrayList<Administracao> recuperaAdministracao(){
         ArrayList<Administracao> administradores = new ArrayList<>();
         Connection conn = null;
         Statement stmt = null;
@@ -46,6 +82,7 @@ public class AdministracaoDAO {
             }
             
             System.out.println("\n");
+            return administradores;
             
         } catch (SQLException e){
             System.out.println("!!!!!Erro ao RECUPERAR dados dos Administradores!!!!!");
@@ -54,6 +91,8 @@ public class AdministracaoDAO {
             DB.closeStatement(stmt);
             DB.closeConnection();
         }
+        
+        return null;
         
     }
     

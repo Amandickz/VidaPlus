@@ -9,6 +9,7 @@ import classes.Paciente;
 import dao.AdministracaoDAO;
 import dao.PacienteDAO;
 import dao.SuprimentoDAO;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,6 +25,16 @@ public class ControleAdministracao {
         this.admDAO = new AdministracaoDAO();
         this.pacienteDAO = new PacienteDAO();
         this.suprimentoDAO = new SuprimentoDAO();
+    }
+    
+    public boolean cadastraAdministracao(Administracao adm){
+        boolean confirmacao = admDAO.cadastraAdministracao(adm);
+        return confirmacao;
+    }
+    
+    public ArrayList<Administracao> recuperaAdministracao(){
+        ArrayList<Administracao> administradores = admDAO.recuperaAdministracao();
+        return administradores;
     }
     
     public Administracao buscaAdministrador(String cnpj){
