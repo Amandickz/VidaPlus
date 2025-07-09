@@ -109,49 +109,49 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
     }
     
     private void configuraCamposAnamnese(){
-        diabetes.setEnabled(anamnese.isDiabetes());
-        hipertensao.setEnabled(anamnese.isHipertensao());
-        hipotensao.setEnabled(anamnese.isHipotensao());
-        tabagismo.setEnabled(anamnese.isTabagismo());
-        epilepsia.setEnabled(anamnese.isEpilepsia());
-        proteseDentaria.setEnabled(anamnese.isProteseDentaria());
-        problemasRespiratorios.setEnabled(anamnese.isProblemasRespiratorios());
+        diabetes.setSelected(anamnese.isDiabetes());
+        hipertensao.setSelected(anamnese.isHipertensao());
+        hipotensao.setSelected(anamnese.isHipotensao());
+        tabagismo.setSelected(anamnese.isTabagismo());
+        epilepsia.setSelected(anamnese.isEpilepsia());
+        proteseDentaria.setSelected(anamnese.isProteseDentaria());
+        problemasRespiratorios.setSelected(anamnese.isProblemasRespiratorios());
         if(anamnese.isProblemasRespiratorios()){
             anotacoesRespiratorios.setEnabled(true);
             anotacoesRespiratorios.setText(anamnese.getAnotacoesProblemasRespiratorios());
         }
-        cirurgias.setEnabled(anamnese.isCirurgias());
+        cirurgias.setSelected(anamnese.isCirurgias());
         if(anamnese.isCirurgias()){
             anotacoesCirurgias.setEnabled(true);
             anotacoesCirurgias.setText(anamnese.getAnotacoesCirurgias());
         }
-        exerciciosFisicos.setEnabled(anamnese.isExerciciosFisicos());
+        exerciciosFisicos.setSelected(anamnese.isExerciciosFisicos());
         if(anamnese.isExerciciosFisicos()){
             exerciciosDias.setEnabled(true);
             exerciciosDias.setText("" + anamnese.getFrequenciaExercicios());
         }
-        alcool.setEnabled(anamnese.isAlcool());
+        alcool.setSelected(anamnese.isAlcool());
         if(anamnese.isAlcool()){
             bebidaDias.setEnabled(true);
             bebidaDias.setText("" + anamnese.getFrequenciaAlcool());
         }
-        alergiaMedicamento.setEnabled(anamnese.isAlergiaMedicacao());
+        alergiaMedicamento.setSelected(anamnese.isAlergiaMedicacao());
         if(anamnese.isAlergiaMedicacao()){
             anotacoesAlergias.setEnabled(true);
             anotacoesAlergias.setText(anamnese.getAnotacoesAlergiaMedicacao());
         }
-        alergiaAlimentos.setEnabled(anamnese.isAlergiaAlimento());
+        alergiaAlimentos.setSelected(anamnese.isAlergiaAlimento());
         if(anamnese.isAlergiaAlimento()){
             anotacoesAlimentos.setEnabled(true);
             anotacoesAlimentos.setText(anamnese.getAnotacoesAlergiaAlimento());
         }
-        tratamentoAtual.setEnabled(anamnese.isTratamentoMedicoAtual());
+        tratamentoAtual.setSelected(anamnese.isTratamentoMedicoAtual());
         if(anamnese.isTratamentoMedicoAtual()){
             descricaoTratamentoAtual.setEnabled(true);
             descricaoTratamentoAtual.setText(anamnese.getAnotacoesTratamento());
         }
-        marcaPasso.setEnabled(anamnese.isMarcaPasso());
-        medicacaoContinuo.setEnabled(anamnese.isMedicamentoContinuo());
+        marcaPasso.setSelected(anamnese.isMarcaPasso());
+        medicacaoContinuo.setSelected(anamnese.isMedicamentoContinuo());
         if(anamnese.isMedicamentoContinuo()){
             descricaoMedicacoes.setEnabled(true);
             descricaoMedicacoes.setText(anamnese.getAnotacoesMedicamentoContinuo());

@@ -225,10 +225,10 @@ public class AnamneseDAO {
             
             pstmt = conn.prepareStatement("UPDATE anamnese SET "
                     + "dataAtualizacao = ?, diabetes = ?, hipertensao = ?, hipotensao = ?, tabagismo = ?, epilepsia = ?, proteseDentaria = ?, "
-                    + "problemasRespitatorios = ?, anotacoesRespiratorias = ?, cirurgias  = ?,anotacoesCirurgias  = ?, "
+                    + "problemasRespitatorios = ?, anotacoesRespiratorias = ?, cirurgias  = ?, anotacoesCirurgias  = ?, "
                     + "exerciciosFisicos  = ?, frequenciaExercicios  = ?, alcool = ?, frequenciaAlcool  = ?, alergiaMedicacao = ?, "
-                    + "anotacoesAlergiasMedicamento,alergiaAlimento,alergiaAlimento,anotacoesAlergiaAlimento,"
-                    + "anotacoesAlergiaAlimento = ?, tratamentoAtual = ?, anotacoesTratamento = ?, marcaPasso  = ?, medicamentoContinuo = ?, "
+                    + "anotacoesAlergiasMedicamento = ?, alergiaAlimento = ?, anotacoesAlergiaAlimento = ?, "
+                    + "tratamentoAtual = ?, anotacoesTratamento = ?, marcaPasso  = ?, medicamentoContinuo = ?, "
                     + "anotacoesMedicamentoContinuo = ? "
                     + "WHERE id = ?", Statement.RETURN_GENERATED_KEYS);
             
