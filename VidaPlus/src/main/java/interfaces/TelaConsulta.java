@@ -7,7 +7,6 @@ package interfaces;
 import classes.Medico;
 import classes.Paciente;
 import classes.ProntuarioMedico;
-import controles.ControleProntuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,7 +18,6 @@ public class TelaConsulta extends javax.swing.JFrame {
     Paciente paciente;
     Medico medico;
     ProntuarioMedico prontuarioMedico;
-    ControleProntuario controleProntuario = new ControleProntuario();
     
     /**
      * Creates new form TelaInicialAdministrador
@@ -30,6 +28,13 @@ public class TelaConsulta extends javax.swing.JFrame {
         this.medico = medico;
         this.paciente = paciente;
         this.prontuarioMedico = prontuarioMedico;
+        
+        System.out.println("Medico -> " + this.medico);
+        System.out.println("Paciente -> " + this.paciente);
+        System.out.println("Prontuário -> " + this.prontuarioMedico);
+        
+        nomePaciente.setText(this.paciente.getNome());
+        nomePaciente.setEditable(false);
     }
 
     /**

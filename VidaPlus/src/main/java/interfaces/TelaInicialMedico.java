@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -42,6 +44,7 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         consultasDoDia = (DefaultTableModel) consultasDia.getModel();
         
         preencheConsultasdoDia();
+        centralizarTextos();
     }
     
     private void preencheConsultasdoDia(){
@@ -52,6 +55,14 @@ public class TelaInicialMedico extends javax.swing.JFrame {
                 Paciente paciente = controleMedico.buscaPacientePorID(a.getIdPaciente());
                 consultasDoDia.addRow(new Object[]{a.getHora(),paciente.getNome()});
             }
+        }
+    }
+    
+    private void centralizarTextos(){
+        DefaultTableCellRenderer centralizar = new DefaultTableCellRenderer();
+        centralizar.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < consultasDia.getColumnCount(); i++) {
+            consultasDia.getColumnModel().getColumn(i).setCellRenderer(centralizar);
         }
     }
 

@@ -64,7 +64,6 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
         for (int i = 0; i < consultasCriadas.getColumnCount(); i++) {
             consultasCriadas.getColumnModel().getColumn(i).setCellRenderer(centralizar);
         }
-
     }
     
 
