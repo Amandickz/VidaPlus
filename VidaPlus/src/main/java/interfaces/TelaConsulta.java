@@ -9,7 +9,11 @@ import classes.Consulta;
 import classes.Medico;
 import classes.Paciente;
 import classes.ProntuarioMedico;
+import controles.ControleAgenda;
+import controles.ControleConsulta;
+import controles.ControleProntuario;
 import enums.Servico;
+import enums.ServicoProntuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +26,9 @@ public class TelaConsulta extends javax.swing.JFrame {
     Medico medico;
     ProntuarioMedico prontuarioMedico;
     Agenda agenda;
+    ControleConsulta controleConsulta = new ControleConsulta();
+    ControleAgenda controleAgenda = new ControleAgenda();
+    ControleProntuario controleProntuario = new ControleProntuario();
     
     /**
      * Creates new form TelaInicialAdministrador
@@ -361,20 +368,50 @@ public class TelaConsulta extends javax.swing.JFrame {
         String prescricao = prescricaoMedica.getText();
         int situacao = listaSituacao.getSelectedIndex();
         
-        Consulta novaConsulta = new Consulta(prontuarioMedico.getId(), queixa, sintomasPaciente, pa, fc, temp, diagnostico, prescricao);
+        Consulta novaConsulta = new Consulta(agenda.getId(), prontuarioMedico.getId(),
+                queixa, sintomasPaciente, pa, fc, temp, diagnostico, prescricao);
         
         if(!observacoesMedico.getText().isEmpty()){
             novaConsulta.setObservacoes(observacoesMedico.getText());
         }
         
-        switch (situacao) {
-            case 0 -> {
-                //Salvar Consulta
-                //Atualizar status da Agenda
-                //Atualizar Prontuário
+        //Salvar Consulta
+        boolean confirmacao = controleConsulta.salvarConsulta(novaConsulta);
+        
+        if(confirmacao){
+            //Mudo Status na Agenda para Consulta Realizada
+            confirmacao = controleAgenda.confirmarRealizacaoConsulta(agenda.getId());
+            if(confirmacao){
+                switch (situacao) {
+                    case 0 -> {
+                        //Atualizar Prontuário para CONSULTA REALIZADA - ALTA
+                        prontuarioMedico.setDataAtualizacao(agenda.getData());
+                        prontuarioMedico.setServico(ServicoProntuario.DOIS.getServico());
+                        System.out.println("PRONTUARIO ATUALIZADO PARA -> " + prontuarioMedico);
+                        
+                        confirmacao = controleProntuario.atualizacaoPronturario(prontuarioMedico);
+                        
+                        if(confirmacao){
+                            JOptionPane.showMessageDialog(null, "Consulta Finalizada e arquivos salvos!\n"
+                                    + "Obrigado!");
+                            new TelaInicialMedico(medico).setVisible(true);
+                            dispose();
+                        }
+                    }
+                    default -> throw new AssertionError();
+                }
             }
-            default -> throw new AssertionError();
         }
+        
+        /*
+        UM("CRIAÇÃO/ATUALIZAÇÃO ANAMNESE"),
+        DOIS("CONSULTA REALIZADA - ALTA"),
+        TRES("CONSULTA REALIZADA - ENCAMINHADO INTERNAÇÃO"),
+        QUATRO("INTERNAÇÃO"),
+        CINCO("ALTA DA INTERNAÇÃO"),
+        SEIS("REALIZAÇÃO DE PROCEDIMENTO"),
+        SETE("APLICAÇÃO DE MEDICAMENTO");
+        */
     }//GEN-LAST:event_concluirActionPerformed
 
     private void sairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sairMouseClicked

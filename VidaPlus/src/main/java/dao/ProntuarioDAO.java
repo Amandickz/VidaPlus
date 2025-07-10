@@ -46,7 +46,7 @@ public class ProntuarioDAO {
             }
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Cadastrar dados!");
+            System.out.println("!!!!!Erro ao CRIAR Prontuário do Paciente!!!!!");
         } finally {
             DB.closeStatement(pstmt);
             DB.closeConnection();
@@ -81,7 +81,7 @@ public class ProntuarioDAO {
             }
             
         } catch (SQLException e){
-            System.err.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao BUSCAR Prontuário do Paciente por ID!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -112,7 +112,7 @@ public class ProntuarioDAO {
             }
             
         } catch (SQLException e){
-            System.err.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao ATUALIZAR Prontuário do Paciente!!!!!");
         } finally {
             DB.closeStatement(pstmt);
             DB.closeConnection();

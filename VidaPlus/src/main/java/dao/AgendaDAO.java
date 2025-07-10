@@ -270,7 +270,7 @@ public class AgendaDAO {
             }
             
         } catch (SQLException e){
-            System.out.println("!!!!!Erro ao RECUPERAR a Consulta do Paciente!!!!!");
+            System.out.println("!!!!!Erro ao RECUPERAR a Consulta Marcada do Paciente!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -278,6 +278,36 @@ public class AgendaDAO {
         }
         
         return null;
+    }
+    
+    public boolean confirmarRealizacaoConsulta(int idAgenda){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            pstmt = conn.prepareStatement("update agenda set status = 2"
+                    + " where id = ?",
+                    Statement.RETURN_GENERATED_KEYS);
+            
+            pstmt.setInt(1 , idAgenda);
+            
+            int rollsAffected = pstmt.executeUpdate();
+
+            if(rollsAffected > 0){
+                return true;
+            }
+            
+        } catch (SQLException e){
+            System.out.println("!!!!!Erro ao ALTERAR REALIZAÇÃO da Consulta na Agenda!!!!!");
+        } finally {
+            DB.closeStatement(pstmt);
+            DB.closeConnection();
+        }
+        
+        return false;
     }
 }
 

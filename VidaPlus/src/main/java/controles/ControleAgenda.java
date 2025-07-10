@@ -46,6 +46,11 @@ public class ControleAgenda {
         return agenda;
     }
     
+    public boolean confirmarRealizacaoConsulta(int idAgenda){
+        boolean confirmacao = agendaDAO.confirmarRealizacaoConsulta(idAgenda);
+        return confirmacao;
+    }
+    
     public ArrayList<Agenda> gerarNovasConsultas(String data, String horaInicial, String horaFinal, IntervaloConsultas intervalo){
         ArrayList<Agenda> listaHorarios = new ArrayList<>();
         int tempo = 0, cont = 0;
