@@ -65,7 +65,7 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("Geral");
+        jMenu1.setText("Sair");
 
         logout.setText("Logout");
         logout.addActionListener(new java.awt.event.ActionListener() {

@@ -87,7 +87,9 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         consultasDia = new javax.swing.JTable();
         jMenuBar2 = new javax.swing.JMenuBar();
-        sair = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        logout = new javax.swing.JMenuItem();
+        sair = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         agendaCompleta = new javax.swing.JMenuItem();
         addNovasDatas = new javax.swing.JMenuItem();
@@ -145,6 +147,26 @@ public class TelaInicialMedico extends javax.swing.JFrame {
             consultasDia.getColumnModel().getColumn(1).setHeaderValue("Paciente");
         }
 
+        jMenu3.setText("Sair");
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
+
+        logout.setText("Logout");
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        jMenu3.add(logout);
+
         sair.setText("Sair");
         sair.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -156,7 +178,9 @@ public class TelaInicialMedico extends javax.swing.JFrame {
                 sairActionPerformed(evt);
             }
         });
-        jMenuBar2.add(sair);
+        jMenu3.add(sair);
+
+        jMenuBar2.add(jMenu3);
 
         jMenu1.setText("Minha Agenda");
 
@@ -233,15 +257,13 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_sairActionPerformed
+    }//GEN-LAST:event_jMenu3ActionPerformed
 
-    private void sairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sairMouseClicked
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
         // TODO add your handling code here:
-        System.exit(0);
-    }//GEN-LAST:event_sairMouseClicked
+    }//GEN-LAST:event_jMenu3MouseClicked
 
     private void addNovasDatasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNovasDatasActionPerformed
         // TODO add your handling code here:
@@ -278,6 +300,22 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         System.out.println(hora + " -> " + nomePaciente);
     }//GEN-LAST:event_consultasDiaMouseClicked
 
+    private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_sairActionPerformed
+
+    private void sairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sairMouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_sairMouseClicked
+
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        // TODO add your handling code here:
+        new TelaInicial().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_logoutActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addNovasDatas;
@@ -288,12 +326,14 @@ public class TelaInicialMedico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JMenuItem logout;
     private javax.swing.JLabel nomeDr;
-    private javax.swing.JMenu sair;
+    private javax.swing.JMenuItem sair;
     private javax.swing.JMenuItem solicitacoesInternacao;
     // End of variables declaration//GEN-END:variables
 }
