@@ -15,42 +15,37 @@ public class Internacao {
     private int idMedico;
     private int idLeito;
     private int idProntuario;
-    private boolean status;
+    private boolean aguardandoAprovacao;
+    private boolean statusAlta;
     private String observacoes;
 
-    public Internacao(int idConsulta, int idMedico, int idLeito, int idProntuario, boolean status) {
+    public Internacao(int idConsulta, int idMedico, int idProntuario, boolean aguardandoAprovacao, boolean statusAlta, String observacoes) {
         this.idConsulta = idConsulta;
         this.idMedico = idMedico;
-        this.idLeito = idLeito;
         this.idProntuario = idProntuario;
-        this.status = status;
-    }
-
-    public Internacao(int idConsulta, int idMedico, int idLeito, int idProntuario, boolean status, String observacoes) {
-        this.idConsulta = idConsulta;
-        this.idMedico = idMedico;
-        this.idLeito = idLeito;
-        this.idProntuario = idProntuario;
-        this.status = status;
+        this.aguardandoAprovacao = aguardandoAprovacao;
+        this.statusAlta = statusAlta;
         this.observacoes = observacoes;
     }
 
-    public Internacao(int id, int idConsulta, int idMedico, int idLeito, int idProntuario, boolean status) {
+    public Internacao(int id, int idConsulta, int idMedico, int idLeito, int idProntuario, boolean aguardandoAprovacao, boolean statusAlta, String observacoes) {
         this.id = id;
         this.idConsulta = idConsulta;
         this.idMedico = idMedico;
         this.idLeito = idLeito;
         this.idProntuario = idProntuario;
-        this.status = status;
+        this.aguardandoAprovacao = aguardandoAprovacao;
+        this.statusAlta = statusAlta;
+        this.observacoes = observacoes;
     }
 
-    public Internacao(int id, int idConsulta, int idMedico, int idLeito, int idProntuario, boolean status, String observacoes) {
+    public Internacao(int id, int idConsulta, int idMedico, int idProntuario, boolean aguardandoAprovacao, boolean statusAlta, String observacoes) {
         this.id = id;
         this.idConsulta = idConsulta;
         this.idMedico = idMedico;
-        this.idLeito = idLeito;
         this.idProntuario = idProntuario;
-        this.status = status;
+        this.aguardandoAprovacao = aguardandoAprovacao;
+        this.statusAlta = statusAlta;
         this.observacoes = observacoes;
     }
 
@@ -94,12 +89,20 @@ public class Internacao {
         this.idProntuario = idProntuario;
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isAguardandoAprovacao() {
+        return aguardandoAprovacao;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setAguardandoAprovacao(boolean aguardandoAprovacao) {
+        this.aguardandoAprovacao = aguardandoAprovacao;
+    }
+
+    public boolean isStatusAlta() {
+        return statusAlta;
+    }
+
+    public void setStatusAlta(boolean statusAlta) {
+        this.statusAlta = statusAlta;
     }
 
     public String getObservacoes() {
@@ -112,7 +115,9 @@ public class Internacao {
 
     @Override
     public String toString() {
-        return "Internacao{" + "id=" + id + ", idConsulta=" + idConsulta + ", idMedico=" + idMedico + ", idLeito=" + idLeito + ", idProntuario=" + idProntuario + ", status=" + status + ", observacoes=" + observacoes + '}';
+        return "Internacao{" + "id=" + id + ", idConsulta=" + idConsulta + ", idMedico=" + idMedico + ", idLeito=" + idLeito + ", idProntuario=" + idProntuario + ", aguardandoAprovacao=" + aguardandoAprovacao + ", statusAlta=" + statusAlta + ", observacoes=" + observacoes + '}';
     }
+    
+    
     
 }

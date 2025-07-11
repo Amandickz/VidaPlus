@@ -91,6 +91,8 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         agendaCompleta = new javax.swing.JMenuItem();
         addNovasDatas = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        solicitacoesInternacao = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -175,6 +177,13 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         jMenu1.add(addNovasDatas);
 
         jMenuBar2.add(jMenu1);
+
+        jMenu2.setText("Internações");
+
+        solicitacoesInternacao.setText("Solicitações");
+        jMenu2.add(solicitacoesInternacao);
+
+        jMenuBar2.add(jMenu2);
 
         setJMenuBar(jMenuBar2);
 
@@ -278,11 +287,13 @@ public class TelaInicialMedico extends javax.swing.JFrame {
     private javax.swing.JButton iniciarConsulta;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel nomeDr;
     private javax.swing.JMenu sair;
+    private javax.swing.JMenuItem solicitacoesInternacao;
     // End of variables declaration//GEN-END:variables
 }
