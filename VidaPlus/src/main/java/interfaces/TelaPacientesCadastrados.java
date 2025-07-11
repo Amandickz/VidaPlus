@@ -45,6 +45,10 @@ public class TelaPacientesCadastrados extends javax.swing.JFrame {
                 modeloLista.addRow(new Object[]{
                 p.getNome(), p.getCpf(), p.getTelefone(), p.getEmail(),
                 p.getDataNascimento(), "Feminino"});
+            } else {
+                modeloLista.addRow(new Object[]{
+                p.getNome(), p.getCpf(), p.getTelefone(), p.getEmail(),
+                p.getDataNascimento(), "Masculino"});
             }
         }
     }

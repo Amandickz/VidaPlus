@@ -68,16 +68,15 @@ public class TelaAnamnesePaciente extends javax.swing.JFrame {
             if(paciente.getSexo() == 0){
                 this.anamneseFeminina = controleProntuario.buscaAnamneseFeminina(anamnese);
                 configuraCamposAnamnesefeminina();
-            } else {
-                if(paciente.getSexo() == 1){
+            } else if(paciente.getSexo() == 1){
                     listaCiclo.setEnabled(false);
                     usoAnticoncepcional.setEnabled(false);
                     listaAnticoncepcional.setEnabled(false);
-                }
-                JOptionPane.showMessageDialog(null, "Primeira consulta do Paciente!\n"
-                        + "Obrigatório preenchimento da Anamnese.");
-                primeiraConsulta = true;
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Primeira consulta do Paciente!\n"
+                    + "Obrigatório preenchimento da Anamnese.");
+            primeiraConsulta = true;
         }
     }
     

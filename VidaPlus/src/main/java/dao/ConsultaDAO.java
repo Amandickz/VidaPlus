@@ -27,10 +27,19 @@ public class ConsultaDAO {
             pstmt = conn.prepareStatement("INSERT INTO consulta" +
                     "(idAgenda, idProntuario, queixa, sintomas, pressao, frequenciaCardiaca,"
                     + " temperatura, diagnostico, prescricao, observacoes)" +
-                    " VALUES(?,?,?,?,?,?,?)",
+                    " VALUES(?,?,?,?,?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             
-            
+            pstmt.setInt(1, consulta.getIdAgenda());
+            pstmt.setInt(2, consulta.getIdProntuario());
+            pstmt.setString(3, consulta.getQueixa());
+            pstmt.setString(4, consulta.getSintomas());
+            pstmt.setInt(5, consulta.getPressao());
+            pstmt.setInt(6, consulta.getFrequenciaCardiaca());
+            pstmt.setInt(7, consulta.getTemperatura());
+            pstmt.setString(8, consulta.getDiagnostico());
+            pstmt.setString(9, consulta.getPrescricao());
+            pstmt.setString(10, consulta.getObservacoes());
             
             int rollsAffected = pstmt.executeUpdate();
 
