@@ -12,7 +12,7 @@ public enum Servico {
     
     C("CONCLUIR CONSULTA"),
     I("ENCAMINHAR PARA INTERNAÇÃO"),
-    E("EM TRATAMENTO"),
+    E("INTERNADO - EM TRATAMENTO"),
     R("RETORNO EM 15 DIAS"),
     A("ALTA DA INTERNAÇÃO");
     

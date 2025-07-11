@@ -389,7 +389,7 @@ public class TelaConsulta extends javax.swing.JFrame {
             if(confirmacao){
                 switch (situacao) {
                     case 0 -> {
-                        //Atualizar Prontuário para CONSULTA REALIZADA - ALTA
+                        //Atualizar Prontuário para CONCLUIR CONSULTA
                         prontuarioMedico.setDataAtualizacao(agenda.getData());
                         prontuarioMedico.setServico(ServicoProntuario.DOIS.getServico());
                         System.out.println("PRONTUARIO ATUALIZADO PARA -> " + prontuarioMedico);
@@ -403,19 +403,21 @@ public class TelaConsulta extends javax.swing.JFrame {
                             dispose();
                         }
                     }
+                    case 1 -> {
+                        //Atualizar Prontuário para ENCAMINHAR PARA INTERNAÇÃO
+                        
+                    }
                     default -> throw new AssertionError();
                 }
             }
         }
         
         /*
-        UM("CRIAÇÃO/ATUALIZAÇÃO ANAMNESE"),
-        DOIS("CONSULTA REALIZADA - ALTA"),
-        TRES("CONSULTA REALIZADA - ENCAMINHADO INTERNAÇÃO"),
-        QUATRO("INTERNAÇÃO"),
-        CINCO("ALTA DA INTERNAÇÃO"),
-        SEIS("REALIZAÇÃO DE PROCEDIMENTO"),
-        SETE("APLICAÇÃO DE MEDICAMENTO");
+        C("CONCLUIR CONSULTA"),
+        I("ENCAMINHAR PARA INTERNAÇÃO"),
+        E("INTERNADO - EM TRATAMENTO"),
+        R("RETORNO EM 15 DIAS"),
+        A("ALTA DA INTERNAÇÃO");
         */
     }//GEN-LAST:event_concluirActionPerformed
 

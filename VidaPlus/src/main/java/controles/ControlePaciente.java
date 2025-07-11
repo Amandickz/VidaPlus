@@ -28,6 +28,11 @@ public class ControlePaciente {
         this.profissionalSaudeDAO = new ProfissionalSaudeDAO();
     }
     
+    public boolean cadastrarPaciente(Paciente paciente, int idAdministracao){
+        boolean confirmacao = pacienteDAO.cadastrarPaciente(paciente, idAdministracao);
+        return confirmacao;
+    }
+    
     public ArrayList<Paciente> listaPacientes(int idAdministracao){
         ArrayList<Paciente> pacientes = pacienteDAO.retornaListaPacientes(idAdministracao);
         return pacientes;
