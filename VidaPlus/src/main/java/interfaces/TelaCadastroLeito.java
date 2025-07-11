@@ -11,6 +11,8 @@ import enums.DisponibilidadeLeito;
 import enums.TipoLeito;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -37,6 +39,7 @@ public class TelaCadastroLeito extends javax.swing.JFrame {
         preencheTipoLeito();
         preencheTipoDisponibilidade();
         preencheTabela();
+        centralizarTextos();
     }
     
     private void preencheTipoLeito(){
@@ -54,17 +57,66 @@ public class TelaCadastroLeito extends javax.swing.JFrame {
     }
     
     private void preencheTabela(){
+        String tipoLeito;
         tabelaLeito.setRowCount(0);
         ArrayList<Leito> todosLeitos = controleLeito.recuperaLeitos(adm.getId());
         if(todosLeitos != null){
             for(Leito l : todosLeitos){
-                tabelaLeito.addRow(new Object[]{
-                l.getNumero(),
-                l.getTipoLeito(),
-                l.getValor(),
-                l.getCapacidade(),
-                l.getStatus()});
+                switch (l.getTipoLeito()) {
+                    case 0 -> {
+                        tipoLeito = TipoLeito.UM.getTipoLeito();
+                    }
+                    case 1 -> {
+                        tipoLeito = TipoLeito.DOIS.getTipoLeito();
+                    }
+                    case 2 -> {
+                        tipoLeito = TipoLeito.TRES.getTipoLeito();
+                    }
+                    case 3 -> {
+                        tipoLeito = TipoLeito.QUATRO.getTipoLeito();
+                    }
+                    case 4 -> {
+                        tipoLeito = TipoLeito.CINCO.getTipoLeito();
+                    }
+                    case 5 -> {
+                        tipoLeito = TipoLeito.SEIS.getTipoLeito();
+                    }
+                    case 6 -> {
+                        tipoLeito = TipoLeito.SETE.getTipoLeito();
+                    }
+                    case 7 -> {
+                        tipoLeito = TipoLeito.OITO.getTipoLeito();
+                    }
+                    case 8 -> {
+                        tipoLeito = TipoLeito.NOVE.getTipoLeito();
+                    }
+                    default -> tipoLeito = "OUTROS";
+                }
+                
+                if(l.getStatus() == 0){
+                    tabelaLeito.addRow(new Object[]{
+                        l.getNumero(),
+                        tipoLeito,
+                        "R$ " + l.getValor(),
+                        l.getCapacidade(),
+                        "Disponível"});
+                } else {
+                    tabelaLeito.addRow(new Object[]{
+                        l.getNumero(),
+                        tipoLeito,
+                        "R$ " + l.getValor(),
+                        l.getCapacidade(),
+                        "Indisponível"});
+                }
             }
+        }
+    }
+    
+    private void centralizarTextos(){
+        DefaultTableCellRenderer centralizar = new DefaultTableCellRenderer();
+        centralizar.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < leitosCadastrados.getColumnCount(); i++) {
+            leitosCadastrados.getColumnModel().getColumn(i).setCellRenderer(centralizar);
         }
     }
     

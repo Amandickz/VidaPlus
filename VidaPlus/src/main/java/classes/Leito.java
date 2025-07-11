@@ -16,6 +16,7 @@ public class Leito {
     private double valor;
     private int status;
     private int capacidade;
+    private int internados;
 
     public Leito(int tipoLeito, int numero, double valor, int status, int capacidade) {
         this.tipoLeito = tipoLeito;
@@ -82,9 +83,17 @@ public class Leito {
         this.capacidade = capacidade;
     }
 
+    public int getInternados() {
+        return internados;
+    }
+
+    public void setInternados(int internados) {
+        this.internados = internados;
+    }
+
     @Override
     public String toString() {
-        return "Leito{" + "id=" + id + ", tipoLeito=" + tipoLeito + ", numero=" + numero + ", valor=" + valor + ", status=" + status + ", capacidade=" + capacidade + '}';
+        return "Leito{" + "id=" + id + ", tipoLeito=" + tipoLeito + ", numero=" + numero + ", valor=" + valor + ", status=" + status + ", capacidade=" + capacidade + ", internados=" + internados + '}';
     }
     
 }
