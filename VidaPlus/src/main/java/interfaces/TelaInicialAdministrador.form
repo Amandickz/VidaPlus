@@ -78,10 +78,13 @@
                 <Property name="text" type="java.lang.String" value="Interna&#xe7;&#xf5;es"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="verificarInternacoes">
+                <MenuItem class="javax.swing.JMenuItem" name="solicitacoesInternacao">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Verificar Interna&#xe7;&#xf5;es"/>
+                    <Property name="text" type="java.lang.String" value="Solicita&#xe7;&#xf5;es em Aguardo"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="solicitacoesInternacaoActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>

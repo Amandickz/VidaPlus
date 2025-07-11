@@ -6,6 +6,7 @@ package controles;
 
 import classes.Internacao;
 import dao.InternacaoDAO;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,6 +23,11 @@ public class ControleInternacao {
     public boolean solicitarInternacao(Internacao internacao){
         boolean confirmacao = internacaoDAO.solicitarInternacao(internacao);
         return confirmacao;
+    }
+    
+    public ArrayList<Internacao> retornaSolicitacoesInternacao(){
+        ArrayList<Internacao> internacoes = internacaoDAO.retornaSolicitacoesInternacao();
+        return internacoes;
     }
     
 }

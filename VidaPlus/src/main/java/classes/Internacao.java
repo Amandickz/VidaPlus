@@ -27,11 +27,10 @@ public class Internacao {
         this.statusAlta = statusAlta;
     }
 
-    public Internacao(int id, int idConsulta, int idMedico, int idLeito, int idProntuario, boolean aguardandoAprovacao, boolean statusAlta) {
+    public Internacao(int id, int idConsulta, int idMedico, int idProntuario, boolean aguardandoAprovacao, boolean statusAlta) {
         this.id = id;
         this.idConsulta = idConsulta;
         this.idMedico = idMedico;
-        this.idLeito = idLeito;
         this.idProntuario = idProntuario;
         this.aguardandoAprovacao = aguardandoAprovacao;
         this.statusAlta = statusAlta;
