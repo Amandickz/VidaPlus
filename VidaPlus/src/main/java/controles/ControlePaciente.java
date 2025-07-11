@@ -33,6 +33,11 @@ public class ControlePaciente {
         return confirmacao;
     }
     
+    public Paciente buscaPacientePorID(int id){
+        Paciente paciente = pacienteDAO.buscaPacientePorID(id);
+        return paciente;
+    }
+    
     public ArrayList<Paciente> listaPacientes(int idAdministracao){
         ArrayList<Paciente> pacientes = pacienteDAO.retornaListaPacientes(idAdministracao);
         return pacientes;

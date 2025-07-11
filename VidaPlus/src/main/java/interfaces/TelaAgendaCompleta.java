@@ -6,7 +6,9 @@ package interfaces;
 
 import classes.Agenda;
 import classes.Medico;
+import classes.Paciente;
 import controles.ControleAgenda;
+import controles.ControlePaciente;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class TelaAgendaCompleta extends javax.swing.JFrame {
     String dataConvertida;
     Medico medico;
     ControleAgenda controleAgenda = new ControleAgenda();
+    ControlePaciente controlePaciente = new ControlePaciente();
     DefaultTableModel agenda;
     
     /**
@@ -54,6 +57,11 @@ public class TelaAgendaCompleta extends javax.swing.JFrame {
                     agenda.addRow(new Object[]{
                         a.getData(), a.getHora(),
                         "Disponível", ""});
+                } else {
+                    Paciente paciente = controlePaciente.buscaPacientePorID(a.getIdPaciente());
+                    agenda.addRow(new Object[]{
+                        a.getData(), a.getHora(),
+                        "Agendado", paciente.getNome()});
                 }
             }
         }

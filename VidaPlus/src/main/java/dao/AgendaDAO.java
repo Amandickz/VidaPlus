@@ -73,8 +73,10 @@ public class AgendaDAO {
                 String data = rs.getString("data");
                 String hora = rs.getString("hora");
                 int status = rs.getInt("status");
+                int idPaciente = rs.getInt("idPaciente");
                 
                 Agenda agenda = new Agenda(id, data, hora, status);
+                agenda.setIdPaciente(idPaciente);
                 agendacompleta.add(agenda);
             }
             

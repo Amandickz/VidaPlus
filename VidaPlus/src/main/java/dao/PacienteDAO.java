@@ -148,7 +148,7 @@ public class PacienteDAO {
             
             stmt = conn.createStatement();
             
-            rs = stmt.executeQuery("select * from paciente where id = '" + id + "'");
+            rs = stmt.executeQuery("select * from paciente where id = " + id);
             
             System.out.println("\n----->Paciente Recuperado pelo ID digitado:");
             
