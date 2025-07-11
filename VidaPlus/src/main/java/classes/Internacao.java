@@ -19,16 +19,15 @@ public class Internacao {
     private boolean statusAlta;
     private String observacoes;
 
-    public Internacao(int idConsulta, int idMedico, int idProntuario, boolean aguardandoAprovacao, boolean statusAlta, String observacoes) {
+    public Internacao(int idConsulta, int idMedico, int idProntuario, boolean aguardandoAprovacao, boolean statusAlta) {
         this.idConsulta = idConsulta;
         this.idMedico = idMedico;
         this.idProntuario = idProntuario;
         this.aguardandoAprovacao = aguardandoAprovacao;
         this.statusAlta = statusAlta;
-        this.observacoes = observacoes;
     }
 
-    public Internacao(int id, int idConsulta, int idMedico, int idLeito, int idProntuario, boolean aguardandoAprovacao, boolean statusAlta, String observacoes) {
+    public Internacao(int id, int idConsulta, int idMedico, int idLeito, int idProntuario, boolean aguardandoAprovacao, boolean statusAlta) {
         this.id = id;
         this.idConsulta = idConsulta;
         this.idMedico = idMedico;
@@ -36,17 +35,6 @@ public class Internacao {
         this.idProntuario = idProntuario;
         this.aguardandoAprovacao = aguardandoAprovacao;
         this.statusAlta = statusAlta;
-        this.observacoes = observacoes;
-    }
-
-    public Internacao(int id, int idConsulta, int idMedico, int idProntuario, boolean aguardandoAprovacao, boolean statusAlta, String observacoes) {
-        this.id = id;
-        this.idConsulta = idConsulta;
-        this.idMedico = idMedico;
-        this.idProntuario = idProntuario;
-        this.aguardandoAprovacao = aguardandoAprovacao;
-        this.statusAlta = statusAlta;
-        this.observacoes = observacoes;
     }
 
     public int getId() {

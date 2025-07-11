@@ -44,7 +44,7 @@ public class InternacaoDAO {
             }
             
         } catch (SQLException e){
-            System.out.println("!!!!!Erro ao Solicitar a Internação!!!!!");
+            System.out.println("!!!!!Erro ao SOLICITAR a Internação!!!!!");
         } finally {
             DB.closeStatement(pstmt);
             DB.closeConnection();

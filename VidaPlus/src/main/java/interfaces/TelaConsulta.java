@@ -6,11 +6,13 @@ package interfaces;
 
 import classes.Agenda;
 import classes.Consulta;
+import classes.Internacao;
 import classes.Medico;
 import classes.Paciente;
 import classes.ProntuarioMedico;
 import controles.ControleAgenda;
 import controles.ControleConsulta;
+import controles.ControleInternacao;
 import controles.ControleProntuario;
 import enums.Servico;
 import enums.ServicoProntuario;
@@ -29,6 +31,7 @@ public class TelaConsulta extends javax.swing.JFrame {
     ControleConsulta controleConsulta = new ControleConsulta();
     ControleAgenda controleAgenda = new ControleAgenda();
     ControleProntuario controleProntuario = new ControleProntuario();
+    ControleInternacao controleInternacao = new ControleInternacao();
     
     /**
      * Creates new form TelaInicialAdministrador
@@ -342,7 +345,7 @@ public class TelaConsulta extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(concluir)
                     .addComponent(voltar))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -401,11 +404,24 @@ public class TelaConsulta extends javax.swing.JFrame {
                                     + "Obrigado!");
                             new TelaInicialMedico(medico).setVisible(true);
                             dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Ops! Algo deu errado!");
                         }
                     }
                     case 1 -> {
                         //Atualizar Prontuário para ENCAMINHAR PARA INTERNAÇÃO
+                        Internacao internacao = new Internacao(agenda.getId(), medico.getId(), prontuarioMedico.getId(), true, false);
+                        String observacoesAdicionais = JOptionPane.showInputDialog("Alguma Observação para a internação? \nColoque abaixo:");
+                        internacao.setObservacoes(observacoesAdicionais);
+                        System.out.println("DADOS DE INTERNAÇÃO -> " + internacao);
                         
+                        confirmacao = controleInternacao.solicitarInternacao(internacao);
+                        
+                        if(confirmacao){
+                            JOptionPane.showMessageDialog(null, "Solicitação de Internação Realizada!");
+                            new TelaInicialMedico(medico).setVisible(true);
+                            dispose();
+                        }
                     }
                     default -> throw new AssertionError();
                 }
