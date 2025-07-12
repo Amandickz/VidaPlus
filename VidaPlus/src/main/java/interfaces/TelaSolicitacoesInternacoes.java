@@ -7,7 +7,6 @@ package interfaces;
 import classes.Administracao;
 import classes.Internacao;
 import classes.Leito;
-import classes.Medico;
 import classes.Paciente;
 import classes.ProfissionalSaude;
 import classes.ProntuarioMedico;
@@ -16,9 +15,12 @@ import controles.ControleLeito;
 import controles.ControlePaciente;
 import controles.ControleProfissional;
 import controles.ControleProntuario;
+import enums.Servico;
 import enums.TipoLeito;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
@@ -34,6 +36,7 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
      * Creates new form TelaAdministrador
      */
     
+    String dataConvertida;
     Administracao adm;
     DefaultTableModel todasSolicitacoes;
     ArrayList<Leito> leitosDisponiveis;
@@ -48,6 +51,10 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.adm = adm;
+        
+        LocalDate hoje = LocalDate.now();
+        DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        dataConvertida = hoje.format(formataData);
         
         System.out.println("\n----->Administrador: " + adm);
         
@@ -603,13 +610,63 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
         System.out.println("Leito Selecionado -> " + leito);
         
         //Atualizar Internação - colocar Leito e alterar aguardandoAprovação para false
-        /*Atualizar Leito - verificar quantidades de internados com a capacidade,
-        caso seja igual, mudar o status para 3,
-        se for menor, acrescentar a quantidade de internados,
-        caso o leito seja somente para 1 pessoa, mudar o status para 3 e a quantidade de internados*/
-        /*Atualizar Prontuário - atualizar a dataAtualização e serviço para Servico.E*/
+        internacao.setIdLeito(leito.getId());
+        internacao.setAguardandoAprovacao(false);
+        System.out.println("Internação Atualizada -> " + internacao);
+        boolean confirmacao = controleInternacao.confirmaInternacao(internacao);
+        
+        if(confirmacao){
+            /*Atualizar Leito - verificar quantidades de internados com a capacidade,
+            caso seja igual, mudar o status para 3,
+            se for menor, acrescentar a quantidade de internados,
+            caso o leito seja somente para 1 pessoa, mudar o status para 3 e a quantidade de internados*/
+            
+            int internados = leito.getInternados() + 1;
+            if(leito.getCapacidade() == internados){
+                leito.setInternados(internados);
+                leito.setStatus(3);
+            } else {
+                leito.setInternados(internados);
+            }
+            
+            System.out.println("Leito Atualizado -> " + leito);
+            
+            confirmacao = controleLeito.atualizarLeito(leito);
+            
+            if(confirmacao){
+                /*Atualizar Prontuário - atualizar a dataAtualização e serviço para Servico.E*/
+                prontuario.setDataAtualizacao(dataConvertida);
+                prontuario.setServico(Servico.E.getSituacaoConsulta());
+                
+                System.out.println("Prontuário Atualizado -> " + prontuario);
+                
+                confirmacao = controleProntuario.atualizacaoPronturario(prontuario);
+                
+                if(confirmacao){
+                    JOptionPane.showMessageDialog(null, "Internação confirmada.");
+                    atualizaTabela();
+                    centralizarTextos();
+                    desativaEdicaoCampos();
+                    preencheListaLeitos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ops! Algo deu errado ao alterar Prontuário!");
+                }
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Ops! Algo deu errado ao alterar Leito!");
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Ops! Algo deu ao confirmar Internação!");
+        }
         
         
+/*
+UM("DISPONÍVEL") -> status = 0,
+DOIS("INDISPONÍVEL") -> status = 1,
+TRES("EM MANUTENÇÃO") -> status = 2,
+QUATRO("COM PACIENTE") -> status = 3;
+*/
     }//GEN-LAST:event_confirmarActionPerformed
 
 

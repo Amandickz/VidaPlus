@@ -30,4 +30,9 @@ public class ControleInternacao {
         return internacoes;
     }
     
+    public boolean confirmaInternacao(Internacao internacao){
+        boolean confirmacao = internacaoDAO.confirmaInternacao(internacao);
+        return confirmacao;
+    }
+    
 }

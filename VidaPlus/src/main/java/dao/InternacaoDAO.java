@@ -98,4 +98,34 @@ public class InternacaoDAO {
         return null;
     }
     
+    public boolean confirmaInternacao(Internacao internacao){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            pstmt = conn.prepareStatement("UPDATE internacao SET idLeito = ?, "
+                    + "aguardandoAprovacao = ? WHERE id = ?");
+            
+            pstmt.setInt(1, internacao.getIdLeito());
+            pstmt.setBoolean(2, internacao.isAguardandoAprovacao());
+            pstmt.setInt(3, internacao.getId());
+            
+            int rollsAffected = pstmt.executeUpdate();
+
+            if(rollsAffected > 0){
+                return true;
+            }
+            
+        } catch (SQLException e){
+            System.out.println("!!!!!Erro ao ATUALIZAR Prontuário do Paciente!!!!!");
+        } finally {
+            DB.closeStatement(pstmt);
+            DB.closeConnection();
+        }
+        return false;
+    }
+    
 }

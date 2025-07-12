@@ -187,4 +187,34 @@ public class LeitoDAO {
         return null;
     }
     
+    public boolean atualizarLeito(Leito leito){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            pstmt = conn.prepareStatement("UPDATE leito SET status = ?, "
+                    + "internados = ? WHERE id = ?");
+            
+            pstmt.setInt(1, leito.getStatus());
+            pstmt.setInt(2, leito.getInternados());
+            pstmt.setInt(3, leito.getId());
+            
+            int rollsAffected = pstmt.executeUpdate();
+
+            if(rollsAffected > 0){
+                return true;
+            }
+            
+        } catch (SQLException e){
+            System.out.println("!!!!!Erro ao ATUALIZAR Prontuário do Paciente!!!!!");
+        } finally {
+            DB.closeStatement(pstmt);
+            DB.closeConnection();
+        }
+        return false;
+    }
+    
 }

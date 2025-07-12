@@ -40,4 +40,9 @@ public class ControleLeito {
         return leitos;
     }
     
+    public boolean atualizarLeito(Leito leito){
+        boolean confirmacao = leitoDAO.atualizarLeito(leito);
+        return confirmacao;
+    }
+    
 }
