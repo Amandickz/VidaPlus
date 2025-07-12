@@ -16,7 +16,10 @@ import controles.ControleLeito;
 import controles.ControlePaciente;
 import controles.ControleProfissional;
 import controles.ControleProntuario;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -53,23 +56,36 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
         centralizarTextos();
         desativaEdicaoCampos();
         preencheListaLeitos();
+        
+        listaLeitos.addItemListener(new ItemListener(){
+            public void itemStateChanged(ItemEvent e){
+                if(e.getStateChange() == ItemEvent.SELECTED)
+                    System.out.println("Selecionado -> " + e.getItem());
+            }
+        });
     }
     
     private void atualizaTabela(){
         todasSolicitacoes.setRowCount(0);
         //Busca Internações aguardando aprovações
         this.solicitacoes = controleInternacao.retornaSolicitacoesInternacao();
-        for(Internacao i : this.solicitacoes){
-            ProntuarioMedico prontuario = controleProntuario.buscaProntuarioPorID(i.getIdProntuario());
-            Paciente paciente = controlePaciente.buscaPacientePorID(prontuario.getIdPaciente());
-            ProfissionalSaude profissional = controleProfissional.buscaProfissionalPorID(i.getIdMedico());
-            if(paciente.getIdAdministrador() == adm.getId() && profissional.getIdAdministracao() == adm.getId()){
-                todasSolicitacoes.addRow(new Object[]{
-                    paciente.getNome(),
-                    profissional.getNome(),
-                    prontuario.getDataAtualizacao()
-                });
+        if(this.solicitacoes != null){
+            for(Internacao i : this.solicitacoes){
+                ProntuarioMedico prontuario = controleProntuario.buscaProntuarioPorID(i.getIdProntuario());
+                Paciente paciente = controlePaciente.buscaPacientePorID(prontuario.getIdPaciente());
+                ProfissionalSaude profissional = controleProfissional.buscaProfissionalPorID(i.getIdMedico());
+                if(paciente.getIdAdministrador() == adm.getId() && profissional.getIdAdministracao() == adm.getId()){
+                    todasSolicitacoes.addRow(new Object[]{
+                        paciente.getNome(),
+                        profissional.getNome(),
+                        prontuario.getDataAtualizacao()
+                    });
+                }
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum leito disponível!");
+            new TelaInicialAdministrador(adm).setVisible(true);
+            dispose();
         }
     }
     
@@ -118,13 +134,13 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         nomeMedico = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        listaLeitos = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         tipoLeito = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         valorLeito = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         voltar = new javax.swing.JButton();
+        listaLeitos = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         logout = new javax.swing.JMenuItem();
@@ -174,6 +190,11 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
             }
         });
         tabelaSolicitacoes.getTableHeader().setReorderingAllowed(false);
+        tabelaSolicitacoes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaSolicitacoesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaSolicitacoes);
         if (tabelaSolicitacoes.getColumnModel().getColumnCount() > 0) {
             tabelaSolicitacoes.getColumnModel().getColumn(0).setResizable(false);
@@ -190,8 +211,6 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
 
         jLabel5.setText("Leitos Disponíveis:");
 
-        listaLeitos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel6.setText("Tipo:");
 
         jLabel7.setText("Valor:");
@@ -204,6 +223,8 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
                 voltarActionPerformed(evt);
             }
         });
+
+        listaLeitos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jMenu1.setText("Sair");
 
@@ -364,12 +385,12 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(listaLeitos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(65, 65, 65)
+                                .addComponent(listaLeitos, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(68, 68, 68)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tipoLeito, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(65, 65, 65)
+                                .addGap(68, 68, 68)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -400,11 +421,11 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(listaLeitos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(tipoLeito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(valorLeito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(valorLeito, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(listaLeitos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -487,6 +508,20 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
         new TelaInicialAdministrador(adm).setVisible(true);
         dispose();
     }//GEN-LAST:event_voltarActionPerformed
+
+    private void tabelaSolicitacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaSolicitacoesMouseClicked
+        // TODO add your handling code here:
+        int linha = tabelaSolicitacoes.getSelectedRow();
+        
+        String paciente = String.valueOf(tabelaSolicitacoes.getValueAt(linha, 0));
+        String medico = String.valueOf(tabelaSolicitacoes.getValueAt(linha, 1));
+        
+        System.out.println("Paciente -> " + paciente);
+        System.out.println("Médico -> " + medico);
+        
+        nomePaciente.setText(paciente);
+        nomeMedico.setText(medico);
+    }//GEN-LAST:event_tabelaSolicitacoesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

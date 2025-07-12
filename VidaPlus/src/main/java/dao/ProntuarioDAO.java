@@ -26,12 +26,14 @@ public class ProntuarioDAO {
             conn = DB.getConeConnection();
             
             pstmt = conn.prepareStatement("INSERT INTO prontuario "
-                    + "(idPaciente, idAnamnese) "
-                    + "VALUES (?,?)",
+                    + "(idPaciente, idAnamnese, dataAtualizacao, servico) "
+                    + "VALUES (?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             
             pstmt.setInt(1, prontuarioMedico.getIdPaciente());
             pstmt.setInt(2, prontuarioMedico.getIdAnamnese());
+            pstmt.setString(3, prontuarioMedico.getDataAtualizacao());
+            pstmt.setString(4, prontuarioMedico.getServico());
             
 
             int rollsAffected = pstmt.executeUpdate();

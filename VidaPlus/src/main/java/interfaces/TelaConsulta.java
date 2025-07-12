@@ -410,6 +410,8 @@ public class TelaConsulta extends javax.swing.JFrame {
                     }
                     case 1 -> {
                         //Atualizar Prontuário para ENCAMINHAR PARA INTERNAÇÃO
+                        prontuarioMedico.setDataAtualizacao(agenda.getData());
+                        prontuarioMedico.setServico(ServicoProntuario.TRES.getServico());
                         Internacao internacao = new Internacao(agenda.getId(), medico.getId(), prontuarioMedico.getId(), true, false);
                         String observacoesAdicionais = JOptionPane.showInputDialog("Alguma Observação para a internação? \nColoque abaixo:");
                         internacao.setObservacoes(observacoesAdicionais);
