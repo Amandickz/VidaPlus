@@ -11,6 +11,7 @@ classes\ProntuarioMedico.class
 enums\TipoEnfermeiro.class
 interfaces\TelaCadastrarEnfermeiro$2.class
 interfaces\TelaInicialPaciente$2.class
+interfaces\TelaVerificarInternacoes$10.class
 interfaces\TelaInicialPaciente.class
 dao\AnamneseDAO.class
 interfaces\TelaCNPJ.class
@@ -53,6 +54,7 @@ interfaces\TelaCadastrarFarmaceutico$7.class
 interfaces\TelaCadastrarMedico$14.class
 interfaces\TelaCPFProfissional$2.class
 interfaces\TelaCadastrarPaciente$13.class
+interfaces\TelaPrescricaoInternacao.class
 interfaces\TelaInicialMedico$10.class
 interfaces\TelaInicialPaciente$1.class
 interfaces\TelaVerificarInternacoes$5.class
@@ -107,6 +109,7 @@ interfaces\TelaAnamnesePaciente$16.class
 interfaces\TelaCadastrarPaciente$6.class
 interfaces\TelaInicialAdministrador$5.class
 interfaces\TelaSolicitacoesInternacoes.class
+classes\PrescricaoInternacao.class
 interfaces\TelaMedicosCadastrados$2.class
 interfaces\TelaCadastrarPaciente$9.class
 interfaces\TelaVerificarInternacoes$9.class
@@ -115,6 +118,7 @@ interfaces\TelaCadastrarMedico$2.class
 interfaces\TelaInternacoesAtuais$8.class
 controles\ControleSuprimento.class
 interfaces\TelaInicial.class
+interfaces\TelaVerificarInternacoes$11.class
 interfaces\TelaCadastroSuprimento$4.class
 interfaces\TelaInicialMedico$3.class
 interfaces\TelaVerificarInternacoes$6.class
@@ -182,6 +186,7 @@ interfaces\TelaPacientesCadastrados$1.class
 interfaces\TelaCadastrarEnfermeiro$5.class
 interfaces\TelaInicialMedico$5.class
 interfaces\TelaVerificarInternacoes$7.class
+interfaces\TelaPrescricaoInternacao$2.class
 interfaces\TelaAnamnesePaciente$2.class
 interfaces\TelaCadastrarFarmaceutico.class
 classes\ProfissionalSaude.class
@@ -206,6 +211,7 @@ interfaces\TelaInicialAdministrador$13.class
 interfaces\TelaCadastroDatasConsultas$6.class
 interfaces\TelaCadastroLeito$12.class
 interfaces\TelaMedicosCadastrados$3.class
+interfaces\TelaPrescricaoInternacao$1.class
 interfaces\TelaPacientesCadastrados$10.class
 interfaces\TelaCadastroSuprimento$5.class
 interfaces\TelaPacientesCadastrados$7.class
@@ -224,6 +230,7 @@ dao\ConsultaDAO.class
 enums\ServicoProntuario.class
 interfaces\TelaAgendaCompleta$4.class
 interfaces\TelaInicialMedico$4.class
+controles\ControlePrescricao.class
 dao\PacienteDAO.class
 interfaces\TelaInicialAdministrador$7.class
 interfaces\TelaCadastrarEnfermeiro$9.class
@@ -233,6 +240,7 @@ interfaces\TelaInicialAdministrador$11.class
 interfaces\TelaCadastrarMedico$12.class
 interfaces\TelaMedicosCadastrados$8.class
 interfaces\TelaCadastrarFarmaceutico$9.class
+interfaces\TelaPrescricaoInternacao$6.class
 interfaces\TelaAnamnesePaciente$3.class
 interfaces\TelaMarcarConsulta$5.class
 interfaces\TelaInternacoesAtuais$2.class
@@ -242,6 +250,7 @@ interfaces\TelaInternacoesAtuais.class
 interfaces\TelaCadastroDatasConsultas$1.class
 interfaces\TelaVerificarInternacoes.class
 interfaces\TelaMarcarConsulta$2.class
+interfaces\TelaPrescricaoInternacao$3.class
 interfaces\TelaCadastroDatasConsultas$4.class
 classes\Agenda.class
 interfaces\TelaCadastrarMedico$5.class
@@ -281,6 +290,7 @@ interfaces\TelaCadastrarMedico$6.class
 interfaces\TelaCadastroDatasConsultas$2.class
 interfaces\TelaInicialAdministrador$9.class
 interfaces\TelaMarcarConsulta$4.class
+interfaces\TelaPrescricaoInternacao$5.class
 interfaces\TelaCadastrarEnfermeiro$12.class
 interfaces\TelaCadastroSuprimento.class
 enums\DisponibilidadeLeito.class
@@ -306,6 +316,8 @@ interfaces\TelaCadastrarEnfermeiro$6.class
 classes\Farmaceutico.class
 interfaces\TelaAnamnesePaciente.class
 interfaces\TelaCadastrarPaciente$1.class
+dao\PrescricaoInternacaoDAO.class
 interfaces\TelaCadastroLeito$9.class
+interfaces\TelaPrescricaoInternacao$4.class
 interfaces\TelaCadastroSuprimento$9.class
 interfaces\TelaInicial$1.class

@@ -4,13 +4,11 @@
  */
 package interfaces;
 
-import classes.Agenda;
 import classes.Internacao;
 import classes.Leito;
 import classes.Medico;
 import classes.Paciente;
 import classes.ProntuarioMedico;
-import controles.ControleAgenda;
 import controles.ControleInternacao;
 import controles.ControleLeito;
 import controles.ControlePaciente;
@@ -29,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TelaVerificarInternacoes extends javax.swing.JFrame {
 
-    String dataConvertida;
+    String dataConvertida = "", nomePaciente = "";
     Medico medico;
     DefaultTableModel pacientesInternados;
     ControleInternacao controleInternacao = new ControleInternacao();
@@ -91,6 +89,8 @@ public class TelaVerificarInternacoes extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(null, "Nenhuma internação ativa no momento!");
+            novaPrescricao.setEnabled(false);
+            realizarAlta.setEnabled(false);
         }
     }
     
@@ -118,6 +118,8 @@ public class TelaVerificarInternacoes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listaPacientes = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        novaPrescricao = new javax.swing.JButton();
+        realizarAlta = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         logout = new javax.swing.JMenuItem();
@@ -158,6 +160,11 @@ public class TelaVerificarInternacoes extends javax.swing.JFrame {
         });
         listaPacientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         listaPacientes.getTableHeader().setReorderingAllowed(false);
+        listaPacientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaPacientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(listaPacientes);
         if (listaPacientes.getColumnModel().getColumnCount() > 0) {
             listaPacientes.getColumnModel().getColumn(0).setResizable(false);
@@ -170,6 +177,15 @@ public class TelaVerificarInternacoes extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setText("Pacientes Internados");
+
+        novaPrescricao.setText("Nova Prescrição");
+        novaPrescricao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                novaPrescricaoActionPerformed(evt);
+            }
+        });
+
+        realizarAlta.setText("Realizar Alta");
 
         jMenu3.setText("Sair");
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -243,15 +259,21 @@ public class TelaVerificarInternacoes extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(novaPrescricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(realizarAlta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(316, 316, 316)
+                        .addComponent(voltar)))
                 .addContainerGap(30, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(voltar)
-                .addGap(307, 307, 307))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,7 +281,12 @@ public class TelaVerificarInternacoes extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(novaPrescricao)
+                        .addGap(18, 18, 18)
+                        .addComponent(realizarAlta)))
                 .addGap(18, 18, 18)
                 .addComponent(voltar)
                 .addGap(30, 30, 30))
@@ -310,6 +337,26 @@ public class TelaVerificarInternacoes extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_addNovasDatasActionPerformed
 
+    private void novaPrescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novaPrescricaoActionPerformed
+        // TODO add your handling code here:
+        
+        if(nomePaciente.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Nenhum Paciente Selecionado!");
+        } else {
+            new TelaPrescricaoInternacao(medico, nomePaciente).setVisible(true);
+            dispose();
+        }
+        
+    }//GEN-LAST:event_novaPrescricaoActionPerformed
+
+    private void listaPacientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPacientesMouseClicked
+        // TODO add your handling code here:        
+        int linha = listaPacientes.getSelectedRow();
+        nomePaciente = String.valueOf(listaPacientes.getValueAt(linha, 0));
+        
+        System.out.println("Paciente Selecionado -> " + nomePaciente);
+    }//GEN-LAST:event_listaPacientesMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addNovasDatas;
@@ -323,6 +370,8 @@ public class TelaVerificarInternacoes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable listaPacientes;
     private javax.swing.JMenuItem logout;
+    private javax.swing.JButton novaPrescricao;
+    private javax.swing.JButton realizarAlta;
     private javax.swing.JMenuItem sair;
     private javax.swing.JMenuItem solicitacoesInternacao;
     private javax.swing.JMenuItem verificarInternacoes;

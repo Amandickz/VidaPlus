@@ -45,4 +45,9 @@ public class ControleInternacao {
         return internacoes;
     }
     
+    public Internacao retornaInternacaoPorIDProntuario(int idProntuario){
+        Internacao internacao = internacaoDAO.retornaInternacaoPorIDProntuario(idProntuario);
+        return internacao;
+    }
+    
 }
