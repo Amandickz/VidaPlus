@@ -5,10 +5,17 @@
 package interfaces;
 
 import classes.Agenda;
+import classes.Internacao;
+import classes.Leito;
 import classes.Medico;
 import classes.Paciente;
+import classes.ProntuarioMedico;
 import controles.ControleAgenda;
+import controles.ControleInternacao;
+import controles.ControleLeito;
 import controles.ControleMedico;
+import controles.ControlePaciente;
+import controles.ControleProntuario;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -25,9 +32,13 @@ public class TelaInicialMedico extends javax.swing.JFrame {
 
     String dataConvertida;
     Medico medico;
-    DefaultTableModel consultasDoDia;
+    DefaultTableModel consultasDoDia, pacientesInternados;
     ControleMedico controleMedico = new ControleMedico();
     ControleAgenda controleAgenda = new ControleAgenda();
+    ControleInternacao controleInternacao = new ControleInternacao();
+    ControleProntuario controleProntuario = new ControleProntuario();
+    ControlePaciente controlePaciente = new ControlePaciente();
+    ControleLeito controleLeito = new ControleLeito();
     String nomePaciente = "";
     String hora = "";
     
@@ -45,9 +56,12 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         this.dataAtual.setText("Data: " + dataConvertida);
         
         consultasDoDia = (DefaultTableModel) consultasDia.getModel();
+        pacientesInternados = (DefaultTableModel) listaInternados.getModel();
         
         preencheConsultasdoDia();
-        centralizarTextos();
+        preencheListaInternados();
+        centralizarTextosConsultas();
+        centralizarTextosInternados();
     }
     
     private void preencheConsultasdoDia(){
@@ -61,11 +75,36 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         }
     }
     
-    private void centralizarTextos(){
+    private void preencheListaInternados(){
+        pacientesInternados.setRowCount(0);
+        ArrayList<Internacao> internacoes = controleInternacao.retornaInternacoesAtivasPorMedico(medico.getId());
+        if(internacoes != null){
+            for(Internacao i : internacoes){
+                ProntuarioMedico prontuario = controleProntuario.buscaProntuarioPorID(i.getIdProntuario());
+                Leito leito = controleLeito.buscaLeitoPorID(i.getIdLeito());
+                Paciente paciente = controlePaciente.buscaPacientePorID(prontuario.getIdPaciente());
+                
+                pacientesInternados.addRow(new Object[]{
+                    leito.getNumero(),
+                    paciente.getNome()
+                });
+            }
+        }
+    }
+    
+    private void centralizarTextosConsultas(){
         DefaultTableCellRenderer centralizar = new DefaultTableCellRenderer();
         centralizar.setHorizontalAlignment(SwingConstants.CENTER);
         for (int i = 0; i < consultasDia.getColumnCount(); i++) {
             consultasDia.getColumnModel().getColumn(i).setCellRenderer(centralizar);
+        }
+    }
+    
+    private void centralizarTextosInternados(){
+        DefaultTableCellRenderer centralizar = new DefaultTableCellRenderer();
+        centralizar.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < listaInternados.getColumnCount(); i++) {
+            listaInternados.getColumnModel().getColumn(i).setCellRenderer(centralizar);
         }
     }
 
@@ -86,6 +125,9 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         consultasDia = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        listaInternados = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         logout = new javax.swing.JMenuItem();
@@ -145,9 +187,43 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         if (consultasDia.getColumnModel().getColumnCount() > 0) {
             consultasDia.getColumnModel().getColumn(0).setResizable(false);
             consultasDia.getColumnModel().getColumn(0).setPreferredWidth(1);
+            consultasDia.getColumnModel().getColumn(0).setHeaderValue("Horário");
             consultasDia.getColumnModel().getColumn(1).setResizable(false);
             consultasDia.getColumnModel().getColumn(1).setPreferredWidth(180);
+            consultasDia.getColumnModel().getColumn(1).setHeaderValue("Paciente");
         }
+
+        listaInternados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Leito", "Paciente"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        listaInternados.getTableHeader().setReorderingAllowed(false);
+        listaInternados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaInternadosMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(listaInternados);
+        if (listaInternados.getColumnModel().getColumnCount() > 0) {
+            listaInternados.getColumnModel().getColumn(0).setResizable(false);
+            listaInternados.getColumnModel().getColumn(1).setResizable(false);
+            listaInternados.getColumnModel().getColumn(1).setPreferredWidth(245);
+        }
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setText("Pacientes Internados");
 
         jMenu3.setText("Sair");
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -232,27 +308,33 @@ public class TelaInicialMedico extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(nomeDr, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(30, 30, 30)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(nomeDr, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(30, 30, 30)
-                                    .addComponent(dataAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(133, 133, 133)
-                                    .addComponent(iniciarConsulta)))
-                            .addGap(0, 0, Short.MAX_VALUE))))
-                .addGap(30, 30, 30))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(30, 30, 30)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(30, 30, 30)
+                                            .addComponent(dataAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(133, 133, 133)
+                                            .addComponent(iniciarConsulta)))
+                                    .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(75, 75, 75)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,9 +346,13 @@ public class TelaInicialMedico extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(iniciarConsulta)
                 .addGap(30, 30, 30))
@@ -344,6 +430,10 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_verificarInternacoesActionPerformed
 
+    private void listaInternadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaInternadosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listaInternadosMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addNovasDatas;
@@ -352,13 +442,16 @@ public class TelaInicialMedico extends javax.swing.JFrame {
     private javax.swing.JLabel dataAtual;
     private javax.swing.JButton iniciarConsulta;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable listaInternados;
     private javax.swing.JMenuItem logout;
     private javax.swing.JLabel nomeDr;
     private javax.swing.JMenuItem sair;

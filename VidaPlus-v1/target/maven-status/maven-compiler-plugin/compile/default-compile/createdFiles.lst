@@ -139,6 +139,7 @@ interfaces\TelaInicialAdministrador$3.class
 enums\Servico.class
 enums\Especialidades.class
 interfaces\TelaPacientesCadastrados$6.class
+interfaces\TelaInicialMedico$13.class
 interfaces\TelaInternacoesAtuais$7.class
 enums\TipoAnticoncepcional.class
 interfaces\TelaCadastroDatasConsultas$9.class
@@ -152,6 +153,7 @@ interfaces\TelaCadastroLeito$2.class
 interfaces\TelaCadastrarFarmaceutico$3.class
 interfaces\TelaInternacoesAtuais$6.class
 interfaces\TelaAnamnesePaciente$7.class
+interfaces\TelaInicialMedico$14.class
 enums\Sexo.class
 interfaces\TelaCadastroDatasConsultas$8.class
 interfaces\TelaSolicitacoesInternacoes$5.class

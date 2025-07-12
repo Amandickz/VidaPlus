@@ -31,4 +31,5 @@
        <version>8.0.29</version>
     </dependency>
  </dependencies>
+    <name>VidaPlus-v2</name>
 </project>
