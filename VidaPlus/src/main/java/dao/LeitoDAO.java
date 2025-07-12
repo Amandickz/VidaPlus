@@ -100,6 +100,47 @@ public class LeitoDAO {
         return null;
     }
     
+    public Leito buscaLeitoPorID(int id){
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from leito where id = " + id);
+            
+            System.out.println("\n----->Leitos Recuperado na Unidade:");
+            
+            while(rs.next()){
+                int tipoLeito = rs.getInt("tipoLeito");
+                int numero = rs.getInt("numero");
+                double valor = rs.getDouble("valor");
+                int status = rs.getInt("status");
+                int capacidade = rs.getInt("capacidade");
+                int internados = rs.getInt("internados");
+                
+                Leito leito = new Leito(id, tipoLeito, numero, valor, status, capacidade);
+                leito.setInternados(internados);
+                System.out.println(leito);
+                System.out.println("\n");
+                return leito;
+            }
+            
+        } catch (SQLException e){
+            System.out.println("!!!!!Erro ao LOCALIZAR o Leito!!!!!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        
+        return null;
+    }
+    
     public Leito buscaLeitoPorNumero(int numero){
         Connection conn = null;
         Statement stmt = null;

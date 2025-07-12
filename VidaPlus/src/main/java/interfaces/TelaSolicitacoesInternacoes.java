@@ -596,7 +596,7 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
         ProntuarioMedico prontuario = controleProntuario.buscaProntuarioPorIDPaciente(paciente.getId());
         System.out.println("Prontuário -> " + prontuario);
         //Pega as informações da Internação - localizar pelo idMedico, idProntuario, aguardandoAprovacao = true e statusAlta = false
-        Internacao internacao = null;
+        Internacao internacao = new Internacao();
         for(Internacao i : solicitacoes){
             if(i.getIdProntuario() == prontuario.getId()){
                 internacao = i;

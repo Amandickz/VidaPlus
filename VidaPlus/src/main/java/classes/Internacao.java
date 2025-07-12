@@ -19,6 +19,9 @@ public class Internacao {
     private boolean statusAlta;
     private String observacoes;
 
+    public Internacao() {
+    }
+    
     public Internacao(int idConsulta, int idMedico, int idProntuario, boolean aguardandoAprovacao, boolean statusAlta) {
         this.idConsulta = idConsulta;
         this.idMedico = idMedico;

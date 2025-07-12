@@ -5,24 +5,112 @@
 package interfaces;
 
 import classes.Administracao;
+import classes.Internacao;
+import classes.Leito;
+import classes.Paciente;
+import classes.ProfissionalSaude;
+import classes.ProntuarioMedico;
+import controles.ControleInternacao;
+import controles.ControleLeito;
+import controles.ControlePaciente;
+import controles.ControleProfissional;
+import controles.ControleProntuario;
+import enums.TipoLeito;
+import java.util.ArrayList;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Amanda
  */
-public class TelaInicialAdministrador extends javax.swing.JFrame {
+public class TelaInternacoesAtuais extends javax.swing.JFrame {
     /**
      * Creates new form TelaAdministrador
      */
     
     Administracao adm;
+    DefaultTableModel todasInternacoes;
+    ArrayList<Internacao> internacoesAtivas;
+    ControleInternacao controleInternacao = new ControleInternacao();
+    ControleLeito controleLeito = new ControleLeito();
+    ControleProntuario controleProntuario = new ControleProntuario();
+    ControleProfissional controleProfissional = new ControleProfissional();
+    ControlePaciente controlePaciente = new ControlePaciente();
     
-    public TelaInicialAdministrador(Administracao adm) {
+    public TelaInternacoesAtuais(Administracao adm) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.adm = adm;
         
         System.out.println(this.adm);
+        
+        todasInternacoes = (DefaultTableModel) tabelaInternacoes.getModel();
+        
+        preencheTabela();
+        centralizarTextos();
+    }
+    
+    private void preencheTabela(){
+        todasInternacoes.setRowCount(0);
+        this.internacoesAtivas = controleInternacao.retornaInternacoesAtivas();
+        if(this.internacoesAtivas != null){
+            for(Internacao i : internacoesAtivas){
+                Leito leito = controleLeito.buscaLeitoPorID(i.getIdLeito());
+                ProntuarioMedico prontuario = controleProntuario.buscaProntuarioPorID(i.getIdProntuario());
+                ProfissionalSaude profissional = controleProfissional.buscaProfissionalPorID(i.getIdMedico());
+                Paciente paciente = controlePaciente.buscaPacientePorID(prontuario.getIdPaciente());
+                String tipoLeito = TipoDeLeito(leito.getTipoLeito());
+                todasInternacoes.addRow(new Object[]{
+                    leito.getNumero(),
+                    tipoLeito,
+                    profissional.getNome(),
+                    paciente.getNome()
+                });
+            }
+        }
+    }
+    
+    private String TipoDeLeito(int tipo){
+        switch (tipo) {
+            case 0 -> {
+                return TipoLeito.UM.getTipoLeito();
+            }
+            case 1 -> {
+                return TipoLeito.DOIS.getTipoLeito();
+            }
+            case 2 -> {
+                return TipoLeito.TRES.getTipoLeito();
+            }
+            case 3 -> {
+                return TipoLeito.QUATRO.getTipoLeito();
+            }
+            case 4 -> {
+                return TipoLeito.CINCO.getTipoLeito();
+            }
+            case 5 -> {
+                return TipoLeito.SEIS.getTipoLeito();
+            }
+            case 6 -> {
+                return TipoLeito.SETE.getTipoLeito();
+            }
+            case 7 -> {
+                return TipoLeito.OITO.getTipoLeito();
+            }
+            case 8 -> {
+                return TipoLeito.NOVE.getTipoLeito();
+            }
+            default -> throw new AssertionError();
+        }
+    }
+    
+    private void centralizarTextos(){
+        DefaultTableCellRenderer centralizar = new DefaultTableCellRenderer();
+        centralizar.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < tabelaInternacoes.getColumnCount(); i++) {
+            tabelaInternacoes.getColumnModel().getColumn(i).setCellRenderer(centralizar);
+        }
     }
 
     /**
@@ -36,6 +124,10 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaInternacoes = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        voltar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         logout = new javax.swing.JMenuItem();
@@ -65,6 +157,45 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tabelaInternacoes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Leito", "Tipo", "Médico Responsável", "Paciente"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaInternacoes.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tabelaInternacoes);
+        if (tabelaInternacoes.getColumnModel().getColumnCount() > 0) {
+            tabelaInternacoes.getColumnModel().getColumn(0).setResizable(false);
+            tabelaInternacoes.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tabelaInternacoes.getColumnModel().getColumn(1).setResizable(false);
+            tabelaInternacoes.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tabelaInternacoes.getColumnModel().getColumn(2).setResizable(false);
+            tabelaInternacoes.getColumnModel().getColumn(2).setPreferredWidth(226);
+            tabelaInternacoes.getColumnModel().getColumn(3).setResizable(false);
+            tabelaInternacoes.getColumnModel().getColumn(3).setPreferredWidth(226);
+        }
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setText("Internações Atuais");
+
+        voltar.setText("Voltar");
+        voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("Sair");
 
@@ -128,11 +259,6 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         internacoes.add(solicitacoesInternacao);
 
         internacoesAtuais.setText("Internações Atuais");
-        internacoesAtuais.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                internacoesAtuaisActionPerformed(evt);
-            }
-        });
         internacoes.add(internacoesAtuais);
 
         gerenciar.add(internacoes);
@@ -213,11 +339,28 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 834, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(369, 369, 369)
+                        .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 616, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(voltar)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -292,11 +435,11 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_solicitacoesInternacaoActionPerformed
 
-    private void internacoesAtuaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_internacoesAtuaisActionPerformed
+    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
         // TODO add your handling code here:
-        new TelaInternacoesAtuais(adm).setVisible(true);
+        new TelaInicialAdministrador(adm).setVisible(true);
         dispose();
-    }//GEN-LAST:event_internacoesAtuaisActionPerformed
+    }//GEN-LAST:event_voltarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -307,10 +450,12 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
     private javax.swing.JMenu gerenciar;
     private javax.swing.JMenu internacoes;
     private javax.swing.JMenuItem internacoesAtuais;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu leitos;
     private javax.swing.JMenuItem logout;
     private javax.swing.JMenu medicos;
@@ -324,6 +469,8 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem sair;
     private javax.swing.JMenuItem solicitacoesInternacao;
     private javax.swing.JMenu suprimentos;
+    private javax.swing.JTable tabelaInternacoes;
     private javax.swing.JMenuItem visualizarPacientes;
+    private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }

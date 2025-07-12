@@ -25,6 +25,11 @@ public class ControleLeito {
         return listaLeitos;
     }
     
+    public Leito buscaLeitoPorID(int id){
+        Leito leito = leitoDAO.buscaLeitoPorID(id);
+        return leito;
+    }
+    
     public Leito buscaLeitoPorNumero(int numero){
         Leito leito = leitoDAO.buscaLeitoPorNumero(numero);
         return leito;

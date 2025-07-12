@@ -35,4 +35,9 @@ public class ControleInternacao {
         return confirmacao;
     }
     
+    public ArrayList<Internacao> retornaInternacoesAtivas(){
+        ArrayList<Internacao> internacoes = internacaoDAO.retornaInternacoesAtivas();
+        return internacoes;        
+    }
+    
 }
