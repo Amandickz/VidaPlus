@@ -154,7 +154,7 @@ public class LeitoDAO {
             stmt = conn.createStatement();
             
             rs = stmt.executeQuery("select * from leito where status = 0 and "
-                    + "idAdministracao = " + idAdministracao +" and internados < capacidade");
+                    + "idAdministracao = " + idAdministracao + " and internados < capacidade");
             
             System.out.println("\n----->Leitos Disponíveis na Unidade:");
             

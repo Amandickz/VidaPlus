@@ -16,6 +16,7 @@ import controles.ControleLeito;
 import controles.ControlePaciente;
 import controles.ControleProfissional;
 import controles.ControleProntuario;
+import enums.TipoLeito;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -59,8 +60,11 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
         
         listaLeitos.addItemListener(new ItemListener(){
             public void itemStateChanged(ItemEvent e){
-                if(e.getStateChange() == ItemEvent.SELECTED)
-                    System.out.println("Selecionado -> " + e.getItem());
+                if(e.getStateChange() == ItemEvent.SELECTED){
+                    int numLeito = Integer.parseInt(e.getItem().toString());
+                    System.out.println("Selecionado -> " + numLeito);
+                    mostrarInformações(numLeito);
+                }
             }
         });
     }
@@ -110,6 +114,44 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
         centralizar.setHorizontalAlignment(SwingConstants.CENTER);
         for (int i = 0; i < tabelaSolicitacoes.getColumnCount(); i++) {
             tabelaSolicitacoes.getColumnModel().getColumn(i).setCellRenderer(centralizar);
+        }
+    }
+    
+    private void mostrarInformações(int numLeito){
+        for(Leito l : leitosDisponiveis){
+            if(l.getNumero() == numLeito){
+                switch (l.getTipoLeito()) {
+                    case 0 -> {
+                        tipoLeito.setText(TipoLeito.UM.getTipoLeito());
+                    }
+                    case 1 -> {
+                        tipoLeito.setText(TipoLeito.DOIS.getTipoLeito());
+                    }
+                    case 2 -> {
+                        tipoLeito.setText(TipoLeito.TRES.getTipoLeito());
+                    }
+                    case 3 -> {
+                        tipoLeito.setText(TipoLeito.QUATRO.getTipoLeito());
+                    }
+                    case 4 -> {
+                        tipoLeito.setText(TipoLeito.CINCO.getTipoLeito());
+                    }
+                    case 5 -> {
+                        tipoLeito.setText(TipoLeito.SEIS.getTipoLeito());
+                    }
+                    case 6 -> {
+                        tipoLeito.setText(TipoLeito.SETE.getTipoLeito());
+                    }
+                    case 7 -> {
+                        tipoLeito.setText(TipoLeito.OITO.getTipoLeito());
+                    }
+                    case 8 -> {
+                        tipoLeito.setText(TipoLeito.NOVE.getTipoLeito());
+                    }
+                    default -> throw new AssertionError();
+                }
+                valorLeito.setText("R$ " + l.getValor());
+            }
         }
     }
 
