@@ -53,8 +53,8 @@ public class ControlePaciente {
         return paciente;
     }
     
-    public ArrayList<Agenda> proximasConsultas(int idPaciente){
-        ArrayList<Agenda> agendaPaciente = agendaDAO.retornaConsultasPaciente(idPaciente);
+    public ArrayList<Agenda> proximasConsultas(int idPaciente, String dataAtual){
+        ArrayList<Agenda> agendaPaciente = agendaDAO.retornaProximasConsultasPaciente(idPaciente, dataAtual);
         return agendaPaciente;
     }
     

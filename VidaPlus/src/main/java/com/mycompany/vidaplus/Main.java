@@ -14,7 +14,6 @@ import controles.ControlePaciente;
 import controles.ControleProfissional;
 import interfaces.TelaInicial;
 import java.util.ArrayList;
-
 /**
  *
  * @author Amanda
@@ -59,7 +58,6 @@ public class Main {
                 System.out.println("\n---> Paciente Padrão 2 cadastrado no banco.\n");
             }
         }
-        
         
         new TelaInicial().setVisible(true);
         

@@ -5,7 +5,6 @@
 package interfaces;
 
 import classes.Agenda;
-import classes.Medico;
 import classes.Paciente;
 import classes.ProfissionalSaude;
 import controles.ControlePaciente;
@@ -47,7 +46,7 @@ public class TelaInicialPaciente extends javax.swing.JFrame {
     
     private void consultasMarcadas(){
         consultas.setRowCount(0);
-        ArrayList<Agenda> agenda = controlePaciente.proximasConsultas(paciente.getId());
+        ArrayList<Agenda> agenda = controlePaciente.proximasConsultas(paciente.getId(), dataConvertida);
         if(agenda != null){
             for(Agenda a : agenda){
                 ProfissionalSaude profissional = controlePaciente.buscaProfissional(a.getIdMedico());

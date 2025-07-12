@@ -95,6 +95,7 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         addNovasDatas = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         solicitacoesInternacao = new javax.swing.JMenuItem();
+        verificarInternacoes = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -143,8 +144,9 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         jScrollPane2.setViewportView(consultasDia);
         if (consultasDia.getColumnModel().getColumnCount() > 0) {
             consultasDia.getColumnModel().getColumn(0).setResizable(false);
-            consultasDia.getColumnModel().getColumn(0).setPreferredWidth(10);
-            consultasDia.getColumnModel().getColumn(1).setHeaderValue("Paciente");
+            consultasDia.getColumnModel().getColumn(0).setPreferredWidth(1);
+            consultasDia.getColumnModel().getColumn(1).setResizable(false);
+            consultasDia.getColumnModel().getColumn(1).setPreferredWidth(180);
         }
 
         jMenu3.setText("Sair");
@@ -203,9 +205,22 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         jMenuBar2.add(jMenu1);
 
         jMenu2.setText("Internações");
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
 
         solicitacoesInternacao.setText("Solicitações");
         jMenu2.add(solicitacoesInternacao);
+
+        verificarInternacoes.setText("Verificar Internações");
+        verificarInternacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                verificarInternacoesActionPerformed(evt);
+            }
+        });
+        jMenu2.add(verificarInternacoes);
 
         jMenuBar2.add(jMenu2);
 
@@ -219,21 +234,24 @@ public class TelaInicialMedico extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(nomeDr, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(30, 30, 30)
-                            .addComponent(dataAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(133, 133, 133)
-                            .addComponent(iniciarConsulta))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(30, 30, 30)
+                                    .addComponent(dataAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(133, 133, 133)
+                                    .addComponent(iniciarConsulta)))
+                            .addGap(0, 0, Short.MAX_VALUE))))
                 .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
@@ -316,6 +334,16 @@ public class TelaInicialMedico extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_logoutActionPerformed
 
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void verificarInternacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificarInternacoesActionPerformed
+        // TODO add your handling code here:
+        new TelaVerificarInternacoes(medico).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_verificarInternacoesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addNovasDatas;
@@ -335,5 +363,6 @@ public class TelaInicialMedico extends javax.swing.JFrame {
     private javax.swing.JLabel nomeDr;
     private javax.swing.JMenuItem sair;
     private javax.swing.JMenuItem solicitacoesInternacao;
+    private javax.swing.JMenuItem verificarInternacoes;
     // End of variables declaration//GEN-END:variables
 }

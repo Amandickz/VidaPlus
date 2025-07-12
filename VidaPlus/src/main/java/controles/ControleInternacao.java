@@ -37,7 +37,12 @@ public class ControleInternacao {
     
     public ArrayList<Internacao> retornaInternacoesAtivas(){
         ArrayList<Internacao> internacoes = internacaoDAO.retornaInternacoesAtivas();
-        return internacoes;        
+        return internacoes;
+    }
+    
+    public ArrayList<Internacao> retornaInternacoesAtivasPorMedico(int idMedico){
+        ArrayList<Internacao> internacoes = internacaoDAO.retornaInternacoesAtivasPorMedico(idMedico);
+        return internacoes;
     }
     
 }

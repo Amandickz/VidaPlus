@@ -208,7 +208,7 @@ public class AgendaDAO {
         return null;
     }
     
-    public ArrayList<Agenda> retornaConsultasPaciente(int idPaciente){
+    public ArrayList<Agenda> retornaProximasConsultasPaciente(int idPaciente, String dataAtual){
         ArrayList<Agenda> agendacompleta = new ArrayList<>();
         Connection conn = null;
         Statement stmt = null;
@@ -220,7 +220,8 @@ public class AgendaDAO {
             
             stmt = conn.createStatement();
             
-            rs = stmt.executeQuery("select * from agenda where idPaciente = " + idPaciente);
+            rs = stmt.executeQuery("select * from agenda where idPaciente = " + idPaciente + 
+                    " and data >= '" + dataAtual + "'");
             
             while(rs.next()){
                 int id = rs.getInt("id");
