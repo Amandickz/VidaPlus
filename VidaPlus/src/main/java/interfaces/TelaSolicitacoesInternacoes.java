@@ -87,7 +87,7 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
                 }
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Nenhum leito disponível!");
+            JOptionPane.showMessageDialog(null, "Não há Solicitações de Internação no Momento!");
             new TelaInicialAdministrador(adm).setVisible(true);
             dispose();
         }
@@ -104,8 +104,12 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
     private void preencheListaLeitos(){
         listaLeitos.removeAllItems();
         leitosDisponiveis = controleLeito.retornaLeitosDisponiveis(adm.getId());
-        for(Leito l : leitosDisponiveis){
-            listaLeitos.addItem("" + l.getNumero());
+        if(leitosDisponiveis != null){
+            for(Leito l : leitosDisponiveis){
+                listaLeitos.addItem("" + l.getNumero());
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum Leito disponível no momento.");
         }
     }
     
@@ -180,7 +184,7 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
         tipoLeito = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         valorLeito = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        confirmar = new javax.swing.JButton();
         voltar = new javax.swing.JButton();
         listaLeitos = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -257,7 +261,12 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
 
         jLabel7.setText("Valor:");
 
-        jButton1.setText("Confirmar");
+        confirmar.setText("Confirmar");
+        confirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmarActionPerformed(evt);
+            }
+        });
 
         voltar.setText("Voltar");
         voltar.addActionListener(new java.awt.event.ActionListener() {
@@ -437,7 +446,7 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
                             .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(confirmar, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                             .addComponent(valorLeito))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -470,7 +479,7 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
                     .addComponent(listaLeitos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(confirmar)
                     .addComponent(voltar))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -565,15 +574,53 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
         nomeMedico.setText(medico);
     }//GEN-LAST:event_tabelaSolicitacoesMouseClicked
 
+    private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
+        // TODO add your handling code here:
+        
+        System.out.println("\nConfirmação de Internação");
+        
+        //Pega as informações do Paciente - localizar pelo nome
+        Paciente paciente = controlePaciente.buscaPacientePorNome(nomePaciente.getText());
+        System.out.println("Paciente -> " + paciente);
+        //Pega as informações do Médico - localizar pelo nome
+        ProfissionalSaude profissional = controleProfissional.buscaProfissionalPorNome(nomeMedico.getText());
+        System.out.println("Médico -> " + profissional);
+        //Pega as informações do prontuário - localizar pelo idPaciente
+        ProntuarioMedico prontuario = controleProntuario.buscaProntuarioPorIDPaciente(paciente.getId());
+        System.out.println("Prontuário -> " + prontuario);
+        //Pega as informações da Internação - localizar pelo idMedico, idProntuario, aguardandoAprovacao = true e statusAlta = false
+        Internacao internacao = null;
+        for(Internacao i : solicitacoes){
+            if(i.getIdProntuario() == prontuario.getId()){
+                internacao = i;
+                System.out.println("Internação -> " + internacao);
+            }
+        }
+        //Pegar as informações do Leito - usar o número do leito do JComboBox
+        int leitoSelecionado = listaLeitos.getSelectedIndex();
+        int numLeito = Integer.parseInt(listaLeitos.getItemAt(leitoSelecionado));
+        Leito leito = controleLeito.buscaLeitoPorNumero(numLeito);
+        System.out.println("Leito Selecionado -> " + leito);
+        
+        //Atualizar Internação - colocar Leito e alterar aguardandoAprovação para false
+        /*Atualizar Leito - verificar quantidades de internados com a capacidade,
+        caso seja igual, mudar o status para 3,
+        se for menor, acrescentar a quantidade de internados,
+        caso o leito seja somente para 1 pessoa, mudar o status para 3 e a quantidade de internados*/
+        /*Atualizar Prontuário - atualizar a dataAtualização e serviço para Servico.E*/
+        
+        
+    }//GEN-LAST:event_confirmarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem cadastrarLeito;
     private javax.swing.JMenuItem cadastrarPaciente;
+    private javax.swing.JButton confirmar;
     private javax.swing.JMenu enfermeiros;
     private javax.swing.JMenu farmaceuticos;
     private javax.swing.JMenu gerenciar;
     private javax.swing.JMenu internacoes;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

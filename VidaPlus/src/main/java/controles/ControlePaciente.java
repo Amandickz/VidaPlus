@@ -48,6 +48,11 @@ public class ControlePaciente {
         return paciente;
     }
     
+    public Paciente buscaPacientePorNome(String nome){
+        Paciente paciente = pacienteDAO.buscaPacientePorNome(nome);
+        return paciente;
+    }
+    
     public ArrayList<Agenda> proximasConsultas(int idPaciente){
         ArrayList<Agenda> agendaPaciente = agendaDAO.retornaConsultasPaciente(idPaciente);
         return agendaPaciente;
