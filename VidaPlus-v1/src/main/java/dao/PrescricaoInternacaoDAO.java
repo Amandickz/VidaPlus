@@ -24,7 +24,7 @@ public class PrescricaoInternacaoDAO {
             
             conn = DB.getConeConnection();
             
-            pstmt = conn.prepareStatement("INSERT INTO prescricaoInternacao" +
+            pstmt = conn.prepareStatement("INSERT INTO prescricaointernacao" +
                     "(idInternacao,data,prescricao,orientacoes,observacoes,realizado)" +
                     " VALUES(?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);

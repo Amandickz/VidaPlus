@@ -13,6 +13,7 @@ import controles.ControleInternacao;
 import controles.ControlePaciente;
 import controles.ControlePrescricao;
 import controles.ControleProntuario;
+import enums.ServicoProntuario;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
@@ -287,17 +288,29 @@ public class TelaPrescricaoInternacao extends javax.swing.JFrame {
         prescricao.setObservacoes(observacoes);
         prescricao.setRealizado(false);
         
-        System.out.println("Priscrição Atual -> " + prescricao);
-
-        boolean confirmacao = controlePrescricao.novaPrescricao(prescricao);
+        prontuarioMedico.setDataAtualizacao(dataConvertida);
+        prontuarioMedico.setServico(ServicoProntuario.SEIS.getServico());
         
+        System.out.println("Prescrição Atual -> " + prescricao);
+        System.out.println("Prontuário Atualizado -> " + prontuarioMedico);
+        
+        
+        boolean confirmacao = controlePrescricao.novaPrescricao(prescricao);
         if(confirmacao){
-            JOptionPane.showMessageDialog(null, "Prescrição criada e enviada para realização.");
-            new TelaInicialMedico(medico).setVisible(true);
-            dispose();
+            confirmacao = controleProntuario.atualizacaoPronturario(prontuarioMedico);
+            if(confirmacao){
+                JOptionPane.showMessageDialog(null, "Prescrição criada e enviada para realização.");
+                new TelaInicialMedico(medico).setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Ops! Algo deu errado!");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Ops! Algo deu errado!");
         }
+        
+        
+        
         
     }//GEN-LAST:event_concluirActionPerformed
 

@@ -431,11 +431,14 @@ public class TelaConsulta extends javax.swing.JFrame {
         }
         
         /*
-        C("CONCLUIR CONSULTA"),
-        I("ENCAMINHAR PARA INTERNAÇÃO"),
-        E("INTERNADO - EM TRATAMENTO"),
-        R("RETORNO EM 15 DIAS"),
-        A("ALTA DA INTERNAÇÃO");
+        UM("CRIAÇÃO/ATUALIZAÇÃO ANAMNESE"),
+        DOIS("CONSULTA REALIZADA - ALTA"),
+        TRES("CONSULTA REALIZADA - ENCAMINHADO PARA INTERNAÇÃO"),
+        QUATRO("INTERNAÇÃO"),
+        CINCO("ALTA DA INTERNAÇÃO"),
+        SEIS("SOLICITAÇÃO DE PROCEDIMENTO/MEDICAÇÃO"),
+        SETE("REALIZAÇÃO DE PROCEDIMENTO"),
+        OITO("APLICAÇÃO DE MEDICAMENTO");
         */
     }//GEN-LAST:event_concluirActionPerformed
 
