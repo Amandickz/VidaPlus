@@ -27,8 +27,9 @@ public class LeitoDAO {
             conn = DB.getConeConnection();
             
             pstmt = conn.prepareStatement("INSERT INTO leito" +
-                    "(tipoLeito, numero, valor, status, capacidade, idAdministracao)" +
-                    " VALUES(?,?,?,?,?,?)",
+                    "(tipoLeito, numero, valor, status, capacidade, " + 
+                    "idAdministracao, internados)" +
+                    " VALUES(?,?,?,?,?,?,0)",
                     Statement.RETURN_GENERATED_KEYS);
             
             pstmt.setInt(1, leito.getTipoLeito());
@@ -45,7 +46,7 @@ public class LeitoDAO {
             }
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Cadastrar dados!");
+            System.out.println("!!!!!Erro ao CADASTRAR o Leito!!!!!");
         } finally {
             DB.closeStatement(pstmt);
             DB.closeConnection();
@@ -68,7 +69,7 @@ public class LeitoDAO {
             
             rs = stmt.executeQuery("select * from leito where idAdministracao = " + idAdministracao);
             
-            System.out.println(rs);
+            System.out.println("\n----->Leitos Recuperados da Unidade:");
             
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -77,17 +78,19 @@ public class LeitoDAO {
                 double valor = rs.getDouble("valor");
                 int status = rs.getInt("status");
                 int capacidade = rs.getInt("capacidade");
+                int internados = rs.getInt("internados");
                 
                 Leito leito = new Leito(id, tipoLeito, numero, valor, status, capacidade);
+                leito.setInternados(internados);
                 leitos.add(leito);
+                System.out.println(leito);
+                System.out.println("\n");
             }
-            
-            System.out.println(leitos);
             
             return leitos;
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao RECUPERAR o Leito!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -110,7 +113,7 @@ public class LeitoDAO {
             
             rs = stmt.executeQuery("select * from leito where numero = " + numero);
             
-            System.out.println(rs);
+            System.out.println("\n----->Leitos Recuperado na Unidade:");
             
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -118,14 +121,63 @@ public class LeitoDAO {
                 double valor = rs.getDouble("valor");
                 int status = rs.getInt("status");
                 int capacidade = rs.getInt("capacidade");
+                int internados = rs.getInt("internados");
                 
                 Leito leito = new Leito(id, tipoLeito, numero, valor, status, capacidade);
+                leito.setInternados(internados);
                 System.out.println(leito);
+                System.out.println("\n");
                 return leito;
             }
             
         } catch (SQLException e){
-            System.err.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao LOCALIZAR o Leito!!!!!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        
+        return null;
+    }
+    
+    public ArrayList<Leito> retornaLeitosDisponiveis(int idAdministracao){
+        ArrayList<Leito> leitos = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from leito where status = 0 and "
+                    + "idAdministracao = " + idAdministracao +" and internados < capacidade");
+            
+            System.out.println("\n----->Leitos Disponíveis na Unidade:");
+            
+            while(rs.next()){
+                int id = rs.getInt("id");
+                int tipoLeito = rs.getInt("tipoLeito");
+                int numero = rs.getInt("numero");
+                double valor = rs.getDouble("valor");
+                int status = rs.getInt("status");
+                int capacidade = rs.getInt("capacidade");
+                int internados = rs.getInt("internados");
+                
+                Leito leito = new Leito(id, tipoLeito, numero, valor, status, capacidade);
+                leito.setInternados(internados);
+                leitos.add(leito);
+                System.out.println(leito);
+                System.out.println("\n");
+            }
+            
+            return leitos;
+            
+        } catch (SQLException e){
+            System.out.println("!!!!!Erro ao RECUPERAR os Leitos Disponíveis!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);

@@ -120,4 +120,44 @@ public class ProntuarioDAO {
         return false;
     }
     
+    public ProntuarioMedico buscaProntuarioPorID(int id){
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from prontuario where id = " + id);
+            
+            System.out.println("\n----->Prontuario Localizado: ");
+            
+            while(rs.next()){
+                int idPaciente = rs.getInt("idPaciente");
+                int idAnamnese = rs.getInt("idAnamnese");
+                String dataAtualizacao = rs.getString("dataAtualizacao");
+                String servico = rs.getString("servico");
+                
+                ProntuarioMedico prontuario = new ProntuarioMedico(id, idPaciente, idAnamnese);
+                prontuario.setDataAtualizacao(dataAtualizacao);
+                prontuario.setServico(servico);
+                
+                System.out.println(prontuario);
+                
+                return prontuario;  
+            }
+            
+        } catch (SQLException e){
+            System.out.println("!!!!!Erro ao BUSCAR Prontuário do Paciente por ID!!!!!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        return null;
+    }
+    
 }

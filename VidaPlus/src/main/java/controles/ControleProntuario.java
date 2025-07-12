@@ -39,6 +39,11 @@ public class ControleProntuario {
         return prontuario;
     }
     
+    public ProntuarioMedico buscaProntuarioPorID(int id){
+        ProntuarioMedico prontuario = prontuarioDAO.buscaProntuarioPorID(id);
+        return prontuario;
+    }
+    
     public Anamnese cadastraAnamnese(Anamnese anamnese){
         anamnese = anamneseDAO.cadastrarAnamnese(anamnese);
         return anamnese;

@@ -33,6 +33,10 @@ public class ControleProfissional {
         return profissionais;
     }
     
+    public ProfissionalSaude buscaProfissionalPorID(int id){
+        ProfissionalSaude profissional = profissionalDAO.buscaProfissionalPorID(id);
+    }
+    
     public ProfissionalSaude buscaProfissional(String cpf){
         ProfissionalSaude profissionalSaude = profissionalDAO.buscaProfissionalPorCPF(cpf);
         return profissionalSaude;

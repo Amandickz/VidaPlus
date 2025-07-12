@@ -83,9 +83,9 @@ public class InternacaoDAO {
                 
                 internacoes.add(internacao);
                 System.out.println(internacao);
-                System.out.println("\n");
             }
             
+            System.out.println("\n");            
             return internacoes;
             
         } catch (SQLException e){

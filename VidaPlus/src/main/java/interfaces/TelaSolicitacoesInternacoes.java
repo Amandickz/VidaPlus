@@ -5,6 +5,21 @@
 package interfaces;
 
 import classes.Administracao;
+import classes.Internacao;
+import classes.Leito;
+import classes.Medico;
+import classes.Paciente;
+import classes.ProfissionalSaude;
+import classes.ProntuarioMedico;
+import controles.ControleInternacao;
+import controles.ControleLeito;
+import controles.ControlePaciente;
+import controles.ControleProfissional;
+import controles.ControleProntuario;
+import java.util.ArrayList;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,13 +31,70 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
      */
     
     Administracao adm;
+    DefaultTableModel todasSolicitacoes;
+    ArrayList<Leito> leitosDisponiveis;
+    ControleLeito controleLeito = new ControleLeito();
+    ArrayList<Internacao> solicitacoes;
+    ControleInternacao controleInternacao = new ControleInternacao();
+    ControleProntuario controleProntuario = new ControleProntuario();
+    ControlePaciente controlePaciente = new ControlePaciente();
+    ControleProfissional controleProfissional = new ControleProfissional();
     
     public TelaSolicitacoesInternacoes(Administracao adm) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.adm = adm;
         
-        System.out.println(this.adm);
+        System.out.println("\n----->Administrador: " + adm);
+        
+        todasSolicitacoes = (DefaultTableModel) tabelaSolicitacoes.getModel();
+        
+        atualizaTabela();
+        centralizarTextos();
+        desativaEdicaoCampos();
+        preencheListaLeitos();
+    }
+    
+    private void atualizaTabela(){
+        todasSolicitacoes.setRowCount(0);
+        //Busca Internações aguardando aprovações
+        this.solicitacoes = controleInternacao.retornaSolicitacoesInternacao();
+        for(Internacao i : this.solicitacoes){
+            ProntuarioMedico prontuario = controleProntuario.buscaProntuarioPorID(i.getIdProntuario());
+            Paciente paciente = controlePaciente.buscaPacientePorID(prontuario.getIdPaciente());
+            ProfissionalSaude profissional = controleProfissional.buscaProfissionalPorID(i.getIdMedico());
+            if(paciente.getIdAdministrador() == adm.getId() && profissional.getIdAdministracao() == adm.getId()){
+                todasSolicitacoes.addRow(new Object[]{
+                    paciente.getNome(),
+                    profissional.getNome(),
+                    prontuario.getDataAtualizacao()
+                });
+            }
+        }
+    }
+    
+    private void desativaEdicaoCampos(){
+        nomePaciente.setEditable(false);
+        nomeMedico.setEditable(false);
+        listaLeitos.setEditable(false);
+        tipoLeito.setEditable(false);
+        valorLeito.setEditable(false);
+    }
+    
+    private void preencheListaLeitos(){
+        listaLeitos.removeAllItems();
+        leitosDisponiveis = controleLeito.retornaLeitosDisponiveis(adm.getId());
+        for(Leito l : leitosDisponiveis){
+            listaLeitos.addItem("" + l.getNumero());
+        }
+    }
+    
+    private void centralizarTextos(){
+        DefaultTableCellRenderer centralizar = new DefaultTableCellRenderer();
+        centralizar.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < tabelaSolicitacoes.getColumnCount(); i++) {
+            tabelaSolicitacoes.getColumnModel().getColumn(i).setCellRenderer(centralizar);
+        }
     }
 
     /**

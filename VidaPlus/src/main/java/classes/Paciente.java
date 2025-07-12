@@ -17,6 +17,7 @@ public class Paciente {
     private String telefone;
     private String dataNascimento;
     private int sexo;
+    private int idAdministrador;
 
     public Paciente(String cpf, String nome, String email, String telefone, String dataNascimento, int sexo) {
         this.cpf = cpf;
@@ -91,6 +92,14 @@ public class Paciente {
 
     public void setSexo(int sexo) {
         this.sexo = sexo;
+    }
+
+    public int getIdAdministrador() {
+        return idAdministrador;
+    }
+
+    public void setIdAdministrador(int idAdministrador) {
+        this.idAdministrador = idAdministrador;
     }
 
     @Override

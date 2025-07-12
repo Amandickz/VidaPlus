@@ -159,8 +159,10 @@ public class PacienteDAO {
                 String telefone = rs.getString("telefone");
                 String dataNascimento = rs.getString("dataNascimento");
                 int sexo = rs.getInt("sexo");
+                int idAdministracao = rs.getInt("idAdministracao");
                 
                 Paciente paciente = new Paciente(id, cpf, nome, email, telefone, dataNascimento, sexo);
+                paciente.setIdAdministrador(idAdministracao);
                 System.out.println(paciente);
                 System.out.println("\n");
                 return paciente;

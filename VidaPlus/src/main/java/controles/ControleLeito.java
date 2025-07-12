@@ -35,4 +35,9 @@ public class ControleLeito {
         return confirmacao;
     }
     
+    public ArrayList<Leito> retornaLeitosDisponiveis(int idAdministracao){
+        ArrayList<Leito> leitos = leitoDAO.retornaLeitosDisponiveis(idAdministracao);
+        return leitos;
+    }
+    
 }
