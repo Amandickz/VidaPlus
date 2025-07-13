@@ -5,24 +5,116 @@
 package interfaces;
 
 import classes.Administracao;
+import classes.Leito;
+import controles.ControleLeito;
+import enums.DisponibilidadeLeito;
+import enums.TipoLeito;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Amanda
  */
-public class TelaInicialAdministrador extends javax.swing.JFrame {
+public class TelaLeitosCadastrados extends javax.swing.JFrame {
     /**
      * Creates new form TelaAdministrador
      */
     
     Administracao adm;
+    DefaultTableModel tabelaLeitos;
+    ControleLeito controleLeito = new ControleLeito();
     
-    public TelaInicialAdministrador(Administracao adm) {
+    public TelaLeitosCadastrados(Administracao adm) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.adm = adm;
         
-        System.out.println(this.adm);
+        tabelaLeitos = (DefaultTableModel) listaLeitos.getModel();
+        
+        preencheTabela();
+        centralizarTextos();
+        
+        if(tabelaLeitos.getRowCount() <= 0){
+            JOptionPane.showMessageDialog(null, "Nenhum Leito cadastrado nessa Unidade.");
+        }
+    }
+    
+    private void preencheTabela(){
+        tabelaLeitos.setRowCount(0);
+        ArrayList<Leito> leitos = controleLeito.recuperaLeitos(adm.getId());
+        for(Leito l : leitos){
+            tabelaLeitos.addRow(new Object[]{
+                l.getNumero(),
+                tipoLeito(l.getTipoLeito()),
+                "R$ " + l.getValor(),
+                statusLeito(l.getStatus()),
+                l.getCapacidade(),
+                l.getInternados()
+            });
+        }
+    }
+    
+    private void centralizarTextos(){
+        DefaultTableCellRenderer centralizar = new DefaultTableCellRenderer();
+        centralizar.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < listaLeitos.getColumnCount(); i++) {
+            listaLeitos.getColumnModel().getColumn(i).setCellRenderer(centralizar);
+        }
+    }
+    
+    private String tipoLeito(int tipo){
+        switch (tipo) {
+            case 0 -> {
+                return TipoLeito.UM.getTipoLeito();
+            }
+            case 1 -> {
+                return TipoLeito.DOIS.getTipoLeito();
+            }
+            case 2 -> {
+                return TipoLeito.TRES.getTipoLeito();
+            }
+            case 3 -> {
+                return TipoLeito.QUATRO.getTipoLeito();
+            }
+            case 4 -> {
+                return TipoLeito.CINCO.getTipoLeito();
+            }
+            case 5 -> {
+                return TipoLeito.SEIS.getTipoLeito();
+            }
+            case 6 -> {
+                return TipoLeito.SETE.getTipoLeito();
+            }
+            case 7 -> {
+                return TipoLeito.OITO.getTipoLeito();
+            }
+            case 8 -> {
+                return TipoLeito.NOVE.getTipoLeito();
+            }
+            default -> throw new AssertionError();
+        }
+    }
+    
+    private String statusLeito(int status){
+        switch (status) {
+            case 0 -> {
+                return DisponibilidadeLeito.UM.getDisponibilidadeLeito();
+            }
+            case 1 -> {
+                return DisponibilidadeLeito.DOIS.getDisponibilidadeLeito();
+            }
+            case 2 -> {
+                return DisponibilidadeLeito.TRES.getDisponibilidadeLeito();
+            }
+            case 3 -> {
+                return DisponibilidadeLeito.QUATRO.getDisponibilidadeLeito();
+            }
+            default -> throw new AssertionError();
+        }
     }
 
     /**
@@ -36,6 +128,10 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaLeitos = new javax.swing.JTable();
+        voltar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         logout = new javax.swing.JMenuItem();
@@ -43,15 +139,12 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         gerenciar = new javax.swing.JMenu();
         leitos = new javax.swing.JMenu();
         cadastrarLeito = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
         suprimentos = new javax.swing.JMenu();
         novoSuprimento = new javax.swing.JMenuItem();
         internacoes = new javax.swing.JMenu();
-        solicitacoesInternacao = new javax.swing.JMenuItem();
-        internacoesAtuais = new javax.swing.JMenuItem();
+        verificarInternacoes = new javax.swing.JMenuItem();
         pacientes = new javax.swing.JMenu();
         cadastrarPaciente = new javax.swing.JMenuItem();
-        visualizarPacientes = new javax.swing.JMenuItem();
         recursosHumanos = new javax.swing.JMenu();
         medicos = new javax.swing.JMenu();
         novoMedico = new javax.swing.JMenuItem();
@@ -67,7 +160,48 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("Sair");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setText("Leitos Cadastrados");
+
+        listaLeitos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Número", "Tipo", "Valor", "Status", "Capacidade", "Internados"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        listaLeitos.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(listaLeitos);
+        if (listaLeitos.getColumnModel().getColumnCount() > 0) {
+            listaLeitos.getColumnModel().getColumn(0).setResizable(false);
+            listaLeitos.getColumnModel().getColumn(1).setResizable(false);
+            listaLeitos.getColumnModel().getColumn(1).setPreferredWidth(150);
+            listaLeitos.getColumnModel().getColumn(2).setResizable(false);
+            listaLeitos.getColumnModel().getColumn(3).setResizable(false);
+            listaLeitos.getColumnModel().getColumn(3).setPreferredWidth(150);
+            listaLeitos.getColumnModel().getColumn(4).setResizable(false);
+            listaLeitos.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        voltar.setText("Voltar");
+        voltar.setHideActionText(true);
+        voltar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarActionPerformed(evt);
+            }
+        });
+
+        jMenu1.setText("Geral");
 
         logout.setText("Logout");
         logout.addActionListener(new java.awt.event.ActionListener() {
@@ -104,14 +238,6 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         });
         leitos.add(cadastrarLeito);
 
-        jMenuItem3.setText("Visualizar Leitos");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
-        });
-        leitos.add(jMenuItem3);
-
         gerenciar.add(leitos);
 
         suprimentos.setText("Suprimentos");
@@ -128,21 +254,8 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
 
         internacoes.setText("Internações");
 
-        solicitacoesInternacao.setText("Solicitações em Aguardo");
-        solicitacoesInternacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                solicitacoesInternacaoActionPerformed(evt);
-            }
-        });
-        internacoes.add(solicitacoesInternacao);
-
-        internacoesAtuais.setText("Internações Atuais");
-        internacoesAtuais.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                internacoesAtuaisActionPerformed(evt);
-            }
-        });
-        internacoes.add(internacoesAtuais);
+        verificarInternacoes.setText("Verificar Internações");
+        internacoes.add(verificarInternacoes);
 
         gerenciar.add(internacoes);
 
@@ -155,14 +268,6 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
             }
         });
         pacientes.add(cadastrarPaciente);
-
-        visualizarPacientes.setText("Visualizar Pacientes");
-        visualizarPacientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                visualizarPacientesActionPerformed(evt);
-            }
-        });
-        pacientes.add(visualizarPacientes);
 
         gerenciar.add(pacientes);
 
@@ -181,11 +286,6 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         medicos.add(novoMedico);
 
         medicosCadastrados.setText("Médicos Cadastrados");
-        medicosCadastrados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                medicosCadastradosActionPerformed(evt);
-            }
-        });
         medicos.add(medicosCadastrados);
 
         recursosHumanos.add(medicos);
@@ -222,11 +322,28 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 834, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(373, 373, 373)
+                        .addComponent(voltar)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 616, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(voltar)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -283,35 +400,11 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_logoutActionPerformed
 
-    private void medicosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicosCadastradosActionPerformed
+    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
         // TODO add your handling code here:
-        new TelaMedicosCadastrados(adm).setVisible(true);
+        new TelaInicialAdministrador(adm).setVisible(true);
         dispose();
-    }//GEN-LAST:event_medicosCadastradosActionPerformed
-
-    private void visualizarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarPacientesActionPerformed
-        // TODO add your handling code here:
-        new TelaPacientesCadastrados(adm).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_visualizarPacientesActionPerformed
-
-    private void solicitacoesInternacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solicitacoesInternacaoActionPerformed
-        // TODO add your handling code here:
-        new TelaSolicitacoesInternacoes(adm).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_solicitacoesInternacaoActionPerformed
-
-    private void internacoesAtuaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_internacoesAtuaisActionPerformed
-        // TODO add your handling code here:
-        new TelaInternacoesAtuais(adm).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_internacoesAtuaisActionPerformed
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-        new TelaLeitosCadastrados(adm).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_voltarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -321,13 +414,14 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
     private javax.swing.JMenu farmaceuticos;
     private javax.swing.JMenu gerenciar;
     private javax.swing.JMenu internacoes;
-    private javax.swing.JMenuItem internacoesAtuais;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu leitos;
+    private javax.swing.JTable listaLeitos;
     private javax.swing.JMenuItem logout;
     private javax.swing.JMenu medicos;
     private javax.swing.JMenuItem medicosCadastrados;
@@ -338,8 +432,8 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
     private javax.swing.JMenu pacientes;
     private javax.swing.JMenu recursosHumanos;
     private javax.swing.JMenuItem sair;
-    private javax.swing.JMenuItem solicitacoesInternacao;
     private javax.swing.JMenu suprimentos;
-    private javax.swing.JMenuItem visualizarPacientes;
+    private javax.swing.JMenuItem verificarInternacoes;
+    private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }
