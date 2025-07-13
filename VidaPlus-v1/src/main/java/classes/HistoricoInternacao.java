@@ -11,24 +11,30 @@ package classes;
 public class HistoricoInternacao {
     
     private int id;
+    private int idPrescricao;
+    private int idEnfermeiro;
     private String data;
-    private String procedimentoRealizado;
-    private int quantidade;
+    private String hora;
+    private String prescricao;
     private String anotacoes;
 
-    public HistoricoInternacao(String data, String procedimentoRealizado, int quantidade, String anotacoes) {
+    public HistoricoInternacao(int idPrescricao, int idEnfermeiro, String data, String hora, String prescricao) {
+        this.idPrescricao = idPrescricao;
+        this.idEnfermeiro = idEnfermeiro;
         this.data = data;
-        this.procedimentoRealizado = procedimentoRealizado;
-        this.quantidade = quantidade;
-        this.anotacoes = anotacoes;
+        this.hora = hora;
+        this.prescricao = prescricao;
     }
 
-    public HistoricoInternacao(int id, String data, String procedimentoRealizado, int quantidade, String anotacoes) {
+    
+    
+    public HistoricoInternacao(int id, int idPrescricao, int idEnfermeiro, String data, String hora, String prescricao) {
         this.id = id;
+        this.idPrescricao = idPrescricao;
+        this.idEnfermeiro = idEnfermeiro;
         this.data = data;
-        this.procedimentoRealizado = procedimentoRealizado;
-        this.quantidade = quantidade;
-        this.anotacoes = anotacoes;
+        this.hora = hora;
+        this.prescricao = prescricao;
     }
 
     public int getId() {
@@ -39,6 +45,22 @@ public class HistoricoInternacao {
         this.id = id;
     }
 
+    public int getIdPrescricao() {
+        return idPrescricao;
+    }
+
+    public void setIdPrescricao(int idPrescricao) {
+        this.idPrescricao = idPrescricao;
+    }
+
+    public int getIdEnfermeiro() {
+        return idEnfermeiro;
+    }
+
+    public void setIdEnfermeiro(int idEnfermeiro) {
+        this.idEnfermeiro = idEnfermeiro;
+    }
+
     public String getData() {
         return data;
     }
@@ -47,20 +69,20 @@ public class HistoricoInternacao {
         this.data = data;
     }
 
-    public String getProcedimentoRealizado() {
-        return procedimentoRealizado;
+    public String getHora() {
+        return hora;
     }
 
-    public void setProcedimentoRealizado(String procedimentoRealizado) {
-        this.procedimentoRealizado = procedimentoRealizado;
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public String getPrescricao() {
+        return prescricao;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setPrescricao(String prescricao) {
+        this.prescricao = prescricao;
     }
 
     public String getAnotacoes() {
@@ -73,7 +95,7 @@ public class HistoricoInternacao {
 
     @Override
     public String toString() {
-        return "HistoricoInternacao{" + "id=" + id + ", data=" + data + ", procedimentoRealizado=" + procedimentoRealizado + ", quantidade=" + quantidade + ", anotacoes=" + anotacoes + '}';
+        return "HistoricoInternacao{" + "id=" + id + ", idPrescricao=" + idPrescricao + ", idEnfermeiro=" + idEnfermeiro + ", data=" + data + ", hora=" + hora + ", prescricao=" + prescricao + ", anotacoes=" + anotacoes + '}';
     }
     
 }

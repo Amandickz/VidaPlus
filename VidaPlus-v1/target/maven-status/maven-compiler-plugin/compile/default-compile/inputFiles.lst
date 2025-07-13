@@ -20,6 +20,7 @@ C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\c
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\controles\ControleConsulta.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\controles\ControleEnfermeiro.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\controles\ControleFarmaceutico.java
+C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\controles\ControleHistoricoInternacao.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\controles\ControleInternacao.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\controles\ControleLeito.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\controles\ControleMedico.java
@@ -35,6 +36,7 @@ C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\d
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\dao\DB.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\dao\EnfermeiroDAO.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\dao\FarmaceuticoDAO.java
+C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\dao\HistoricoInternacaoDAO.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\dao\InternacaoDAO.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\dao\LeitoDAO.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\dao\MedicoDAO.java
@@ -72,6 +74,7 @@ C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\i
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\interfaces\TelaFarmaceuticosCadastrados.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\interfaces\TelaInicial.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\interfaces\TelaInicialAdministrador.java
+C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\interfaces\TelaInicialEnfermeiro.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\interfaces\TelaInicialMedico.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\interfaces\TelaInicialPaciente.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\interfaces\TelaInternacoesAtuais.java
