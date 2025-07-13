@@ -63,7 +63,7 @@ public class ControleMedico {
     }
     
     public ArrayList<Medico> retornaListaMedica(){
-        ArrayList<Medico> listaMedicos = medicoDAO.retornaListaMedica();
+        ArrayList<Medico> listaMedicos = medicoDAO.retornaListaMedicos();
         for(Medico m : listaMedicos){
             ProfissionalSaude ps = profissionalSaudeDAO.buscaProfissionalPorID(m.getId());
             if(ps != null){

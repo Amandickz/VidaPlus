@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -77,6 +78,43 @@ public class EnfermeiroDAO {
                 Enfermeiro enfermeiro = new Enfermeiro(coren, uf, dataEmissao, tipo, id, "", "", "", "", "", "");
                 return enfermeiro;
             }
+            
+        } catch (SQLException e){
+            System.err.println("********Erro ao Recuperar dados!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        return null;
+    }
+    
+    public ArrayList<Enfermeiro> retornaListaEnfermeiros(){
+        ArrayList<Enfermeiro> enfermeiros = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from enfermeiro");
+            
+            while(rs.next()){
+                int id = rs.getInt("idProfissionalSaude");
+                String coren = rs.getString("coren");
+                String uf = rs.getString("uf");
+                String dataEmissao = rs.getString("dataEmissao");
+                int tipo = rs.getInt("tipo");
+                
+                Enfermeiro enfermeiro = new Enfermeiro(coren, uf, dataEmissao, tipo, id, "", "", "", "", "", "");
+                enfermeiros.add(enfermeiro);
+            }
+            
+            return enfermeiros;
             
         } catch (SQLException e){
             System.err.println("********Erro ao Recuperar dados!");

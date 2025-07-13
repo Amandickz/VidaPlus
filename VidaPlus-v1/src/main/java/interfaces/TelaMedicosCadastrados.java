@@ -9,6 +9,8 @@ import classes.Medico;
 import controles.ControleMedico;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,7 +23,7 @@ public class TelaMedicosCadastrados extends javax.swing.JFrame {
      */
     
     Administracao adm;
-    DefaultTableModel modeloLista;
+    DefaultTableModel tabelaMedicos;
     ControleMedico controleMedico = new ControleMedico();
     
     public TelaMedicosCadastrados(Administracao adm) {
@@ -29,11 +31,12 @@ public class TelaMedicosCadastrados extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.adm = adm;
         
-        modeloLista = (DefaultTableModel) listaMedicos.getModel();
+        tabelaMedicos = (DefaultTableModel) listaMedicos.getModel();
         
         preencheTabela();
+        centralizarTextos();
         
-        if(modeloLista.getRowCount() <= 0){
+        if(tabelaMedicos.getRowCount() <= 0){
             JOptionPane.showMessageDialog(null, "Nenhum Médico cadastrado nessa Unidade.");
         }
     }
@@ -42,10 +45,18 @@ public class TelaMedicosCadastrados extends javax.swing.JFrame {
         ArrayList<Medico> listaMedica = controleMedico.retornaListaMedica();
         for(Medico m : listaMedica){
             if(m.getIdAdministracao() == adm.getId()){
-                modeloLista.addRow(new Object[]{
+                tabelaMedicos.addRow(new Object[]{
                 m.getNome(), m.getCrm() + "/" + m.getUf(),
                 m.getTelefone(), m.getTelefone(), m.getDataContratacao()});
             }
+        }
+    }
+    
+    private void centralizarTextos(){
+        DefaultTableCellRenderer centralizar = new DefaultTableCellRenderer();
+        centralizar.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < listaMedicos.getColumnCount(); i++) {
+            listaMedicos.getColumnModel().getColumn(i).setCellRenderer(centralizar);
         }
     }
 

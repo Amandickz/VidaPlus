@@ -88,7 +88,7 @@ public class MedicoDAO {
         return null;
     }
     
-    public ArrayList<Medico> retornaListaMedica(){
+    public ArrayList<Medico> retornaListaMedicos(){
         ArrayList<Medico> medicos = new ArrayList<>();
         Connection conn = null;
         Statement stmt = null;
