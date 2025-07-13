@@ -16,6 +16,7 @@ interfaces\TelaInicialPaciente.class
 dao\AnamneseDAO.class
 interfaces\TelaCNPJ.class
 interfaces\TelaCPFProfissional$1.class
+interfaces\TelaInicialAdministrador$15.class
 interfaces\TelaMedicosCadastrados.class
 interfaces\TelaInternacoesAtuais$9.class
 interfaces\TelaCadastrarPaciente$7.class
@@ -29,6 +30,7 @@ interfaces\TelaPacientesCadastrados$4.class
 interfaces\TelaAgendaCompleta$2.class
 interfaces\TelaMarcarConsulta$6.class
 interfaces\TelaLeitosCadastrados$8.class
+interfaces\TelaSuprimentosCadastrados$1.class
 interfaces\TelaCadastroDatasConsultas$3.class
 interfaces\TelaConsulta.class
 interfaces\TelaMedicosCadastrados$10.class
@@ -80,7 +82,9 @@ interfaces\TelaCadastrarFarmaceutico$14.class
 interfaces\TelaInicial$4.class
 interfaces\TelaVerificarInternacoes$4.class
 controles\ControleAdministracao.class
+interfaces\TelaSuprimentosCadastrados.class
 interfaces\TelaCadastrarMedico$13.class
+interfaces\TelaSuprimentosCadastrados$10.class
 interfaces\TelaInternacoesAtuais$10.class
 interfaces\TelaMedicosCadastrados$11.class
 classes\Leito.class
@@ -98,6 +102,7 @@ interfaces\TelaAgendaCompleta$3.class
 controles\ControleProntuario.class
 interfaces\TelaLeitosCadastrados$7.class
 interfaces\TelaSolicitacoesInternacoes$8.class
+interfaces\TelaSuprimentosCadastrados$2.class
 interfaces\TelaCPFPaciente.class
 interfaces\TelaCadastrarFarmaceutico$12.class
 interfaces\TelaLeitosCadastrados.class
@@ -212,6 +217,7 @@ interfaces\TelaMarcarConsulta$3.class
 interfaces\TelaCadastrarFarmaceutico$5.class
 enums\IntervaloConsultas.class
 interfaces\TelaCadastrarMedico$9.class
+interfaces\TelaSuprimentosCadastrados$4.class
 interfaces\TelaCadastroLeito.class
 interfaces\TelaSolicitacoesInternacoes$3.class
 interfaces\TelaCadastrarPaciente$5.class
@@ -235,6 +241,7 @@ interfaces\TelaCadastroDatasConsultas$5.class
 interfaces\TelaCadastrarPaciente$4.class
 interfaces\TelaLeitosCadastrados$6.class
 interfaces\TelaPacientesCadastrados$2.class
+interfaces\TelaSuprimentosCadastrados$3.class
 controles\ControleLeito.class
 dao\ConsultaDAO.class
 enums\ServicoProntuario.class
@@ -243,6 +250,7 @@ interfaces\TelaInicialMedico$4.class
 controles\ControlePrescricao.class
 dao\PacienteDAO.class
 interfaces\TelaInicialAdministrador$7.class
+interfaces\TelaSuprimentosCadastrados$9.class
 interfaces\TelaCadastrarEnfermeiro$9.class
 interfaces\TelaCadastrarMedico$4.class
 interfaces\TelaCadastrarFarmaceutico$15.class
@@ -255,6 +263,7 @@ interfaces\TelaAnamnesePaciente$3.class
 interfaces\TelaMarcarConsulta$5.class
 interfaces\TelaInternacoesAtuais$2.class
 interfaces\TelaLeitosCadastrados$4.class
+interfaces\TelaSuprimentosCadastrados$5.class
 interfaces\TelaCadastrarMedico$8.class
 interfaces\TelaInicialAdministrador$8.class
 interfaces\TelaInternacoesAtuais.class
@@ -267,6 +276,7 @@ classes\Agenda.class
 interfaces\TelaCadastrarMedico$5.class
 interfaces\TelaCadastrarEnfermeiro$14.class
 interfaces\TelaCadastroLeito$7.class
+interfaces\TelaSuprimentosCadastrados$8.class
 interfaces\TelaInicial$2.class
 interfaces\TelaLeitosCadastrados$1.class
 dao\LeitoDAO.class
@@ -277,6 +287,7 @@ com\mycompany\vidaplus\Main.class
 interfaces\TelaCadastrarEnfermeiro$11.class
 interfaces\TelaAnamnesePaciente$10.class
 interfaces\TelaCadastroSuprimento$13.class
+interfaces\TelaSuprimentosCadastrados$11.class
 interfaces\TelaInicialMedico$9.class
 controles\ControleInternacao.class
 interfaces\TelaCadastrarPaciente$3.class
@@ -297,6 +308,7 @@ interfaces\TelaCadastroSuprimento$8.class
 interfaces\TelaInicialMedico$7.class
 controles\ControlePaciente.class
 interfaces\TelaCadastrarPaciente.class
+interfaces\TelaSuprimentosCadastrados$7.class
 enums\TipoLeito.class
 interfaces\TelaCadastrarMedico$6.class
 interfaces\TelaLeitosCadastrados$2.class
@@ -318,6 +330,7 @@ interfaces\TelaCadastroSuprimento$11.class
 interfaces\TelaInicialAdministrador$10.class
 interfaces\TelaLeitosCadastrados$3.class
 interfaces\TelaCadastrarMedico$7.class
+interfaces\TelaSuprimentosCadastrados$6.class
 classes\Internacao.class
 interfaces\TelaCNPJ$2.class
 interfaces\TelaInicialMedico$8.class
