@@ -11,6 +11,7 @@ import classes.Paciente;
 import classes.PrescricaoInternacao;
 import classes.ProfissionalSaude;
 import classes.ProntuarioMedico;
+import controles.ControleHistoricoInternacao;
 import controles.ControleInternacao;
 import controles.ControleLeito;
 import controles.ControlePaciente;
@@ -21,6 +22,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -40,6 +42,7 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
     ControleProfissional controleProfissional = new ControleProfissional();
     ControleProntuario controleProntuario = new ControleProntuario();
     ControlePaciente controlePaciente = new ControlePaciente();
+    ControleHistoricoInternacao controleHistorico = new ControleHistoricoInternacao();
     
     /**
      * Creates new form TelaInicialAdministrador
@@ -362,8 +365,14 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
         System.out.println("Internação -> " + internacao);
         System.out.println("Prescrição -> " + prescricao);
         
-        new TelaSolicitarSuprimentos(enfermeiro, prescricao, nomePaciente, nomeMedico, leito.getNumero()).setVisible(true);
-        dispose();
+        boolean confirmacao = controleHistorico.verificaSolicitacaoEmAndamento(prescricao.getId());
+        
+        if(confirmacao){
+            JOptionPane.showMessageDialog(null, "Já há uma solicitação de suprimentos em andamento!");
+        } else {
+            new TelaSolicitarSuprimentos(enfermeiro, prescricao, nomePaciente, nomeMedico, leito.getNumero()).setVisible(true);
+            dispose();
+        }
     }//GEN-LAST:event_solicitarSuprimentosActionPerformed
 
 

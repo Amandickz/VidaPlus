@@ -5,8 +5,10 @@
 package dao;
 
 import classes.HistoricoInternacao;
+import classes.Suprimento;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -45,6 +47,35 @@ public class HistoricoInternacaoDAO {
             System.out.println("!!!!!Erro ao SALVAR o Procedimento!!!!!");
         } finally {
             DB.closeStatement(pstmt);
+            DB.closeConnection();
+        }
+        
+        return false;
+    }
+    
+    public boolean verificaSolicitacaoEmAndamento(int idPrescricao){
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from historicoInternacao "
+                    + "where idPrescricao = " + idPrescricao);
+            
+            while(rs.next()){         
+                return true;
+            }
+            
+        } catch (SQLException e){
+            System.err.println("********Erro ao Recuperar dados!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
             DB.closeConnection();
         }
         

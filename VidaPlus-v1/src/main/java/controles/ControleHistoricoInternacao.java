@@ -24,4 +24,9 @@ public class ControleHistoricoInternacao {
         return confirmacao;
     }
     
+    public boolean verificaSolicitacaoEmAndamento(int idPrescricao){
+        boolean confirmacao = historicoDAO.verificaSolicitacaoEmAndamento(idPrescricao);
+        return confirmacao;
+    }
+    
 }

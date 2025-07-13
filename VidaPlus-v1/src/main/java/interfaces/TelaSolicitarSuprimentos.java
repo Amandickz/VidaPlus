@@ -483,8 +483,8 @@ public class TelaSolicitarSuprimentos extends javax.swing.JFrame {
         if(tabelaSuprimentos.getRowCount() != 0){
             for (int i = 0; i < tabelaSuprimentos.getRowCount(); i++){
                 suprimentos = suprimentos + tabelaSuprimentos.getValueAt(i, 0) + "/"
-                + tabelaSuprimentos.getValueAt(i, 0) + "/"
-                + tabelaSuprimentos.getValueAt(i, 0) + "\n";
+                + tabelaSuprimentos.getValueAt(i, 1) + "/"
+                + tabelaSuprimentos.getValueAt(i, 2) + "\n";
                 
             }
         }
