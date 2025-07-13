@@ -31,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TelaInicialEnfermeiro extends javax.swing.JFrame {
 
-    String dataConvertida, horaFormatada;
+    String dataConvertida, horaFormatada, numLeito, nomePaciente, nomeMedico;
     Enfermeiro enfermeiro;
     DefaultTableModel aRealizar, pacientesInternados;
     ControlePrescricao controlePrescricao = new ControlePrescricao();
@@ -103,42 +103,6 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
             procedimentosRealizar.getColumnModel().getColumn(i).setCellRenderer(centralizar);
         }
     }
-    
-    /*private void preencheConsultasdoDia(){
-        consultasDoDia.setRowCount(0);
-        ArrayList<Agenda> agendaDoDia = controleMedico.consultasDoDia(dataConvertida, medico);
-        if(agendaDoDia != null){
-            for(Agenda a : agendaDoDia){
-                Paciente paciente = controleMedico.buscaPacientePorID(a.getIdPaciente());
-                consultasDoDia.addRow(new Object[]{a.getHora(),paciente.getNome()});
-            }
-        }
-    }
-    
-    private void preencheListaInternados(){
-        pacientesInternados.setRowCount(0);
-        ArrayList<Internacao> internacoes = controleInternacao.retornaInternacoesAtivasPorMedico(medico.getId());
-        if(internacoes != null){
-            for(Internacao i : internacoes){
-                ProntuarioMedico prontuario = controleProntuario.buscaProntuarioPorID(i.getIdProntuario());
-                Leito leito = controleLeito.buscaLeitoPorID(i.getIdLeito());
-                Paciente paciente = controlePaciente.buscaPacientePorID(prontuario.getIdPaciente());
-                
-                pacientesInternados.addRow(new Object[]{
-                    leito.getNumero(),
-                    paciente.getNome()
-                });
-            }
-        }
-    }
-    
-    private void centralizarTextosInternados(){
-        DefaultTableCellRenderer centralizar = new DefaultTableCellRenderer();
-        centralizar.setHorizontalAlignment(SwingConstants.CENTER);
-        for (int i = 0; i < procedimentosRealizados.getColumnCount(); i++) {
-            procedimentosRealizados.getColumnModel().getColumn(i).setCellRenderer(centralizar);
-        }
-    }*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -160,7 +124,7 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
         procedimentosRealizados = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        solicitarSuprimentos = new javax.swing.JButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         logout = new javax.swing.JMenuItem();
@@ -206,11 +170,13 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
         jScrollPane2.setViewportView(procedimentosRealizar);
         if (procedimentosRealizar.getColumnModel().getColumnCount() > 0) {
             procedimentosRealizar.getColumnModel().getColumn(0).setResizable(false);
+            procedimentosRealizar.getColumnModel().getColumn(0).setPreferredWidth(50);
             procedimentosRealizar.getColumnModel().getColumn(1).setResizable(false);
             procedimentosRealizar.getColumnModel().getColumn(1).setPreferredWidth(200);
             procedimentosRealizar.getColumnModel().getColumn(2).setResizable(false);
             procedimentosRealizar.getColumnModel().getColumn(2).setPreferredWidth(200);
             procedimentosRealizar.getColumnModel().getColumn(3).setResizable(false);
+            procedimentosRealizar.getColumnModel().getColumn(3).setPreferredWidth(200);
         }
 
         procedimentosRealizados.setModel(new javax.swing.table.DefaultTableModel(
@@ -245,7 +211,12 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Procedimentos Realizados");
 
-        jButton1.setText("Solicitar Suprimentos");
+        solicitarSuprimentos.setText("Solicitar Suprimentos");
+        solicitarSuprimentos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                solicitarSuprimentosActionPerformed(evt);
+            }
+        });
 
         jMenu3.setText("Sair");
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -289,10 +260,6 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(304, 304, 304)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(30, 30, 30)
@@ -311,6 +278,10 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
                                 .addComponent(jScrollPane3)))))
                 .addContainerGap(30, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(323, 323, 323)
+                .addComponent(solicitarSuprimentos)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,7 +297,7 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(solicitarSuprimentos)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -349,12 +320,13 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
 
     private void procedimentosRealizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_procedimentosRealizarMouseClicked
         // TODO add your handling code here:
-        /*int linha = procedimentosRealizar.getSelectedRow();
+        int linha = procedimentosRealizar.getSelectedRow();
         
-        hora = String.valueOf(procedimentosRealizar.getValueAt(linha, 0));
+        numLeito = String.valueOf(procedimentosRealizar.getValueAt(linha, 0));
         nomePaciente = String.valueOf(procedimentosRealizar.getValueAt(linha, 1));
+        nomeMedico = String.valueOf(procedimentosRealizar.getValueAt(linha, 2));
         
-        System.out.println(hora + " -> " + nomePaciente);*/
+        System.out.println(numLeito + " -> " + nomePaciente + " -> " + nomeMedico);
     }//GEN-LAST:event_procedimentosRealizarMouseClicked
 
     private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
@@ -377,10 +349,22 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_procedimentosRealizadosMouseClicked
 
+    private void solicitarSuprimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solicitarSuprimentosActionPerformed
+        // TODO add your handling code here:
+        Paciente paciente = controlePaciente.buscaPacientePorNome(nomePaciente);
+        ProntuarioMedico prontuario = controleProntuario.buscaProntuarioPorIDPaciente(paciente.getId());
+        Internacao internacao = controleInternacao.retornaInternacaoPorIDProntuario(prontuario.getId());
+        PrescricaoInternacao prescricao = controlePrescricao.retornaPrescricao(internacao.getId());
+        
+        System.out.println("Paciente -> " + paciente);
+        System.out.println("Prontuário -> " + prontuario);
+        System.out.println("Internação -> " + internacao);
+        System.out.println("Prescrição -> " + prescricao);
+    }//GEN-LAST:event_solicitarSuprimentosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel dataHoraAtual;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu3;
@@ -395,5 +379,6 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
     private javax.swing.JTable procedimentosRealizados;
     private javax.swing.JTable procedimentosRealizar;
     private javax.swing.JMenuItem sair;
+    private javax.swing.JButton solicitarSuprimentos;
     // End of variables declaration//GEN-END:variables
 }

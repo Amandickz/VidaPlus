@@ -218,7 +218,7 @@ public class InternacaoDAO {
         return null;
     }
     
-    public Internacao retornaInternacaoPorIDProntuario(int idProntuario){
+    public Internacao retornaSolicitacaoInternacaoPorIDProntuario(int idProntuario){
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -315,6 +315,49 @@ public class InternacaoDAO {
                 Internacao internacao = new Internacao(id, idConsulta, idMedico, idProntuario, aguardandoAprovacao, statusAlta);
                 internacao.setIdLeito(idLeito);
                 internacao.setObservacoes(observacoes);
+                
+                return internacao;
+            }
+            
+            
+        } catch (SQLException e){
+            System.out.println("!!!!!Erro ao RECUPERAR Solicitações de Internação!!!!!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        return null;
+    }
+    
+    public Internacao retornaInternacaoPorIDProntuario(int idProntuario){
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from internacao where idProntuario = " + idProntuario 
+                    + " and statusAlta = false");
+            
+            System.out.println("\n----->Internações recuperadas:");
+            
+            while(rs.next()){
+                int id = rs.getInt("id");
+                int idConsulta = rs.getInt("idConsulta");
+                int idMedico = rs.getInt("idMedico");
+                int idLeito = rs.getInt("idLeito");
+                String observacoes = rs.getString("observacoes");
+                
+                Internacao internacao = new Internacao(id, idConsulta, idMedico, idProntuario, true, false);
+                internacao.setIdLeito(idLeito);
+                internacao.setObservacoes(observacoes);
+                
+                System.out.println(internacao);
                 
                 return internacao;
             }

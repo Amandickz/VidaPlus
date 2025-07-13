@@ -30,4 +30,9 @@ public class ControlePrescricao {
         return prescricoesPendentes;
     }
     
+    public PrescricaoInternacao retornaPrescricao(int idInternacao){
+        PrescricaoInternacao prescricao = prescricaoDAO.retornaPrescricao(idInternacao);
+        return prescricao;
+    }
+    
 }

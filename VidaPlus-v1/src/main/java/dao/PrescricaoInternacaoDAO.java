@@ -97,4 +97,43 @@ public class PrescricaoInternacaoDAO {
         return null;
     }
     
+    public PrescricaoInternacao retornaPrescricao(int idInternacao){
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from prescricaoInternacao where idInternacao = "
+                    + idInternacao + " and realizado = false");
+            
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String data = rs.getString("data");
+                String prescricao = rs.getString("prescricao");
+                String orientacoes = rs.getString("orientacoes");
+                String observacoes = rs.getString("observacoes");
+                
+                PrescricaoInternacao prescricaoInternacao = new PrescricaoInternacao(id, idInternacao, data, prescricao);
+                prescricaoInternacao.setOrientacoes(orientacoes);
+                prescricaoInternacao.setObservacoes(observacoes);
+                
+                return prescricaoInternacao;
+            }
+            
+        } catch (SQLException e){
+            System.out.println("!!!!!Erro ao RECUPERAR a Agenda Completa!!!!!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        
+        return null;
+    }
+    
 }

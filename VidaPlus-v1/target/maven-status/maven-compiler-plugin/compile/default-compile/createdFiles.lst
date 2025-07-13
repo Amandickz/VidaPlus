@@ -335,6 +335,7 @@ interfaces\TelaCadastroLeito$2.class
 interfaces\TelaCadastroSuprimento$18.class
 interfaces\TelaCadastrarFarmaceutico$3.class
 interfaces\TelaVerificarInternacoes$12.class
+interfaces\TelaInicialEnfermeiro$10.class
 interfaces\TelaInicialMedico$14.class
 interfaces\TelaSolicitacoesInternacoes$5.class
 interfaces\TelaCadastrarFarmaceutico$11.class
