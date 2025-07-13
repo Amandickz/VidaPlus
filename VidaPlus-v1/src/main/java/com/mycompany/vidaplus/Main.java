@@ -63,3 +63,22 @@ public class Main {
         
     }
 }
+
+
+/*
+        Para a realização dos testes via API Rest
+
+        port(4567);
+        Gson gson = new Gson();
+        ControleAdministracao controleAdministracao = new ControleAdministracao();
+        
+        post("/administrador", (req,res) -> {
+            String json = req.body();
+            Administracao administracao = gson.fromJson(json, Administracao.class);
+            return controleAdministracao.cadastraAdministracao(administracao);
+        });
+        
+        get("/administrador",(req,res) -> {
+            return controleAdministracao.recuperaAdministracao();
+        });
+*/
