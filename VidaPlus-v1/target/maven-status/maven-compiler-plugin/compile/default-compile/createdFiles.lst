@@ -140,7 +140,6 @@ interfaces\TelaSolicitacoesInternacoes$10.class
 interfaces\TelaCadastrarFarmaceutico$10.class
 interfaces\TelaConsulta$2.class
 interfaces\TelaInicialAdministrador$3.class
-enums\Servico.class
 enums\Especialidades.class
 interfaces\TelaPacientesCadastrados$6.class
 interfaces\TelaInicialMedico$13.class
@@ -155,6 +154,7 @@ interfaces\TelaCadastroSuprimento$2.class
 interfaces\TelaInicialMedico$1.class
 interfaces\TelaCadastroLeito$2.class
 interfaces\TelaCadastrarFarmaceutico$3.class
+interfaces\TelaVerificarInternacoes$12.class
 interfaces\TelaInternacoesAtuais$6.class
 interfaces\TelaAnamnesePaciente$7.class
 interfaces\TelaInicialMedico$14.class
@@ -177,6 +177,7 @@ dao\SuprimentoDAO.class
 interfaces\TelaCadastrarEnfermeiro$13.class
 interfaces\TelaInicialAdministrador$1.class
 interfaces\TelaInternacoesAtuais$14.class
+enums\ServicoConsulta.class
 interfaces\TelaCadastroSuprimento$6.class
 interfaces\TelaSolicitacoesInternacoes$15.class
 interfaces\TelaCadastroLeito$3.class

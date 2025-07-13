@@ -15,7 +15,8 @@ import controles.ControleLeito;
 import controles.ControlePaciente;
 import controles.ControleProfissional;
 import controles.ControleProntuario;
-import enums.Servico;
+import enums.ServicoConsulta;
+import enums.ServicoProntuario;
 import enums.TipoLeito;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -634,9 +635,9 @@ public class TelaSolicitacoesInternacoes extends javax.swing.JFrame {
             confirmacao = controleLeito.atualizarLeito(leito);
             
             if(confirmacao){
-                /*Atualizar Prontuário - atualizar a dataAtualização e serviço para Servico.E*/
+                /*Atualizar Prontuário - atualizar a dataAtualização e serviço para ServicoProntuario.QUATRO*/
                 prontuario.setDataAtualizacao(dataConvertida);
-                prontuario.setServico(Servico.E.getSituacaoConsulta());
+                prontuario.setServico(ServicoProntuario.QUATRO.getServico());
                 
                 System.out.println("Prontuário Atualizado -> " + prontuario);
                 

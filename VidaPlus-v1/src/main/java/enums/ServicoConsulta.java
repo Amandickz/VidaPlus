@@ -8,17 +8,15 @@ package enums;
  *
  * @author Amanda
  */
-public enum Servico {
+public enum ServicoConsulta {
     
     C("CONCLUIR CONSULTA"),
     I("ENCAMINHAR PARA INTERNAÇÃO"),
-    E("INTERNADO - EM TRATAMENTO"),
-    R("RETORNO EM 15 DIAS"),
-    A("ALTA DA INTERNAÇÃO");
+    R("RETORNO EM 15 DIAS");
     
     private String situacaoConsulta;
 
-    Servico(String situacaoConsulta) {
+    ServicoConsulta(String situacaoConsulta) {
         this.situacaoConsulta = situacaoConsulta;
     }
 

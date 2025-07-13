@@ -335,8 +335,8 @@ public class TelaMarcarConsulta extends javax.swing.JFrame {
             
             int resposta = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja marcar a consulta?"
                     + "\nData: " + agenda.getData() + "\nHora: " + agenda.getHora()
-                    + "\nMédico(a): " + profissional.getNome() + "",
-                    "",JOptionPane.YES_NO_OPTION);
+                    + "\nMédico(a): " + profissional.getNome(),
+                    "Marcar Consulta - Confirmação",JOptionPane.YES_NO_OPTION);
             
             if(resposta == JOptionPane.YES_OPTION){
                 boolean confirmacao = controleAgenda.marcarConsulta(profissional.getId(), agenda, paciente.getId());

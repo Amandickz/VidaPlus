@@ -13,6 +13,7 @@ import controles.ControleInternacao;
 import controles.ControleLeito;
 import controles.ControlePaciente;
 import controles.ControleProntuario;
+import enums.ServicoProntuario;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -186,6 +187,11 @@ public class TelaVerificarInternacoes extends javax.swing.JFrame {
         });
 
         realizarAlta.setText("Realizar Alta");
+        realizarAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                realizarAltaActionPerformed(evt);
+            }
+        });
 
         jMenu3.setText("Sair");
         jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -356,6 +362,62 @@ public class TelaVerificarInternacoes extends javax.swing.JFrame {
         
         System.out.println("Paciente Selecionado -> " + nomePaciente);
     }//GEN-LAST:event_listaPacientesMouseClicked
+
+    private void realizarAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarAltaActionPerformed
+        // TODO add your handling code here:
+        
+        if(nomePaciente.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Nenhum Paciente Selecionado!");
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja realizar a alta do Paciente?"
+                    + "\nPaciente: " + nomePaciente, "Realizar Alta", JOptionPane.YES_NO_OPTION);
+            if(resposta == JOptionPane.YES_OPTION){
+                Paciente paciente = controlePaciente.buscaPacientePorNome(nomePaciente);
+                ProntuarioMedico prontuario = controleProntuario.buscaProntuarioPorIDPaciente(paciente.getId());
+                Internacao internacao = controleInternacao.retornaInternacaoPorIDProntuario(prontuario.getId());
+                Leito leito = controleLeito.buscaLeitoPorID(internacao.getIdLeito());
+                
+                System.out.println("Dados da internação:");
+                System.out.println("Paciente -> " + paciente);
+                System.out.println("Prontuário -> " + prontuario);
+                System.out.println("Internação -> " + internacao);
+                System.out.println("Leito -> " + leito);
+                //Alterar Internação - statusAlta para true
+                internacao.setStatusAlta(true);
+                boolean confirmacao = controleInternacao.realizarAlta(internacao);
+                if(confirmacao){
+                    //Alterar Leito - diminuir dos internados e se for igual a capacidade for igual ao internados, mudar status para DisponibilidadeLeito.UM
+                    leito.setInternados(leito.getInternados() - 1);
+                    leito.setStatus(0);
+                    confirmacao = controleLeito.atualizarLeito(leito);
+                    if(confirmacao){
+                        //Atualizar Prontuário - dataAtualizacao com a Data Atual e serviço para ServicoProntuario.CINCO
+                        prontuario.setDataAtualizacao(dataConvertida);
+                        prontuario.setServico(ServicoProntuario.CINCO.getServico());
+                        confirmacao = controleProntuario.atualizacaoPronturario(prontuario);
+                        if(confirmacao){
+                            JOptionPane.showMessageDialog(null, "Alta do Paciente realizada!");
+                            preencherTabela();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Ops! Algo deu errado!");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Ops! Algo deu errado!");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ops! Algo deu errado!");
+                }
+                
+                
+                System.out.println("Dados da internação Após Atualização:");
+                System.out.println("Paciente -> " + paciente);
+                System.out.println("Prontuário -> " + prontuario);
+                System.out.println("Internação -> " + internacao);
+                System.out.println("Leito -> " + leito);
+            }
+        }
+        
+    }//GEN-LAST:event_realizarAltaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

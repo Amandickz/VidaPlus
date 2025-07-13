@@ -261,4 +261,33 @@ public class InternacaoDAO {
         return null;
     }
     
+    public boolean realizarAlta(Internacao internacao){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            pstmt = conn.prepareStatement("UPDATE internacao SET statusAlta = ?"
+                    + " WHERE id = ?");
+            
+            pstmt.setBoolean(1, internacao.isStatusAlta());
+            pstmt.setInt(2, internacao.getId());
+            
+            int rollsAffected = pstmt.executeUpdate();
+
+            if(rollsAffected > 0){
+                return true;
+            }
+            
+        } catch (SQLException e){
+            System.out.println("!!!!!Erro ao ATUALIZAR Prontuário do Paciente!!!!!");
+        } finally {
+            DB.closeStatement(pstmt);
+            DB.closeConnection();
+        }
+        return false;
+    }
+    
 }

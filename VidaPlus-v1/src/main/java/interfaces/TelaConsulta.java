@@ -14,7 +14,7 @@ import controles.ControleAgenda;
 import controles.ControleConsulta;
 import controles.ControleInternacao;
 import controles.ControleProntuario;
-import enums.Servico;
+import enums.ServicoConsulta;
 import enums.ServicoProntuario;
 import javax.swing.JOptionPane;
 
@@ -61,7 +61,7 @@ public class TelaConsulta extends javax.swing.JFrame {
     
     private void preencherListaSituacao(){
         listaSituacao.removeAllItems();
-        for(Servico sc : Servico.values()){
+        for(ServicoConsulta sc : ServicoConsulta.values()){
             listaSituacao.addItem(sc.getSituacaoConsulta());
         }
     }
