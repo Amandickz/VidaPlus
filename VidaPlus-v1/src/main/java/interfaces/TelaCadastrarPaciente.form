@@ -11,7 +11,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Geral"/>
+            <Property name="text" type="java.lang.String" value="Sair"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="logout">
@@ -51,6 +51,14 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrarLeitoActionPerformed"/>
                   </Events>
                 </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="visualizarLeitos">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Visualizar Leitos"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="visualizarLeitosActionPerformed"/>
+                  </Events>
+                </MenuItem>
               </SubComponents>
             </Menu>
             <Menu class="javax.swing.JMenu" name="suprimentos">
@@ -66,6 +74,14 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="novoSuprimentoActionPerformed"/>
                   </Events>
                 </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="visualizarSuprimentos">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Visualizar Suprimentos"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="visualizarSuprimentosActionPerformed"/>
+                  </Events>
+                </MenuItem>
               </SubComponents>
             </Menu>
             <Menu class="javax.swing.JMenu" name="internacoes">
@@ -73,10 +89,21 @@
                 <Property name="text" type="java.lang.String" value="Interna&#xe7;&#xf5;es"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="verificarInternacoes">
+                <MenuItem class="javax.swing.JMenuItem" name="solicitacoesInternacao">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Verificar Interna&#xe7;&#xf5;es"/>
+                    <Property name="text" type="java.lang.String" value="Solicita&#xe7;&#xf5;es em Aguardo"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="solicitacoesInternacaoActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="internacoesAtuais">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Interna&#xe7;&#xf5;es Atuais"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="internacoesAtuaisActionPerformed"/>
+                  </Events>
                 </MenuItem>
               </SubComponents>
             </Menu>
@@ -91,6 +118,14 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cadastrarPacienteActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="visualizarPacientes">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Visualizar Pacientes"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="visualizarPacientesActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
@@ -115,6 +150,14 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="novoMedicoActionPerformed"/>
                   </Events>
                 </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="medicosCadastrados">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="M&#xe9;dicos Cadastrados"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="medicosCadastradosActionPerformed"/>
+                  </Events>
+                </MenuItem>
               </SubComponents>
             </Menu>
             <Menu class="javax.swing.JMenu" name="enfermeiros">
@@ -130,6 +173,14 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="novoEnfermeiroActionPerformed"/>
                   </Events>
                 </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="visualizarEnfermeiros">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Visualizar Enfermeiros"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="visualizarEnfermeirosActionPerformed"/>
+                  </Events>
+                </MenuItem>
               </SubComponents>
             </Menu>
             <Menu class="javax.swing.JMenu" name="farmaceuticos">
@@ -143,6 +194,14 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="novoFarmaceuticoActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="visualizarFarmaceuticos">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Visualizar Farmac&#xea;uticos"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="visualizarFarmaceuticosActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>
