@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -76,6 +77,43 @@ public class FarmaceuticoDAO {
                 Farmaceutico farmaceutico = new Farmaceutico(crf, uf, categoriaProfissional, dataExpedicao, id, "", "", "", "", "", "");
                 return farmaceutico;
             }
+            
+        } catch (SQLException e){
+            System.err.println("********Erro ao Recuperar dados!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        return null;
+    }
+    
+    public ArrayList<Farmaceutico> retornaListaFarmaceuticos(){
+        ArrayList<Farmaceutico> farmaceuticos = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from farmaceutico");
+            
+            while(rs.next()){
+                int id = rs.getInt("idProfissionalSaude");
+                String crf = rs.getString("crf");
+                String uf = rs.getString("uf");
+                int categoriaProfissional = rs.getInt("categoriaProfissional");
+                String dataExpedição = rs.getString("dataExpedicao");
+                
+                Farmaceutico farmaceutico = new Farmaceutico(crf, uf, categoriaProfissional, dataExpedição, id, "", "", "", "", "", "");
+                farmaceuticos.add(farmaceutico);
+            }
+            
+            return farmaceuticos;
             
         } catch (SQLException e){
             System.err.println("********Erro ao Recuperar dados!");

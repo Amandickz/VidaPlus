@@ -5,24 +5,99 @@
 package interfaces;
 
 import classes.Administracao;
+import classes.Farmaceutico;
+import controles.ControleFarmaceutico;
+import enums.CategoriaProfissional;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Amanda
  */
-public class TelaInicialAdministrador extends javax.swing.JFrame {
+public class TelaFarmaceuticosCadastrados extends javax.swing.JFrame {
     /**
      * Creates new form TelaAdministrador
      */
     
     Administracao adm;
+    DefaultTableModel tabelaFarmaceuticos;
+    ControleFarmaceutico controleFarmaceutico = new ControleFarmaceutico();
     
-    public TelaInicialAdministrador(Administracao adm) {
+    public TelaFarmaceuticosCadastrados(Administracao adm) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.adm = adm;
         
-        System.out.println(this.adm);
+        tabelaFarmaceuticos = (DefaultTableModel) listaFarmaceuticos.getModel();
+        
+        preencheTabela();
+        centralizarTextos();
+        
+        if(tabelaFarmaceuticos.getRowCount() <= 0){
+            JOptionPane.showMessageDialog(null, "Nenhum Farmacêutico cadastrado nessa Unidade.");
+        }
+    }
+    
+    private void preencheTabela(){
+        ArrayList<Farmaceutico> farmaceuticos = controleFarmaceutico.retornaListaFarmaceuticos();
+        for(Farmaceutico f : farmaceuticos){
+            if(f.getIdAdministracao() == adm.getId()){
+                tabelaFarmaceuticos.addRow(new Object[]{
+                    f.getNome(),
+                    f.getCrf() + "/" + f.getUf(),
+                    categoriaProfissiona(f.getCategoriaProfissional()),
+                    f.getDataContratacao()
+                });
+            }
+        }
+    }
+    
+    private void centralizarTextos(){
+        DefaultTableCellRenderer centralizar = new DefaultTableCellRenderer();
+        centralizar.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < listaFarmaceuticos.getColumnCount(); i++) {
+            listaFarmaceuticos.getColumnModel().getColumn(i).setCellRenderer(centralizar);
+        }
+    }
+    
+    private String categoriaProfissiona(int categoria){
+        switch (categoria) {
+            case 0 -> {
+                return CategoriaProfissional.I.getCategoriaProfissional();
+            }
+            case 1 -> {
+                return CategoriaProfissional.II.getCategoriaProfissional();
+            }
+            case 2 -> {
+                return CategoriaProfissional.III.getCategoriaProfissional();
+            }
+            case 3 -> {
+                return CategoriaProfissional.IV.getCategoriaProfissional();
+            }
+            case 4 -> {
+                return CategoriaProfissional.V.getCategoriaProfissional();
+            }
+            case 5 -> {
+                return CategoriaProfissional.VI.getCategoriaProfissional();
+            }
+            case 6 -> {
+                return CategoriaProfissional.VII.getCategoriaProfissional();
+            }
+            case 7 -> {
+                return CategoriaProfissional.VIII.getCategoriaProfissional();
+            }
+            case 8 -> {
+                return CategoriaProfissional.IX.getCategoriaProfissional();
+            }
+            case 9 -> {
+                return CategoriaProfissional.X.getCategoriaProfissional();
+            }
+            default -> throw new AssertionError();
+        }
     }
 
     /**
@@ -36,6 +111,10 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaFarmaceuticos = new javax.swing.JTable();
+        voltar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         logout = new javax.swing.JMenuItem();
@@ -43,26 +122,20 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         gerenciar = new javax.swing.JMenu();
         leitos = new javax.swing.JMenu();
         cadastrarLeito = new javax.swing.JMenuItem();
-        visualizarLeitos = new javax.swing.JMenuItem();
         suprimentos = new javax.swing.JMenu();
         novoSuprimento = new javax.swing.JMenuItem();
-        visualizarSuprimentos = new javax.swing.JMenuItem();
         internacoes = new javax.swing.JMenu();
-        solicitacoesInternacao = new javax.swing.JMenuItem();
-        internacoesAtuais = new javax.swing.JMenuItem();
+        verificarInternacoes = new javax.swing.JMenuItem();
         pacientes = new javax.swing.JMenu();
         cadastrarPaciente = new javax.swing.JMenuItem();
-        visualizarPacientes = new javax.swing.JMenuItem();
         recursosHumanos = new javax.swing.JMenu();
         medicos = new javax.swing.JMenu();
         novoMedico = new javax.swing.JMenuItem();
         medicosCadastrados = new javax.swing.JMenuItem();
         enfermeiros = new javax.swing.JMenu();
         novoEnfermeiro = new javax.swing.JMenuItem();
-        visualizarEnfermeiros = new javax.swing.JMenuItem();
         farmaceuticos = new javax.swing.JMenu();
         novoFarmaceutico = new javax.swing.JMenuItem();
-        visualizarFarmaceuticos = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -70,7 +143,46 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu1.setText("Sair");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setText("Farmacêuticos Cadastrados nessa Unidade");
+
+        listaFarmaceuticos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "CRF/UF", "Categoria Profissional", "Contratação"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        listaFarmaceuticos.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(listaFarmaceuticos);
+        if (listaFarmaceuticos.getColumnModel().getColumnCount() > 0) {
+            listaFarmaceuticos.getColumnModel().getColumn(0).setResizable(false);
+            listaFarmaceuticos.getColumnModel().getColumn(0).setPreferredWidth(220);
+            listaFarmaceuticos.getColumnModel().getColumn(1).setResizable(false);
+            listaFarmaceuticos.getColumnModel().getColumn(2).setResizable(false);
+            listaFarmaceuticos.getColumnModel().getColumn(2).setPreferredWidth(220);
+            listaFarmaceuticos.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        voltar.setText("Voltar");
+        voltar.setHideActionText(true);
+        voltar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarActionPerformed(evt);
+            }
+        });
+
+        jMenu1.setText("Geral");
 
         logout.setText("Logout");
         logout.addActionListener(new java.awt.event.ActionListener() {
@@ -107,14 +219,6 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         });
         leitos.add(cadastrarLeito);
 
-        visualizarLeitos.setText("Visualizar Leitos");
-        visualizarLeitos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                visualizarLeitosActionPerformed(evt);
-            }
-        });
-        leitos.add(visualizarLeitos);
-
         gerenciar.add(leitos);
 
         suprimentos.setText("Suprimentos");
@@ -127,33 +231,12 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         });
         suprimentos.add(novoSuprimento);
 
-        visualizarSuprimentos.setText("Visualizar Suprimentos");
-        visualizarSuprimentos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                visualizarSuprimentosActionPerformed(evt);
-            }
-        });
-        suprimentos.add(visualizarSuprimentos);
-
         gerenciar.add(suprimentos);
 
         internacoes.setText("Internações");
 
-        solicitacoesInternacao.setText("Solicitações em Aguardo");
-        solicitacoesInternacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                solicitacoesInternacaoActionPerformed(evt);
-            }
-        });
-        internacoes.add(solicitacoesInternacao);
-
-        internacoesAtuais.setText("Internações Atuais");
-        internacoesAtuais.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                internacoesAtuaisActionPerformed(evt);
-            }
-        });
-        internacoes.add(internacoesAtuais);
+        verificarInternacoes.setText("Verificar Internações");
+        internacoes.add(verificarInternacoes);
 
         gerenciar.add(internacoes);
 
@@ -166,14 +249,6 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
             }
         });
         pacientes.add(cadastrarPaciente);
-
-        visualizarPacientes.setText("Visualizar Pacientes");
-        visualizarPacientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                visualizarPacientesActionPerformed(evt);
-            }
-        });
-        pacientes.add(visualizarPacientes);
 
         gerenciar.add(pacientes);
 
@@ -192,11 +267,6 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         medicos.add(novoMedico);
 
         medicosCadastrados.setText("Médicos Cadastrados");
-        medicosCadastrados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                medicosCadastradosActionPerformed(evt);
-            }
-        });
         medicos.add(medicosCadastrados);
 
         recursosHumanos.add(medicos);
@@ -211,14 +281,6 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         });
         enfermeiros.add(novoEnfermeiro);
 
-        visualizarEnfermeiros.setText("Visualizar Enfermeiros");
-        visualizarEnfermeiros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                visualizarEnfermeirosActionPerformed(evt);
-            }
-        });
-        enfermeiros.add(visualizarEnfermeiros);
-
         recursosHumanos.add(enfermeiros);
 
         farmaceuticos.setText("Farmacêuticos");
@@ -231,14 +293,6 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         });
         farmaceuticos.add(novoFarmaceutico);
 
-        visualizarFarmaceuticos.setText("Visualizar Farmacêuticos");
-        visualizarFarmaceuticos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                visualizarFarmaceuticosActionPerformed(evt);
-            }
-        });
-        farmaceuticos.add(visualizarFarmaceuticos);
-
         recursosHumanos.add(farmaceuticos);
 
         jMenuBar1.add(recursosHumanos);
@@ -249,11 +303,28 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 834, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 763, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(373, 373, 373)
+                        .addComponent(voltar)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 616, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(voltar)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -310,53 +381,11 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_logoutActionPerformed
 
-    private void medicosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicosCadastradosActionPerformed
+    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
         // TODO add your handling code here:
-        new TelaMedicosCadastrados(adm).setVisible(true);
+        new TelaInicialAdministrador(adm).setVisible(true);
         dispose();
-    }//GEN-LAST:event_medicosCadastradosActionPerformed
-
-    private void visualizarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarPacientesActionPerformed
-        // TODO add your handling code here:
-        new TelaPacientesCadastrados(adm).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_visualizarPacientesActionPerformed
-
-    private void solicitacoesInternacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solicitacoesInternacaoActionPerformed
-        // TODO add your handling code here:
-        new TelaSolicitacoesInternacoes(adm).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_solicitacoesInternacaoActionPerformed
-
-    private void internacoesAtuaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_internacoesAtuaisActionPerformed
-        // TODO add your handling code here:
-        new TelaInternacoesAtuais(adm).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_internacoesAtuaisActionPerformed
-
-    private void visualizarLeitosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarLeitosActionPerformed
-        // TODO add your handling code here:
-        new TelaLeitosCadastrados(adm).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_visualizarLeitosActionPerformed
-
-    private void visualizarSuprimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarSuprimentosActionPerformed
-        // TODO add your handling code here:
-        new TelaSuprimentosCadastrados(adm).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_visualizarSuprimentosActionPerformed
-
-    private void visualizarEnfermeirosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarEnfermeirosActionPerformed
-        // TODO add your handling code here:
-        new TelaEnfermeirosCadastrados(adm).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_visualizarEnfermeirosActionPerformed
-
-    private void visualizarFarmaceuticosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarFarmaceuticosActionPerformed
-        // TODO add your handling code here:
-        new TelaFarmaceuticosCadastrados(adm).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_visualizarFarmaceuticosActionPerformed
+    }//GEN-LAST:event_voltarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -366,12 +395,14 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
     private javax.swing.JMenu farmaceuticos;
     private javax.swing.JMenu gerenciar;
     private javax.swing.JMenu internacoes;
-    private javax.swing.JMenuItem internacoesAtuais;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu leitos;
+    private javax.swing.JTable listaFarmaceuticos;
     private javax.swing.JMenuItem logout;
     private javax.swing.JMenu medicos;
     private javax.swing.JMenuItem medicosCadastrados;
@@ -382,12 +413,8 @@ public class TelaInicialAdministrador extends javax.swing.JFrame {
     private javax.swing.JMenu pacientes;
     private javax.swing.JMenu recursosHumanos;
     private javax.swing.JMenuItem sair;
-    private javax.swing.JMenuItem solicitacoesInternacao;
     private javax.swing.JMenu suprimentos;
-    private javax.swing.JMenuItem visualizarEnfermeiros;
-    private javax.swing.JMenuItem visualizarFarmaceuticos;
-    private javax.swing.JMenuItem visualizarLeitos;
-    private javax.swing.JMenuItem visualizarPacientes;
-    private javax.swing.JMenuItem visualizarSuprimentos;
+    private javax.swing.JMenuItem verificarInternacoes;
+    private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }
