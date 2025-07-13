@@ -55,4 +55,9 @@ public class ControleInternacao {
         return confirmacao;
     }
     
+    public Internacao retornaInternacaoPorID(int id){
+        Internacao internacao = internacaoDAO.retornaInternacaoPorID(id);
+        return internacao;
+    }
+    
 }

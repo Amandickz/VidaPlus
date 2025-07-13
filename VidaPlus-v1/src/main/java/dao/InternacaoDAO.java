@@ -290,4 +290,44 @@ public class InternacaoDAO {
         return false;
     }
     
+    public Internacao retornaInternacaoPorID(int id){
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from internacao where id = " + id);
+            
+            while(rs.next()){
+                int idConsulta = rs.getInt("idConsulta");
+                int idMedico = rs.getInt("idMedico");
+                int idLeito = rs.getInt("idLeito");
+                int idProntuario = rs.getInt("idProntuario");
+                boolean aguardandoAprovacao = rs.getBoolean("aguardandoAprovacao");
+                boolean statusAlta = rs.getBoolean("statusAlta");
+                String observacoes = rs.getString("observacoes");
+                
+                Internacao internacao = new Internacao(id, idConsulta, idMedico, idProntuario, aguardandoAprovacao, statusAlta);
+                internacao.setIdLeito(idLeito);
+                internacao.setObservacoes(observacoes);
+                
+                return internacao;
+            }
+            
+            
+        } catch (SQLException e){
+            System.out.println("!!!!!Erro ao RECUPERAR Solicitações de Internação!!!!!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        return null;
+    }
+    
 }

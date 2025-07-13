@@ -6,6 +6,7 @@ package controles;
 
 import classes.PrescricaoInternacao;
 import dao.PrescricaoInternacaoDAO;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,6 +23,11 @@ public class ControlePrescricao {
     public boolean novaPrescricao(PrescricaoInternacao prescricao){
         boolean confirmacao = prescricaoDAO.novaPrescricao(prescricao);
         return confirmacao;
+    }
+    
+    public ArrayList<PrescricaoInternacao> retornaPrescricoesPendentes(){
+        ArrayList<PrescricaoInternacao> prescricoesPendentes = prescricaoDAO.retornaPrescricoesPendentes();
+        return prescricoesPendentes;
     }
     
 }

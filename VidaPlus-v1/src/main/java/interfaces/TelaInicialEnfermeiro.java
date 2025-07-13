@@ -5,9 +5,24 @@
 package interfaces;
 
 import classes.Enfermeiro;
+import classes.Internacao;
+import classes.Leito;
+import classes.Paciente;
+import classes.PrescricaoInternacao;
+import classes.ProfissionalSaude;
+import classes.ProntuarioMedico;
+import controles.ControleInternacao;
+import controles.ControleLeito;
+import controles.ControlePaciente;
+import controles.ControlePrescricao;
+import controles.ControleProfissional;
+import controles.ControleProntuario;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,7 +33,13 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
 
     String dataConvertida, horaFormatada;
     Enfermeiro enfermeiro;
-    DefaultTableModel consultasDoDia, pacientesInternados;
+    DefaultTableModel aRealizar, pacientesInternados;
+    ControlePrescricao controlePrescricao = new ControlePrescricao();
+    ControleInternacao controleInternacao = new ControleInternacao();
+    ControleLeito controleLeito = new ControleLeito();
+    ControleProfissional controleProfissional = new ControleProfissional();
+    ControleProntuario controleProntuario = new ControleProntuario();
+    ControlePaciente controlePaciente = new ControlePaciente();
     
     /**
      * Creates new form TelaInicialAdministrador
@@ -32,16 +53,55 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
         DateTimeFormatter formataData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         dataConvertida = hoje.format(formataData);
         horaFormatada = hora.getHour() + ":" + hora.getMinute();
-        this.nomeEnfermeiro.setText("Seja Bem-vindo Drº " + this.enfermeiro.getNome());
+        this.nomeEnfermeiro.setText("Seja Bem-vindo, " + this.enfermeiro.getNome());
         this.dataHoraAtual.setText("Data: " + dataConvertida + " | Hora: " + horaFormatada);
         
-        consultasDoDia = (DefaultTableModel) procedimentosRealizar.getModel();
+        aRealizar = (DefaultTableModel) procedimentosRealizar.getModel();
         pacientesInternados = (DefaultTableModel) procedimentosRealizados.getModel();
+        
+        preencheASerRealizados();
+        centralizarTextosProcedimentos();
         
         /*preencheConsultasdoDia();
         preencheListaInternados();
         centralizarTextosConsultas();
         centralizarTextosInternados();*/
+    }
+    
+    private void preencheASerRealizados(){
+        aRealizar.setRowCount(0);
+        ArrayList<PrescricaoInternacao> prescricoes = controlePrescricao.retornaPrescricoesPendentes();
+        if(prescricoes != null){
+            for(PrescricaoInternacao p : prescricoes){
+                //Buscar Internação
+                Internacao internacao = controleInternacao.retornaInternacaoPorID(p.getIdInternacao());
+                //Buscar Leito
+                Leito leito = controleLeito.buscaLeitoPorID(internacao.getIdLeito());
+                //Busca Médico
+                ProfissionalSaude profissional = controleProfissional.buscaProfissionalPorID(internacao.getIdMedico());
+                //Buscar Prontuario
+                ProntuarioMedico prontuario = controleProntuario.buscaProntuarioPorID(internacao.getIdProntuario());
+                //Buscar Paciente
+                Paciente paciente = controlePaciente.buscaPacientePorID(prontuario.getIdPaciente());
+                
+                //Preenche tabela - Leito/Paciente/Médico/Status
+                aRealizar.addRow(new Object[]{
+                    leito.getNumero(),
+                    paciente.getNome(),
+                    profissional.getNome(),
+                    prontuario.getServico()
+                });
+                
+            }
+        }
+    }
+    
+    private void centralizarTextosProcedimentos(){
+        DefaultTableCellRenderer centralizar = new DefaultTableCellRenderer();
+        centralizar.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < procedimentosRealizar.getColumnCount(); i++) {
+            procedimentosRealizar.getColumnModel().getColumn(i).setCellRenderer(centralizar);
+        }
     }
     
     /*private void preencheConsultasdoDia(){
@@ -69,14 +129,6 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
                     paciente.getNome()
                 });
             }
-        }
-    }
-    
-    private void centralizarTextosConsultas(){
-        DefaultTableCellRenderer centralizar = new DefaultTableCellRenderer();
-        centralizar.setHorizontalAlignment(SwingConstants.CENTER);
-        for (int i = 0; i < procedimentosRealizar.getColumnCount(); i++) {
-            procedimentosRealizar.getColumnModel().getColumn(i).setCellRenderer(centralizar);
         }
     }
     
@@ -134,7 +186,7 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Leito", "Paciente", "Médico", "Suprimentos"
+                "Leito", "Paciente", "Médico", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -237,35 +289,28 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(30, 30, 30)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(30, 30, 30)
-                                        .addComponent(dataHoraAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(nomeEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(402, 402, 402))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator2)
-                            .addComponent(jScrollPane2)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3))))
-                .addContainerGap(30, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(304, 304, 304)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dataHoraAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 402, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(nomeEnfermeiro, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSeparator2)
+                                .addComponent(jScrollPane2)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
+                                .addComponent(jScrollPane3)))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
