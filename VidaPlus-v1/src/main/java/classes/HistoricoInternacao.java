@@ -15,26 +15,25 @@ public class HistoricoInternacao {
     private int idEnfermeiro;
     private String data;
     private String hora;
-    private String prescricao;
-    private String anotacoes;
+    private String suprimentos;
+    private boolean solicitacaoAtendida;
 
-    public HistoricoInternacao(int idPrescricao, int idEnfermeiro, String data, String hora, String prescricao) {
+    public HistoricoInternacao(int idPrescricao, int idEnfermeiro, String data, String hora, String suprimentos) {
         this.idPrescricao = idPrescricao;
         this.idEnfermeiro = idEnfermeiro;
         this.data = data;
         this.hora = hora;
-        this.prescricao = prescricao;
+        this.suprimentos = suprimentos;
     }
 
-    
-    
-    public HistoricoInternacao(int id, int idPrescricao, int idEnfermeiro, String data, String hora, String prescricao) {
+    public HistoricoInternacao(int id, int idPrescricao, int idEnfermeiro, String data, String hora, String suprimentos, boolean solicitacaoAtendida) {
         this.id = id;
         this.idPrescricao = idPrescricao;
         this.idEnfermeiro = idEnfermeiro;
         this.data = data;
         this.hora = hora;
-        this.prescricao = prescricao;
+        this.suprimentos = suprimentos;
+        this.solicitacaoAtendida = solicitacaoAtendida;
     }
 
     public int getId() {
@@ -77,25 +76,25 @@ public class HistoricoInternacao {
         this.hora = hora;
     }
 
-    public String getPrescricao() {
-        return prescricao;
+    public String getSuprimentos() {
+        return suprimentos;
     }
 
-    public void setPrescricao(String prescricao) {
-        this.prescricao = prescricao;
+    public void setSuprimentos(String suprimentos) {
+        this.suprimentos = suprimentos;
     }
 
-    public String getAnotacoes() {
-        return anotacoes;
+    public boolean isSolicitacaoAtendida() {
+        return solicitacaoAtendida;
     }
 
-    public void setAnotacoes(String anotacoes) {
-        this.anotacoes = anotacoes;
+    public void setSolicitacaoAtendida(boolean solicitacaoAtendida) {
+        this.solicitacaoAtendida = solicitacaoAtendida;
     }
 
     @Override
     public String toString() {
-        return "HistoricoInternacao{" + "id=" + id + ", idPrescricao=" + idPrescricao + ", idEnfermeiro=" + idEnfermeiro + ", data=" + data + ", hora=" + hora + ", prescricao=" + prescricao + ", anotacoes=" + anotacoes + '}';
+        return "HistoricoInternacao{" + "id=" + id + ", idPrescricao=" + idPrescricao + ", idEnfermeiro=" + idEnfermeiro + ", data=" + data + ", hora=" + hora + ", suprimentos=" + suprimentos + ", solicitacaoAtendida=" + solicitacaoAtendida + '}';
     }
     
 }

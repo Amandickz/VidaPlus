@@ -62,10 +62,8 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
         preencheASerRealizados();
         centralizarTextosProcedimentos();
         
-        /*preencheConsultasdoDia();
-        preencheListaInternados();
-        centralizarTextosConsultas();
-        centralizarTextosInternados();*/
+        System.out.println("Enfermeiro -> " + enfermeiro + " idAdministrador = " + enfermeiro.getIdAdministracao());
+        
     }
     
     private void preencheASerRealizados(){
@@ -354,12 +352,18 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
         Paciente paciente = controlePaciente.buscaPacientePorNome(nomePaciente);
         ProntuarioMedico prontuario = controleProntuario.buscaProntuarioPorIDPaciente(paciente.getId());
         Internacao internacao = controleInternacao.retornaInternacaoPorIDProntuario(prontuario.getId());
+        Leito leito = controleLeito.buscaLeitoPorID(internacao.getIdLeito());
+        ProfissionalSaude profissional = controleProfissional.buscaProfissionalPorID(internacao.getIdMedico());
         PrescricaoInternacao prescricao = controlePrescricao.retornaPrescricao(internacao.getId());
         
         System.out.println("Paciente -> " + paciente);
+        System.out.println("Médico -> " + profissional);
         System.out.println("Prontuário -> " + prontuario);
         System.out.println("Internação -> " + internacao);
         System.out.println("Prescrição -> " + prescricao);
+        
+        new TelaSolicitarSuprimentos(enfermeiro, prescricao, nomePaciente, nomeMedico, leito.getNumero()).setVisible(true);
+        dispose();
     }//GEN-LAST:event_solicitarSuprimentosActionPerformed
 
 

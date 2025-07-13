@@ -39,6 +39,7 @@ public class ControleProfissional {
     }
     
     public ProfissionalSaude buscaProfissional(String cpf){
+        System.out.println(cpf);
         ProfissionalSaude profissionalSaude = profissionalDAO.buscaProfissionalPorCPF(cpf);
         return profissionalSaude;
     }

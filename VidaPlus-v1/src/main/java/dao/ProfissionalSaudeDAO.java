@@ -80,6 +80,7 @@ public class ProfissionalSaudeDAO {
             
             while(rs.next()){
                 int id = rs.getInt("id");
+                int idAdministracao = rs.getInt("idAdministracao");
                 String nome = rs.getString("nome");
                 String telefone = rs.getString("telefone");
                 String email = rs.getString("email");
@@ -87,8 +88,10 @@ public class ProfissionalSaudeDAO {
                 String dataContratacao = rs.getString("dataContratacao");
                 
                 ProfissionalSaude profissional = new ProfissionalSaude(id, cpf, nome, telefone, email, dataNascimento, dataContratacao);
+                profissional.setIdAdministracao(idAdministracao);
                 System.out.println(profissional);
                 System.out.println("\n");
+                
                 return profissional;
 
             }
@@ -130,6 +133,7 @@ public class ProfissionalSaudeDAO {
                 String dataContratacao = rs.getString("dataContratacao");
                 
                 ProfissionalSaude profissional = new ProfissionalSaude(id, cpf, nome, telefone, email, dataNascimento, dataContratacao);
+                profissional.setIdAdministracao(idAdministrador);
                 System.out.println(profissional);
             }
             
@@ -253,6 +257,7 @@ public class ProfissionalSaudeDAO {
                         profissional.getId(), profissional.getCpf(), profissional.getNome(),
                         profissional.getTelefone(), profissional.getEmail(),
                         profissional.getDataNascimento(), profissional.getDataContratacao());
+                medico.setIdAdministracao(profissional.getIdAdministracao());
                 
                 System.out.println(medico);
                 System.out.println("\n");
@@ -295,6 +300,7 @@ public class ProfissionalSaudeDAO {
                         profissional.getId(), profissional.getCpf(), profissional.getNome(),
                         profissional.getTelefone(), profissional.getEmail(),
                         profissional.getDataNascimento(), profissional.getDataContratacao());
+                enfermeiro.setIdAdministracao(profissional.getIdAdministracao());
                 
                 System.out.println(enfermeiro);
                 System.out.println("\n");

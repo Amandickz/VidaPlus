@@ -27,7 +27,7 @@ public class DB {
                 String url = "jdbc:mysql://localhost:3306/vidaplus";
                 conn = DriverManager.getConnection(url, user, password);
                 
-                //System.out.println("********Conexão realizada!");
+                System.out.println("********Conexão realizada!");
                 
             } catch (SQLException e){
                 System.out.println("!!!!!!!!/n"
@@ -45,7 +45,7 @@ public class DB {
                 conn.close();
                 conn = null;
                 
-                //System.out.println("********Conexão fechada!");
+                System.out.println("********Conexão fechada!");
                 
             } catch (SQLException e){
                 System.out.println("!!!!!!!!/n"
@@ -60,7 +60,7 @@ public class DB {
             try{
                 stmt.close();
                 
-                //System.out.println("********Statement fechada!");
+                System.out.println("********Statement fechada!");
             } catch (SQLException e){
                 System.out.println("********Erro ao fechar o Statement!");
             }
@@ -72,7 +72,7 @@ public class DB {
             try{
                 rs.close();
                 
-                //System.out.println("********ResultSet fechada!");
+                System.out.println("********ResultSet fechada!");
             } catch (SQLException e){
                 System.out.println("********Erro ao fechar o ResultSet!");
             }

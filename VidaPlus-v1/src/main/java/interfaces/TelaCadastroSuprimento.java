@@ -64,6 +64,8 @@ public class TelaCadastroSuprimento extends javax.swing.JFrame {
         listaTipoSuprimento.setEnabled(false);
         valorUnitario.setText("");
         valorUnitario.setEnabled(false);
+        estoque.setText("");
+        estoque.setEnabled(false);
         cadastrar.setEnabled(false);
         buscar.setEnabled(true);
     }

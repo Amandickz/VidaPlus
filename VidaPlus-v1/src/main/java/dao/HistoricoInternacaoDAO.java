@@ -16,7 +16,7 @@ import java.sql.Statement;
  */
 public class HistoricoInternacaoDAO {
     
-    public boolean realizacaoDoProcedimento(HistoricoInternacao historico){
+    public boolean solicitacaoSuprimentos(HistoricoInternacao historico){
         Connection conn = null;
         PreparedStatement pstmt = null;
         
@@ -25,16 +25,15 @@ public class HistoricoInternacaoDAO {
             conn = DB.getConeConnection();
             
             pstmt = conn.prepareStatement("INSERT INTO historicoInternacao" +
-                    "(idPrescricao, idEnfermeiro, data, hora, procedimento, anotacoes)"
-                    + " VALUES(?,?,?,?,?,?)",
+                    "(idPrescricao, idEnfermeiro, data, hora, suprimentos, solicitacaoAtendida)"
+                    + " VALUES(?,?,?,?,?,false)",
                     Statement.RETURN_GENERATED_KEYS);
             
             pstmt.setInt(1, historico.getIdPrescricao());
             pstmt.setInt(2, historico.getIdEnfermeiro());
             pstmt.setString(3, historico.getData());
             pstmt.setString(4, historico.getHora());
-            pstmt.setString(5, historico.getPrescricao());
-            pstmt.setString(6, historico.getAnotacoes());
+            pstmt.setString(5, historico.getSuprimentos());
             
             int rollsAffected = pstmt.executeUpdate();
 

@@ -19,8 +19,8 @@ public class ControleHistoricoInternacao {
         this.historicoDAO = new HistoricoInternacaoDAO();
     }
     
-    public boolean realizacaoDoProcedimento(HistoricoInternacao historico){
-        boolean confirmacao = historicoDAO.realizacaoDoProcedimento(historico);
+    public boolean solicitacaoSuprimentos(HistoricoInternacao historico){
+        boolean confirmacao = historicoDAO.solicitacaoSuprimentos(historico);
         return confirmacao;
     }
     

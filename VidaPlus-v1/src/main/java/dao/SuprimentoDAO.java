@@ -67,7 +67,6 @@ public class SuprimentoDAO {
             
             rs = stmt.executeQuery("select * from suprimento where idAdministracao = " + idAdministracao);
             
-            System.out.println(rs);
             
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -79,8 +78,6 @@ public class SuprimentoDAO {
                 Suprimento suprimento = new Suprimento(id, tipo, nome, valorUnitario, quantEstoque);
                 suprimentos.add(suprimento);
             }
-            
-            System.out.println(suprimentos);
             
             return suprimentos;
             
