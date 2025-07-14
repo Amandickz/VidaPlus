@@ -5,15 +5,14 @@
 package com.mycompany.vidaplus;
 
 import classes.Administracao;
-import classes.Medico;
 import classes.Paciente;
-import classes.ProfissionalSaude;
+import com.google.gson.Gson;
 import controles.ControleAdministracao;
-import controles.ControleMedico;
 import controles.ControlePaciente;
 import controles.ControleProfissional;
+import controles.ControleSuprimento;
 import interfaces.TelaInicial;
-import java.util.ArrayList;
+import static spark.Spark.*;
 /**
  *
  * @author Amanda
@@ -22,9 +21,59 @@ public class Main {
 
     public static void main(String[] args) {
         
-        //Criar usuários para facilitar os testes quando o banco de dados estiver sem informações
         ControleAdministracao controleAdministracao = new ControleAdministracao();
+        ControlePaciente controlePaciente = new ControlePaciente();
         ControleProfissional controleProfissional = new ControleProfissional();
+        
+        port(4567);
+        Gson gson = new Gson();
+        
+        post("/administrador", (req,res) -> {//cadastra administrador
+            String json = req.body();
+            Administracao administracao = gson.fromJson(json, Administracao.class);
+            return controleAdministracao.cadastraAdministracao(administracao);
+        });
+        
+        get("/administrador",(req,res) -> {//retorna administrador
+            return controleAdministracao.recuperaAdministracao();
+        });
+        
+        get("/administrador",(req,res) -> {//retorna administrador por CNPJ
+            String cnpj = req.queryParams("cnpj");
+            return controleAdministracao.buscaAdministrador(cnpj);
+        });
+        
+        post("/paciente/:idAdministrador", (req,res) -> { //cadastra paciente na unidade
+            String idAdm = req.params(":idAdministrador");
+            String json = req.body();
+            Paciente paciente = gson.fromJson(json, Paciente.class);
+            return controlePaciente.cadastrarPaciente(paciente, Integer.parseInt(idAdm));
+        });
+        
+        get("/paciente/unidade/:idAdministrador",(req,res) -> { //retorna pacientes da unidade administradora
+            String idAdm = req.params(":idAdministrador");
+            return controlePaciente.listaPacientes(Integer.parseInt(idAdm));
+        });
+        
+        get("/paciente/:id",(req,res) -> { //retorna paciente por id
+            String id = req.params(":id");
+            return controlePaciente.buscaPacientePorID(Integer.parseInt(id));
+        });
+        
+        get("/paciente/:cpf",(req,res) -> { //retonar paciente por CPF
+            String cpf = req.params(":cpf");
+            return controlePaciente.buscaPaciente(cpf);
+        });
+        
+        get("/profissionalSaude/:idAdministrador",(req,res) -> { //retonar paciente por CPF
+            String idAdm = req.params(":idAdministrador");
+            return controleProfissional.retornarProfissionais(Integer.parseInt(idAdm));
+        });
+        
+        
+        //Criar usuários para facilitar os testes quando o banco de dados estiver sem informações
+        
+        /*ControleProfissional controleProfissional = new ControleProfissional();
         ControleMedico controleMedico = new ControleMedico();
         ControlePaciente controlePaciente = new ControlePaciente();
         
@@ -57,28 +106,9 @@ public class Main {
             if(confirmacao){
                 System.out.println("\n---> Paciente Padrão 2 cadastrado no banco.\n");
             }
-        }
-        
+        }*/
+
         new TelaInicial().setVisible(true);
         
     }
 }
-
-
-/*
-        Para a realização dos testes via API Rest
-
-        port(4567);
-        Gson gson = new Gson();
-        ControleAdministracao controleAdministracao = new ControleAdministracao();
-        
-        post("/administrador", (req,res) -> {
-            String json = req.body();
-            Administracao administracao = gson.fromJson(json, Administracao.class);
-            return controleAdministracao.cadastraAdministracao(administracao);
-        });
-        
-        get("/administrador",(req,res) -> {
-            return controleAdministracao.recuperaAdministracao();
-        });
-*/
