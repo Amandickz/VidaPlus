@@ -8,9 +8,8 @@ import classes.Administracao;
 import classes.Paciente;
 import com.google.gson.Gson;
 import controles.ControleAdministracao;
+import controles.ControleAgenda;
 import controles.ControlePaciente;
-import controles.ControleProfissional;
-import controles.ControleSuprimento;
 import interfaces.TelaInicial;
 import static spark.Spark.*;
 /**
@@ -23,7 +22,6 @@ public class Main {
         
         ControleAdministracao controleAdministracao = new ControleAdministracao();
         ControlePaciente controlePaciente = new ControlePaciente();
-        ControleProfissional controleProfissional = new ControleProfissional();
         
         port(4567);
         Gson gson = new Gson();
@@ -38,36 +36,13 @@ public class Main {
             return controleAdministracao.recuperaAdministracao();
         });
         
-        get("/administrador",(req,res) -> {//retorna administrador por CNPJ
-            String cnpj = req.queryParams("cnpj");
-            return controleAdministracao.buscaAdministrador(cnpj);
+        post("/paciente", (req,res) -> {//cadastra paciente
+            Paciente paciente = gson.fromJson(req.body(), Paciente.class);
+            return controlePaciente.cadastrarPaciente(paciente, Integer.parseInt(req.queryParams("idAdm")));
         });
         
-        post("/paciente/:idAdministrador", (req,res) -> { //cadastra paciente na unidade
-            String idAdm = req.params(":idAdministrador");
-            String json = req.body();
-            Paciente paciente = gson.fromJson(json, Paciente.class);
-            return controlePaciente.cadastrarPaciente(paciente, Integer.parseInt(idAdm));
-        });
-        
-        get("/paciente/unidade/:idAdministrador",(req,res) -> { //retorna pacientes da unidade administradora
-            String idAdm = req.params(":idAdministrador");
-            return controlePaciente.listaPacientes(Integer.parseInt(idAdm));
-        });
-        
-        get("/paciente/:id",(req,res) -> { //retorna paciente por id
-            String id = req.params(":id");
-            return controlePaciente.buscaPacientePorID(Integer.parseInt(id));
-        });
-        
-        get("/paciente/:cpf",(req,res) -> { //retonar paciente por CPF
-            String cpf = req.params(":cpf");
-            return controlePaciente.buscaPaciente(cpf);
-        });
-        
-        get("/profissionalSaude/:idAdministrador",(req,res) -> { //retonar paciente por CPF
-            String idAdm = req.params(":idAdministrador");
-            return controleProfissional.retornarProfissionais(Integer.parseInt(idAdm));
+        get("/paciente",(req,res) -> {//retorna pacientes
+            return controlePaciente.listaPacientes(Integer.parseInt("idAdm"));
         });
         
         

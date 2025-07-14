@@ -7,6 +7,10 @@ package interfaces;
 import classes.Administracao;
 import classes.Paciente;
 import controles.ControlePaciente;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -36,6 +40,12 @@ public class TelaPacientesCadastrados extends javax.swing.JFrame {
         if(tabelaPacientes.getRowCount() <= 0){
             JOptionPane.showMessageDialog(null, "Nenhum Paciente cadastrado nessa Unidade.");
         }
+        
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest getRequest = HttpRequest.newBuilder().uri(URI.create("http://localhost:4567/paciente?idAdm=1")).GET().build();
+        
+        //HttpResponse<String> getRespose = client.send(getRequest, HttpResponse.BodyHandlers.ofString());
+        
     }
     
     private void preencheTabela(){
