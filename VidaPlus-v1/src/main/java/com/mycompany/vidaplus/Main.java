@@ -5,16 +5,23 @@
 package com.mycompany.vidaplus;
 
 import classes.Administracao;
+import classes.Enfermeiro;
+import classes.Farmaceutico;
+import classes.Leito;
 import classes.Medico;
 import classes.Paciente;
 import classes.ProfissionalSaude;
+import classes.Suprimento;
 import com.google.gson.Gson;
 import controles.ControleAdministracao;
+import controles.ControleEnfermeiro;
+import controles.ControleFarmaceutico;
+import controles.ControleLeito;
 import controles.ControleMedico;
 import controles.ControlePaciente;
 import controles.ControleProfissional;
+import controles.ControleSuprimento;
 import interfaces.TelaInicial;
-import java.util.ArrayList;
 import static spark.Spark.*;
 /**
  *
@@ -28,6 +35,10 @@ public class Main {
         ControlePaciente controlePaciente = new ControlePaciente();
         ControleProfissional controleProfissional = new ControleProfissional();
         ControleMedico controleMedico = new ControleMedico();
+        ControleEnfermeiro controleEnfermeiro = new ControleEnfermeiro();
+        ControleFarmaceutico controleFarmaceutico = new ControleFarmaceutico();
+        ControleLeito controleLeito = new ControleLeito();
+        ControleSuprimento controleSuprimento = new ControleSuprimento();
         
         port(4567);
         Gson gson = new Gson();
@@ -51,64 +62,88 @@ public class Main {
             return controlePaciente.listaPacientes(Integer.parseInt(req.queryParams("idAdm")));
         });
         
+        get("/paciente",(req,res) -> {//Busca Paciente por CPF
+            return controlePaciente.buscaPaciente(req.queryParams("cpf"));
+        });
+        
         post("/profissional", (req,res) -> {//cadastra profissional
             ProfissionalSaude profissional = gson.fromJson(req.body(), ProfissionalSaude.class);
             return controleProfissional.cadastraProfissional(profissional, Integer.parseInt(req.queryParams("idAdm")));
         });
         
         get("/profissional",(req,res) -> {//retorna profissionais da unidade
-            ArrayList<ProfissionalSaude> profissionais = controleProfissional.retornarProfissionais(Integer.parseInt(req.queryParams("idAdm")));
-            System.out.println(profissionais);
-            return profissionais;
+            return controleProfissional.retornarProfissionais(Integer.parseInt(req.queryParams("idAdm")));
         });
         
-        post("/medico", (req,res) -> {//cadastra profissional
+        post("/medico", (req,res) -> {//cadastra medico
             Medico medico = gson.fromJson(req.body(), Medico.class);
             return controleMedico.cadastraMedico(medico);
+        });
+        
+        get("/medico",(req,res) -> {//retorna lista de medicos
+            return controleMedico.retornaListaMedica();
         });
         
         get("/medico",(req,res) -> {//retorna medico via CRM
             return controleMedico.buscaMedicoCRM(req.queryParams("crm"));
         });
         
+        post("/enfermeiro", (req,res) -> {//cadastra enfermeiro
+            Enfermeiro enfermeiro = gson.fromJson(req.body(), Enfermeiro.class);
+            return controleEnfermeiro.cadastraEnfermeiro(enfermeiro);
+        });
         
-        //Criar usuários para facilitar os testes quando o banco de dados estiver sem informações
+        get("/enfermeiro",(req,res) -> {//retorna lista de enfermeiros
+            return controleEnfermeiro.retornaListaEnfermeiros();
+        });
         
-        /*ControleProfissional controleProfissional = new ControleProfissional();
-        ControleMedico controleMedico = new ControleMedico();
-        ControlePaciente controlePaciente = new ControlePaciente();
+        get("/enfermeiro",(req,res) -> {//retorna enfermeiro via coren
+            return controleEnfermeiro.buscaEnfermeiro(req.queryParams("coren"));
+        });
         
-        ArrayList<Administracao> administradores = controleAdministracao.recuperaAdministracao();
+        post("/farmaceutico", (req,res) -> {//cadastra farmaceutico
+            Farmaceutico farmaceutico = gson.fromJson(req.body(), Farmaceutico.class);
+            return controleFarmaceutico.cadastraFarmaceutico(farmaceutico);
+        });
         
-        if(administradores.isEmpty()){
-            Administracao adm = new Administracao("12.345.678/0001-90", "VidaPlus Saúde", "administracao@vidaplus.com", "(46) 12345-6789");
-            boolean confirmacao = controleAdministracao.cadastraAdministracao(adm);
-            if(confirmacao){
-                System.out.println("\n---> Administrador Padrão cadastrado no banco.\n");
-            }
-            
-            ProfissionalSaude ps = new ProfissionalSaude("111.111.111-11", "Capim-Limão Silva", "(11) 11111-1111", "capimsilva@vidaplus.com", "01/01/1990", "01/01/2025");
-            ps = controleProfissional.cadastraProfissional(ps, 1);
-            Medico medico = new Medico("11111111-1", "PR", "01/01/2024", 0,
-                    ps.getId(), ps.getCpf(), ps.getNome(), ps.getTelefone(), ps.getEmail(), ps.getDataNascimento(), ps.getDataContratacao());
-            confirmacao = controleMedico.cadastraMedico(medico);
-            if(confirmacao){
-                System.out.println("\n---> Médico Padrão cadastrado no banco.\n");
-            }
-            
-            Paciente paciente = new Paciente("123.123.123-00", "Camila Luiza", "camila.luiza@gmail.com", "(00) 12345-6789", "02/02/2000", 0);
-            confirmacao = controlePaciente.cadastrarPaciente(paciente, 1);
-            if(confirmacao){
-                System.out.println("\n---> Paciente Padrão 1 cadastrado no banco.\n");
-            }
-            
-            paciente = new Paciente("111.222.333-00", "Marcelo Santos Ruiz", "marcelo.ruiz@gmail.com", "(11) 11223-3445", "03/03/2005", 0);
-            confirmacao = controlePaciente.cadastrarPaciente(paciente, 1);
-            if(confirmacao){
-                System.out.println("\n---> Paciente Padrão 2 cadastrado no banco.\n");
-            }
-        }*/
-
+        get("/farmaceutico",(req,res) -> {//retorna lista de farmaceuticos
+            return controleFarmaceutico.retornaListaFarmaceuticos();
+        });
+        
+        get("/farmaceutico",(req,res) -> {//retorna farmaceutico via crf
+            return controleFarmaceutico.buscaFarmaceutico(req.queryParams("crf"));
+        });
+        
+        post("/leito", (req,res) -> {//cadastra leito
+            Leito leito = gson.fromJson(req.body(), Leito.class);
+            return controleLeito.cadastrarLeito(leito, Integer.parseInt(req.queryParams("idAdm")));
+        });
+        
+        get("/leito",(req,res) -> {//retorna lista de leitos
+            return controleLeito.recuperaLeitos(Integer.parseInt(req.queryParams("idAdm")));
+        });
+        
+        get("/leito",(req,res) -> {//retorna o leito de acordo com o número do quarto
+            return controleLeito.buscaLeitoPorNumero(Integer.parseInt(req.queryParams("num")));
+        });
+        
+        get("/leito/disponiveis",(req,res) -> {//retorna o leito de acordo com o número do quarto
+            return controleLeito.retornaLeitosDisponiveis(Integer.parseInt(req.queryParams("idAdm")));
+        });
+        
+        post("/suprimento", (req,res) -> {//cadastra suprimento
+            Suprimento suprimento = gson.fromJson(req.body(), Suprimento.class);
+            return controleSuprimento.cadastrarSuprimento(suprimento, Integer.parseInt(req.queryParams("idAdm")));
+        });
+        
+        get("/suprimento",(req,res) -> {//retorna lista de suprimentos
+            return controleSuprimento.recuperaSuprimentos(Integer.parseInt(req.queryParams("idAdm")));
+        });
+        
+        get("/suprimento",(req,res) -> {//retorna suprimento por nome
+            return controleSuprimento.buscaSuprimentoPorNome(req.queryParams("nome"));
+        });
+        
         new TelaInicial().setVisible(true);
         
     }
