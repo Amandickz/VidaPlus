@@ -139,6 +139,9 @@ public class TelaCPFProfissional extends javax.swing.JFrame {
                     if(farmaceutico == null){
                         JOptionPane.showMessageDialog(null, "Cadastro não localizado."
                                 + "\nVerifique seu CPF e tente novamente.");
+                    } else {
+                        new TelaInicialFarmaceutico(farmaceutico).setVisible(true);
+                        dispose();
                     }
                 } else {
                     new TelaInicialEnfermeiro(enfermeiro).setVisible(true);

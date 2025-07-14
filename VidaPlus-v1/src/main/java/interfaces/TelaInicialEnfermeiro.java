@@ -60,7 +60,7 @@ public class TelaInicialEnfermeiro extends javax.swing.JFrame {
         this.dataHoraAtual.setText("Data: " + dataConvertida + " | Hora: " + horaFormatada);
         
         aRealizar = (DefaultTableModel) procedimentosRealizar.getModel();
-        pacientesInternados = (DefaultTableModel) procedimentosRealizados.getModel();
+        this.pacientesInternados = (DefaultTableModel) procedimentosRealizados.getModel();
         
         preencheASerRealizados();
         centralizarTextosProcedimentos();

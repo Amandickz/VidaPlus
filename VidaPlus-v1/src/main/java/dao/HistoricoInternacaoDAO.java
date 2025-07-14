@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -65,7 +66,7 @@ public class HistoricoInternacaoDAO {
             stmt = conn.createStatement();
             
             rs = stmt.executeQuery("select * from historicoInternacao "
-                    + "where idPrescricao = " + idPrescricao);
+                    + "where idPrescricao = " + idPrescricao + " and solicitacaoAtendida = false");
             
             while(rs.next()){         
                 return true;
@@ -80,6 +81,46 @@ public class HistoricoInternacaoDAO {
         }
         
         return false;
+    }
+    
+    public ArrayList<HistoricoInternacao> retornaSolicitacoes(){
+        ArrayList<HistoricoInternacao> listaSolicitacoes = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        try{
+            
+            conn = DB.getConeConnection();
+            
+            stmt = conn.createStatement();
+            
+            rs = stmt.executeQuery("select * from historicoInternacao "
+                    + "where solicitacaoAtendida = false");
+            
+            while(rs.next()){         
+                int id = rs.getInt("id");
+                int idPrescricao = rs.getInt("idPrescricao");
+                int idEnfermeiro = rs.getInt("idEnfermeiro");
+                String data = rs.getString("data");
+                String hora = rs.getString("hora");
+                String suprimentos = rs.getString("suprimentos");
+                
+                HistoricoInternacao historico = new HistoricoInternacao(id, idPrescricao, idEnfermeiro, data, hora, suprimentos, false);
+                listaSolicitacoes.add(historico);
+            }
+            
+            return listaSolicitacoes;
+            
+        } catch (SQLException e){
+            System.err.println("********Erro ao Recuperar dados!");
+        } finally {
+            DB.closeResultSet(rs);
+            DB.closeStatement(stmt);
+            DB.closeConnection();
+        }
+        
+        return null;
     }
     
 }

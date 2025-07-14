@@ -9,6 +9,7 @@ C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\c
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\classes\Internacao.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\classes\Leito.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\classes\Medico.java
+C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\classes\MovimentoSuprimento.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\classes\Paciente.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\classes\PrescricaoInternacao.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\classes\ProfissionalSaude.java
@@ -24,6 +25,7 @@ C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\c
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\controles\ControleInternacao.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\controles\ControleLeito.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\controles\ControleMedico.java
+C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\controles\ControleMovimentoSuprimento.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\controles\ControlePaciente.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\controles\ControlePrescricao.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\controles\ControleProfissional.java
@@ -40,6 +42,7 @@ C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\d
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\dao\InternacaoDAO.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\dao\LeitoDAO.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\dao\MedicoDAO.java
+C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\dao\MovimentoSuprimentoDAO.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\dao\PacienteDAO.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\dao\PrescricaoInternacaoDAO.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\dao\ProfissionalSaudeDAO.java
@@ -75,6 +78,7 @@ C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\i
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\interfaces\TelaInicial.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\interfaces\TelaInicialAdministrador.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\interfaces\TelaInicialEnfermeiro.java
+C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\interfaces\TelaInicialFarmaceutico.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\interfaces\TelaInicialMedico.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\interfaces\TelaInicialPaciente.java
 C:\Users\Amanda\Documents\Projeto Final - Back-end 2\VidaPlus-v1\src\main\java\interfaces\TelaInternacoesAtuais.java
