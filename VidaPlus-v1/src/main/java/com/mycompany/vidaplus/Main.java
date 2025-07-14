@@ -5,12 +5,16 @@
 package com.mycompany.vidaplus;
 
 import classes.Administracao;
+import classes.Medico;
 import classes.Paciente;
+import classes.ProfissionalSaude;
 import com.google.gson.Gson;
 import controles.ControleAdministracao;
-import controles.ControleAgenda;
+import controles.ControleMedico;
 import controles.ControlePaciente;
+import controles.ControleProfissional;
 import interfaces.TelaInicial;
+import java.util.ArrayList;
 import static spark.Spark.*;
 /**
  *
@@ -22,6 +26,8 @@ public class Main {
         
         ControleAdministracao controleAdministracao = new ControleAdministracao();
         ControlePaciente controlePaciente = new ControlePaciente();
+        ControleProfissional controleProfissional = new ControleProfissional();
+        ControleMedico controleMedico = new ControleMedico();
         
         port(4567);
         Gson gson = new Gson();
@@ -42,7 +48,27 @@ public class Main {
         });
         
         get("/paciente",(req,res) -> {//retorna pacientes
-            return controlePaciente.listaPacientes(Integer.parseInt("idAdm"));
+            return controlePaciente.listaPacientes(Integer.parseInt(req.queryParams("idAdm")));
+        });
+        
+        post("/profissional", (req,res) -> {//cadastra profissional
+            ProfissionalSaude profissional = gson.fromJson(req.body(), ProfissionalSaude.class);
+            return controleProfissional.cadastraProfissional(profissional, Integer.parseInt(req.queryParams("idAdm")));
+        });
+        
+        get("/profissional",(req,res) -> {//retorna profissionais da unidade
+            ArrayList<ProfissionalSaude> profissionais = controleProfissional.retornarProfissionais(Integer.parseInt(req.queryParams("idAdm")));
+            System.out.println(profissionais);
+            return profissionais;
+        });
+        
+        post("/medico", (req,res) -> {//cadastra profissional
+            Medico medico = gson.fromJson(req.body(), Medico.class);
+            return controleMedico.cadastraMedico(medico);
+        });
+        
+        get("/medico",(req,res) -> {//retorna medico via CRM
+            return controleMedico.buscaMedicoCRM(req.queryParams("crm"));
         });
         
         

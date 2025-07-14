@@ -134,7 +134,7 @@ public class ProfissionalSaudeDAO {
                 
                 ProfissionalSaude profissional = new ProfissionalSaude(id, cpf, nome, telefone, email, dataNascimento, dataContratacao);
                 profissional.setIdAdministracao(idAdministrador);
-                System.out.println(profissional);
+                profissionais.add(profissional);
             }
             
             return profissionais;
