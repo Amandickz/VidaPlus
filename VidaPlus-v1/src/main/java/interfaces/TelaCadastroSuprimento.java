@@ -466,10 +466,10 @@ public class TelaCadastroSuprimento extends javax.swing.JFrame {
         int quantEstoque = Integer.parseInt(estoque.getText());
         
         //Cria o Objeto Suprimento
-        Suprimento suprimento = new Suprimento(tipo, nome, valor, quantEstoque);
+        Suprimento suprimento = new Suprimento(adm.getId(), tipo, nome, valor, quantEstoque);
         
         //Cadastra Suprimento no Sistema
-        boolean confirmacao = controleSuprimento.cadastrarSuprimento(suprimento, adm.getId());
+        boolean confirmacao = controleSuprimento.cadastrarSuprimento(suprimento);
         
         if(confirmacao){
             //Atualiza Tabela de Suprimento

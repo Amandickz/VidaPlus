@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class LeitoDAO {
     
-    public boolean cadastrarLeito(Leito leito, int idAdministrador){
+    public boolean cadastrarLeito(Leito leito){
         Connection conn = null;
         PreparedStatement pstmt = null;
         
@@ -37,7 +37,7 @@ public class LeitoDAO {
             pstmt.setDouble(3, leito.getValor());
             pstmt.setInt(4, leito.getStatus());
             pstmt.setInt(5, leito.getCapacidade());
-            pstmt.setInt(6, idAdministrador);
+            pstmt.setInt(6, leito.getIdAdministracao());
             
             int rollsAffected = pstmt.executeUpdate();
 
@@ -80,7 +80,7 @@ public class LeitoDAO {
                 int capacidade = rs.getInt("capacidade");
                 int internados = rs.getInt("internados");
                 
-                Leito leito = new Leito(id, tipoLeito, numero, valor, status, capacidade);
+                Leito leito = new Leito(id, idAdministracao, tipoLeito, numero, valor, status, capacidade, internados);
                 leito.setInternados(internados);
                 leitos.add(leito);
                 System.out.println(leito);
@@ -116,6 +116,7 @@ public class LeitoDAO {
             System.out.println("\n----->Leitos Recuperado na Unidade:");
             
             while(rs.next()){
+                int idAdministracao = rs.getInt("idAdministracao");
                 int tipoLeito = rs.getInt("tipoLeito");
                 int numero = rs.getInt("numero");
                 double valor = rs.getDouble("valor");
@@ -123,7 +124,7 @@ public class LeitoDAO {
                 int capacidade = rs.getInt("capacidade");
                 int internados = rs.getInt("internados");
                 
-                Leito leito = new Leito(id, tipoLeito, numero, valor, status, capacidade);
+                Leito leito = new Leito(id, idAdministracao, tipoLeito, numero, valor, status, capacidade, internados);
                 leito.setInternados(internados);
                 System.out.println(leito);
                 System.out.println("\n");
@@ -158,13 +159,14 @@ public class LeitoDAO {
             
             while(rs.next()){
                 int id = rs.getInt("id");
+                int idAdministracao = rs.getInt("idAdministracao");
                 int tipoLeito = rs.getInt("tipoLeito");
                 double valor = rs.getDouble("valor");
                 int status = rs.getInt("status");
                 int capacidade = rs.getInt("capacidade");
                 int internados = rs.getInt("internados");
                 
-                Leito leito = new Leito(id, tipoLeito, numero, valor, status, capacidade);
+                Leito leito = new Leito(id, idAdministracao, tipoLeito, numero, valor, status, capacidade, internados);
                 leito.setInternados(internados);
                 System.out.println(leito);
                 System.out.println("\n");
@@ -208,7 +210,7 @@ public class LeitoDAO {
                 int capacidade = rs.getInt("capacidade");
                 int internados = rs.getInt("internados");
                 
-                Leito leito = new Leito(id, tipoLeito, numero, valor, status, capacidade);
+                Leito leito = new Leito(id, idAdministracao, tipoLeito, numero, valor, status, capacidade, internados);
                 leito.setInternados(internados);
                 leitos.add(leito);
                 System.out.println(leito);

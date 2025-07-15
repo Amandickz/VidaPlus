@@ -30,8 +30,8 @@ public class ControleSuprimento {
         return suprimento;
     }
     
-    public boolean cadastrarSuprimento(Suprimento suprimento, int idAdministracao){
-        boolean confirmacao = suprimentoDAO.cadastrarSuprimento(suprimento, idAdministracao);
+    public boolean cadastrarSuprimento(Suprimento suprimento){
+        boolean confirmacao = suprimentoDAO.cadastrarSuprimento(suprimento);
         return confirmacao;
     }
     

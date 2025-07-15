@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class AgendaDAO {
     
-    public boolean cadastrarAgenda(Agenda agenda, int idMedico){
+    public boolean cadastrarAgenda(Agenda agenda){
         Connection conn = null;
         PreparedStatement pstmt = null;
         
@@ -31,7 +31,7 @@ public class AgendaDAO {
                     " VALUES(?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             
-            pstmt.setInt(1, idMedico);
+            pstmt.setInt(1, agenda.getIdMedico());
             pstmt.setString(2, agenda.getData());
             pstmt.setString(3, agenda.getHora());
             pstmt.setInt(4, agenda.getStatus());
@@ -39,6 +39,13 @@ public class AgendaDAO {
             int rollsAffected = pstmt.executeUpdate();
 
             if(rollsAffected > 0){
+                ResultSet rs = pstmt.getGeneratedKeys();
+                while (rs.next()){
+                    int id = rs.getInt(1);
+                    agenda.setId(id);
+                }
+                System.out.println("----->Agenda Cadastrada:");
+                System.out.println(agenda);
                 return true;
             }
             
@@ -66,7 +73,7 @@ public class AgendaDAO {
             
             rs = stmt.executeQuery("select * from agenda where data >= " + dataAtual + " and idMedico = " + idMedico);
             
-            System.out.println(rs);
+            System.out.println("----->Agenda Completa a partir de " + dataAtual + ": ");
             
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -75,8 +82,9 @@ public class AgendaDAO {
                 int status = rs.getInt("status");
                 int idPaciente = rs.getInt("idPaciente");
                 
-                Agenda agenda = new Agenda(id, data, hora, status);
+                Agenda agenda = new Agenda(id, idPaciente, idMedico, data, hora, status);
                 agenda.setIdPaciente(idPaciente);
+                System.out.println(agenda);
                 agendacompleta.add(agenda);
             }
             
@@ -108,7 +116,7 @@ public class AgendaDAO {
             rs = stmt.executeQuery("select * from agenda where data >= " + dataAtual 
                     + " and idMedico = " + idMedico + " and status = 0");
             
-            System.out.println(rs);
+            System.out.println("----->Agenda - Datas Disponíveis a partir de " + dataAtual + ": ");
             
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -116,7 +124,9 @@ public class AgendaDAO {
                 String hora = rs.getString("hora");
                 int status = rs.getInt("status");
                 
-                Agenda agenda = new Agenda(id, data, hora, status);
+                Agenda agenda = new Agenda(id, idMedico, data, hora, status);
+                agenda.setIdMedico(idMedico);
+                System.out.println(agenda);
                 datasDisponiveis.add(agenda);
             }
             
@@ -133,7 +143,7 @@ public class AgendaDAO {
         return null;
     }
     
-    public boolean marcaConsulta(int idMedico, Agenda agenda, int idPaciente){
+    public boolean marcaConsulta(Agenda agenda){
         Connection conn = null;
         PreparedStatement pstmt = null;
         
@@ -145,14 +155,21 @@ public class AgendaDAO {
                     + " where data = ? and hora = ? and idMedico = ?",
                     Statement.RETURN_GENERATED_KEYS);
             
-            pstmt.setInt(1, idPaciente);
+            pstmt.setInt(1, agenda.getIdPaciente());
             pstmt.setString(2, agenda.getData());
             pstmt.setString(3, agenda.getHora());
-            pstmt.setInt(4, idMedico);
+            pstmt.setInt(4, agenda.getIdMedico());
             
             int rollsAffected = pstmt.executeUpdate();
 
             if(rollsAffected > 0){
+                ResultSet rs = pstmt.getGeneratedKeys();
+                while (rs.next()){
+                    int id = rs.getInt(1);
+                    agenda.setId(id);
+                }
+                System.out.println("----->Consulta Marcada:");
+                System.out.println(agenda);
                 return true;
             }
             
@@ -182,6 +199,8 @@ public class AgendaDAO {
             rs = stmt.executeQuery("select * from agenda where data = '" + dataAtual + "' and idMedico = " + idMedico +
                     " and status = 1");
             
+            System.out.println("----->Consultas do Dia:");
+            
             while(rs.next()){
                 int id = rs.getInt("id");
                 int idPaciente = rs.getInt("idPaciente");
@@ -189,8 +208,7 @@ public class AgendaDAO {
                 String hora = rs.getString("hora");
                 int status = rs.getInt("status");
                 
-                Agenda agenda = new Agenda(id, data, hora, status);
-                agenda.setIdPaciente(idPaciente);
+                Agenda agenda = new Agenda(id, idPaciente, idMedico, data, hora, status);
                 System.out.println(agenda);
                 agendacompleta.add(agenda);
             }
@@ -223,6 +241,8 @@ public class AgendaDAO {
             rs = stmt.executeQuery("select * from agenda where idPaciente = " + idPaciente + 
                     " and data >= '" + dataAtual + "'");
             
+            System.out.println("----->Próximas consultas do Paciente:");
+            
             while(rs.next()){
                 int id = rs.getInt("id");
                 int idMedico = rs.getInt("idMedico");
@@ -230,9 +250,8 @@ public class AgendaDAO {
                 String hora = rs.getString("hora");
                 int status = rs.getInt("status");
                 
-                Agenda agenda = new Agenda(id, data, hora, status);
-                agenda.setIdPaciente(idPaciente);
-                agenda.setIdMedico(idMedico);
+                Agenda agenda = new Agenda(id, idPaciente, idMedico, data, hora, status);
+                System.out.println(agenda);
                 agendacompleta.add(agenda);
             }
             
@@ -269,6 +288,8 @@ public class AgendaDAO {
                 int status = rs.getInt("status");
                 
                 Agenda agenda = new Agenda(id, idPaciente, idMedico, data, hora, status);
+                System.out.println("----->Consulta marcada do Paciente:");
+                System.out.println(agenda);
                 return agenda;
             }
             
@@ -300,6 +321,7 @@ public class AgendaDAO {
             int rollsAffected = pstmt.executeUpdate();
 
             if(rollsAffected > 0){
+                System.out.println("----->Consulta Realizada!");
                 return true;
             }
             

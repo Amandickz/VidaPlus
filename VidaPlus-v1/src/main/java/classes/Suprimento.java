@@ -11,20 +11,23 @@ package classes;
 public class Suprimento {
     
     private int id;
+    private int idAdministracao;
     private int tipo;
     private String nome;
     private double valorUnitario;
     private int quantidadeEstoque;
 
-    public Suprimento(int tipo, String nome, double valorUnitario, int quantidadeEstoque) {
+    public Suprimento(int idAdministracao, int tipo, String nome, double valorUnitario, int quantidadeEstoque) {
+        this.idAdministracao = idAdministracao;
         this.tipo = tipo;
         this.nome = nome;
         this.valorUnitario = valorUnitario;
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
-    public Suprimento(int id, int tipo, String nome, double valorUnitario, int quantidadeEstoque) {
+    public Suprimento(int id, int idAdministracao, int tipo, String nome, double valorUnitario, int quantidadeEstoque) {
         this.id = id;
+        this.idAdministracao = idAdministracao;
         this.tipo = tipo;
         this.nome = nome;
         this.valorUnitario = valorUnitario;
@@ -37,6 +40,14 @@ public class Suprimento {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdAdministracao() {
+        return idAdministracao;
+    }
+
+    public void setIdAdministracao(int idAdministracao) {
+        this.idAdministracao = idAdministracao;
     }
 
     public int getTipo() {
@@ -73,7 +84,7 @@ public class Suprimento {
 
     @Override
     public String toString() {
-        return "Suprimento{" + "id=" + id + ", tipo=" + tipo + ", nome=" + nome + ", valorUnitario=" + valorUnitario + ", quantidadeEstoque=" + quantidadeEstoque + '}';
+        return "Suprimento{" + "id=" + id + ", idAdministracao=" + idAdministracao + ", tipo=" + tipo + ", nome=" + nome + ", valorUnitario=" + valorUnitario + ", quantidadeEstoque=" + quantidadeEstoque + '}';
     }
     
 }

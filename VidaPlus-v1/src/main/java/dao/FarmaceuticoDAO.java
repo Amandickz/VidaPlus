@@ -40,11 +40,13 @@ public class FarmaceuticoDAO {
             int rollsAffected = pstmt.executeUpdate();
 
             if(rollsAffected > 0){
+                System.out.println("----->Farmacêutico Cadastrado:");
+                System.out.println(farmaceutico);
                 return true;
             }
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Cadastrar dados!");
+            System.out.println("!!!!!Erro ao SALVAR o Farmacêutico!!!!!");
         } finally {
             DB.closeStatement(pstmt);
             DB.closeConnection();
@@ -66,8 +68,6 @@ public class FarmaceuticoDAO {
             
             rs = stmt.executeQuery("select * from farmaceutico where crf = '" + crf + "'");
             
-            System.out.println(rs);
-            
             while(rs.next()){
                 int id = rs.getInt("idProfissionalSaude");
                 String uf = rs.getString("uf");
@@ -75,11 +75,13 @@ public class FarmaceuticoDAO {
                 String dataExpedicao = rs.getString("dataExpedicao");
                 
                 Farmaceutico farmaceutico = new Farmaceutico(crf, uf, categoriaProfissional, dataExpedicao, id, "", "", "", "", "", "");
+                System.out.println("----->Farmacêutico Localizado pelo CRF:");
+                System.out.println(farmaceutico);
                 return farmaceutico;
             }
             
         } catch (SQLException e){
-            System.err.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao BUSCAR o Farmacêutico!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -102,6 +104,8 @@ public class FarmaceuticoDAO {
             
             rs = stmt.executeQuery("select * from farmaceutico");
             
+            System.out.println("----->Farmacêuticos Cadastrados na Unidade:");
+            
             while(rs.next()){
                 int id = rs.getInt("idProfissionalSaude");
                 String crf = rs.getString("crf");
@@ -110,13 +114,14 @@ public class FarmaceuticoDAO {
                 String dataExpedição = rs.getString("dataExpedicao");
                 
                 Farmaceutico farmaceutico = new Farmaceutico(crf, uf, categoriaProfissional, dataExpedição, id, "", "", "", "", "", "");
+                System.out.println(farmaceutico);
                 farmaceuticos.add(farmaceutico);
             }
             
             return farmaceuticos;
             
         } catch (SQLException e){
-            System.err.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao RECUPERAR a Lista de Farmacêuticos!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);

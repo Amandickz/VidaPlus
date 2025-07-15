@@ -568,10 +568,10 @@ public class TelaCadastroLeito extends javax.swing.JFrame {
         int capacidade = Integer.parseInt(capacidadeQuarto.getText());
         
         //Cria Objeto Leito
-        Leito leito = new Leito(tipoLeito, numero, valor, status, capacidade);
+        Leito leito = new Leito(adm.getId(), tipoLeito, numero, valor, status, capacidade, 0);
         
         //Solicita cadastro
-        boolean confirmacao = controleLeito.cadastrarLeito(leito, adm.getId());
+        boolean confirmacao = controleLeito.cadastrarLeito(leito);
         
         if(confirmacao){
             JOptionPane.showMessageDialog(null, "Leito Cadastrado com sucesso!");

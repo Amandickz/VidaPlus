@@ -26,8 +26,8 @@ public class ControleAgenda {
         this.agendaDAO = new AgendaDAO();
     }
     
-    public boolean cadastrarData(Agenda agenda, int idMedico){
-        boolean confirmacao = agendaDAO.cadastrarAgenda(agenda, idMedico);
+    public boolean cadastrarData(Agenda agenda){
+        boolean confirmacao = agendaDAO.cadastrarAgenda(agenda);
         return confirmacao;
     }
     
@@ -36,8 +36,8 @@ public class ControleAgenda {
         return agendacompleta;
     }
     
-    public boolean marcarConsulta(int idMedico, Agenda agenda, int idPaciente){
-        boolean confirmacao = agendaDAO.marcaConsulta(idMedico, agenda, idPaciente);
+    public boolean marcarConsulta(Agenda agenda){
+        boolean confirmacao = agendaDAO.marcaConsulta(agenda);
         return confirmacao;
     }
     

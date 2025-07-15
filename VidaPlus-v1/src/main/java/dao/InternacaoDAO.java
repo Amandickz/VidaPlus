@@ -42,6 +42,13 @@ public class InternacaoDAO {
             int rollsAffected = pstmt.executeUpdate();
 
             if(rollsAffected > 0){
+                ResultSet rs = pstmt.getGeneratedKeys();
+                while (rs.next()){
+                    int id = rs.getInt(1);
+                    internacao.setId(id);
+                }
+                System.out.println("----->Solicitação de Internação realizada:");
+                System.out.println(internacao);
                 return true;
             }
             
@@ -69,7 +76,7 @@ public class InternacaoDAO {
             
             rs = stmt.executeQuery("select * from internacao where aguardandoAprovacao = true");
             
-            System.out.println("\n----->Internações recuperadas:");
+            System.out.println("----->Internações recuperadas:");
             
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -80,12 +87,10 @@ public class InternacaoDAO {
                 
                 Internacao internacao = new Internacao(id, idConsulta, idMedico, idProntuario, true, false);
                 internacao.setObservacoes(observacoes);
-                
                 internacoes.add(internacao);
                 System.out.println(internacao);
             }
             
-            System.out.println("\n");            
             return internacoes;
             
         } catch (SQLException e){
@@ -116,6 +121,8 @@ public class InternacaoDAO {
             int rollsAffected = pstmt.executeUpdate();
 
             if(rollsAffected > 0){
+                System.out.println("----->Internação Confirmada pela Administração: ");
+                System.out.println(internacao);
                 return true;
             }
             
@@ -142,7 +149,7 @@ public class InternacaoDAO {
             
             rs = stmt.executeQuery("select * from internacao where aguardandoAprovacao = false and statusAlta = false");
             
-            System.out.println("\n----->Internações recuperadas:");
+            System.out.println("----->Internações Ativas Recuperadas:");
             
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -155,12 +162,9 @@ public class InternacaoDAO {
                 Internacao internacao = new Internacao(id, idConsulta, idMedico, idProntuario, false, false);
                 internacao.setIdLeito(idLeito);
                 internacao.setObservacoes(observacoes);
-                
-                internacoes.add(internacao);
                 System.out.println(internacao);
-            }
-            
-            System.out.println("\n");            
+                internacoes.add(internacao);
+            }           
             return internacoes;
             
         } catch (SQLException e){
@@ -188,7 +192,7 @@ public class InternacaoDAO {
             rs = stmt.executeQuery("select * from internacao where idMedico = " + idMedico 
                     + " and aguardandoAprovacao = false and statusAlta = false");
             
-            System.out.println("\n----->Internações recuperadas:");
+            System.out.println("----->Internações recuperadas:");
             
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -200,12 +204,10 @@ public class InternacaoDAO {
                 Internacao internacao = new Internacao(id, idConsulta, idMedico, idProntuario, false, false);
                 internacao.setIdLeito(idLeito);
                 internacao.setObservacoes(observacoes);
-                
-                internacoes.add(internacao);
                 System.out.println(internacao);
+                internacoes.add(internacao);
             }
-            
-            System.out.println("\n");            
+                     
             return internacoes;
             
         } catch (SQLException e){
@@ -232,8 +234,6 @@ public class InternacaoDAO {
             rs = stmt.executeQuery("select * from internacao where idProntuario = " + idProntuario 
                     + " and aguardandoAprovacao = false and statusAlta = false");
             
-            System.out.println("\n----->Internações recuperadas:");
-            
             while(rs.next()){
                 int id = rs.getInt("id");
                 int idConsulta = rs.getInt("idConsulta");
@@ -244,9 +244,8 @@ public class InternacaoDAO {
                 Internacao internacao = new Internacao(id, idConsulta, idMedico, idProntuario, false, false);
                 internacao.setIdLeito(idLeito);
                 internacao.setObservacoes(observacoes);
-                
+                System.out.println("----->Solicitação de Internações recuperada pelo Prontuário:");
                 System.out.println(internacao);
-                
                 return internacao;
             }
             
@@ -278,6 +277,7 @@ public class InternacaoDAO {
             int rollsAffected = pstmt.executeUpdate();
 
             if(rollsAffected > 0){
+                System.out.println("----->Alta do Paciente Realizada!");
                 return true;
             }
             
@@ -315,7 +315,8 @@ public class InternacaoDAO {
                 Internacao internacao = new Internacao(id, idConsulta, idMedico, idProntuario, aguardandoAprovacao, statusAlta);
                 internacao.setIdLeito(idLeito);
                 internacao.setObservacoes(observacoes);
-                
+                System.out.println("----->Internação Localizada: ");
+                System.out.println(internacao);
                 return internacao;
             }
             
@@ -344,8 +345,6 @@ public class InternacaoDAO {
             rs = stmt.executeQuery("select * from internacao where idProntuario = " + idProntuario 
                     + " and statusAlta = false");
             
-            System.out.println("\n----->Internações recuperadas:");
-            
             while(rs.next()){
                 int id = rs.getInt("id");
                 int idConsulta = rs.getInt("idConsulta");
@@ -356,9 +355,8 @@ public class InternacaoDAO {
                 Internacao internacao = new Internacao(id, idConsulta, idMedico, idProntuario, true, false);
                 internacao.setIdLeito(idLeito);
                 internacao.setObservacoes(observacoes);
-                
+                System.out.println("----->Internação recuperada pelo Prontuário:");
                 System.out.println(internacao);
-                
                 return internacao;
             }
             

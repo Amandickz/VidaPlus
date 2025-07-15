@@ -76,7 +76,7 @@ public class ProfissionalSaudeDAO {
             
             rs = stmt.executeQuery("select * from profissionalsaude where cpf = '" + cpf + "'");
             
-            System.out.println("\n----->Profissional Encontrado:");
+            System.out.println("----->Profissional Encontrado:");
             
             while(rs.next()){
                 int id = rs.getInt("id");

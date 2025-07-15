@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class PacienteDAO {
     
-    public boolean cadastrarPaciente(Paciente paciente, int idAdministrador){
+    public boolean cadastrarPaciente(Paciente paciente){
         Connection conn = null;
         PreparedStatement pstmt = null;
         
@@ -37,11 +37,18 @@ public class PacienteDAO {
             pstmt.setString(4, paciente.getTelefone());
             pstmt.setString(5, paciente.getDataNascimento());
             pstmt.setInt(6, paciente.getSexo());
-            pstmt.setInt(7, idAdministrador);
+            pstmt.setInt(7, paciente.getIdAdministrador());
             
             int rollsAffected = pstmt.executeUpdate();
 
             if(rollsAffected > 0){
+                ResultSet rs = pstmt.getGeneratedKeys();
+                while (rs.next()){
+                    int id = rs.getInt(1);
+                    paciente.setId(id);
+                }
+                System.out.println("----->Paciente Cadastrado:");
+                System.out.println(paciente);
                 return true;
             }
             
@@ -69,7 +76,7 @@ public class PacienteDAO {
             
             rs = stmt.executeQuery("select * from paciente where idAdministracao = " + idAdministracao);
             
-            System.out.println("\n----->Pacientes Recuperados da Unidade:");
+            System.out.println("----->Pacientes Recuperados da Unidade:");
             
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -81,9 +88,9 @@ public class PacienteDAO {
                 int sexo = rs.getInt("sexo");
                 
                 Paciente paciente = new Paciente(id, cpf, nome, email, telefone, dataNascimento, sexo);
-                pacientes.add(paciente);
+                paciente.setIdAdministrador(idAdministracao);
                 System.out.println(paciente);
-                System.out.println("\n");
+                pacientes.add(paciente);
             }
             
             return pacientes;
@@ -111,10 +118,9 @@ public class PacienteDAO {
             
             rs = stmt.executeQuery("select * from paciente where cpf = '" + cpf + "'");
             
-            System.out.println("\n----->Paciente Recuperado pelo CPF digitado:");
-            
             while(rs.next()){
                 int id = rs.getInt("id");
+                int idAdministracao = rs.getInt("idAdministracao");
                 String nome = rs.getString("nome");
                 String email = rs.getString("email");
                 String telefone = rs.getString("telefone");
@@ -122,8 +128,9 @@ public class PacienteDAO {
                 int sexo = rs.getInt("sexo");
                 
                 Paciente paciente = new Paciente(id, cpf, nome, email, telefone, dataNascimento, sexo);
+                paciente.setIdAdministrador(idAdministracao);
+                System.out.println("----->Paciente Recuperado pelo CPF digitado:");
                 System.out.println(paciente);
-                System.out.println("\n");
                 return paciente;
             }
             
@@ -150,8 +157,6 @@ public class PacienteDAO {
             
             rs = stmt.executeQuery("select * from paciente where id = " + id);
             
-            System.out.println("\n----->Paciente Recuperado pelo ID digitado:");
-            
             while(rs.next()){
                 String cpf = rs.getString("cpf");
                 String nome = rs.getString("nome");
@@ -163,8 +168,8 @@ public class PacienteDAO {
                 
                 Paciente paciente = new Paciente(id, cpf, nome, email, telefone, dataNascimento, sexo);
                 paciente.setIdAdministrador(idAdministracao);
+                System.out.println("----->Paciente Recuperado pelo ID digitado:");
                 System.out.println(paciente);
-                System.out.println("\n");
                 return paciente;
             }
             
@@ -191,10 +196,9 @@ public class PacienteDAO {
             
             rs = stmt.executeQuery("select * from paciente where nome = '" + nome + "'");
             
-            System.out.println("\n----->Paciente Recuperado pelo NOME digitado:");
-            
             while(rs.next()){
                 int id = rs.getInt("id");
+                int idAdministracao = rs.getInt("idAdministracao");
                 String cpf = rs.getString("cpf");
                 String email = rs.getString("email");
                 String telefone = rs.getString("telefone");
@@ -202,8 +206,9 @@ public class PacienteDAO {
                 int sexo = rs.getInt("sexo");
                 
                 Paciente paciente = new Paciente(id, cpf, nome, email, telefone, dataNascimento, sexo);
+                paciente.setIdAdministrador(idAdministracao);
+                System.out.println("----->Paciente Recuperado pelo NOME digitado:");
                 System.out.println(paciente);
-                System.out.println("\n");
                 return paciente;
             }
             

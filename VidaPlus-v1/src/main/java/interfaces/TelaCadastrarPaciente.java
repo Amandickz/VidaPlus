@@ -421,13 +421,14 @@ public class TelaCadastrarPaciente extends javax.swing.JFrame {
         
         //Cria Objeto Paciente
         Paciente paciente = new Paciente(cpf, nome, email, telefone, dataNascimento, sexo);
+        paciente.setIdAdministrador(adm.getId());
         
         //Verifica se o paciente existe
         Paciente buscaPaciente = controleAdm.buscarPaciente(cpf);
         
         //Cadastra caso não haja Paciente
         if(buscaPaciente == null){
-            boolean confirmacao = controleAdm.cadastrarPaciente(paciente, adm.getId());
+            boolean confirmacao = controleAdm.cadastrarPaciente(paciente);
             if(confirmacao){
                 JOptionPane.showMessageDialog(null, "Paciente Cadastrado!");
                 new TelaInicialAdministrador(adm).setVisible(true);

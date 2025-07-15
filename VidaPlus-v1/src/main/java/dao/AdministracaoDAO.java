@@ -5,7 +5,6 @@
 package dao;
 
 import classes.Administracao;
-import classes.Paciente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,6 +39,13 @@ public class AdministracaoDAO {
             int rollsAffected = pstmt.executeUpdate();
 
             if(rollsAffected > 0){
+                ResultSet rs = pstmt.getGeneratedKeys();
+                while (rs.next()){
+                    int id = rs.getInt(1);
+                    adm.setId(id);
+                }
+                System.out.println("----->Administração Cadastrada:");
+                System.out.println(adm);
                 return true;
             }
             
@@ -67,7 +73,7 @@ public class AdministracaoDAO {
             
             rs = stmt.executeQuery("select * from administracao");
             
-            System.out.println("\n----->Administradores Recuperados:");
+            System.out.println("----->Administradores Recuperados:");
             
             while(rs.next()){
                 int id = rs.getInt("id");
@@ -81,7 +87,6 @@ public class AdministracaoDAO {
                 System.out.println(adm);
             }
             
-            System.out.println("\n");
             return administradores;
             
         } catch (SQLException e){
@@ -109,8 +114,6 @@ public class AdministracaoDAO {
             
             rs = stmt.executeQuery("select * from administracao where cnpj = '" + cnpj + "'");
             
-            System.out.println("\n----->Administrador Recuperado:");
-            
             while(rs.next()){
                 int id = rs.getInt("id");
                 String razaoSocial = rs.getString("razaoSocial");
@@ -118,8 +121,8 @@ public class AdministracaoDAO {
                 String telefone = rs.getString("telefone");
                 
                 Administracao adm = new Administracao(id, cnpj, razaoSocial, email, telefone);
+                System.out.println("----->Administrador Recuperado:");
                 System.out.println(adm);
-                System.out.println("\n");
                 return adm;
             }
             

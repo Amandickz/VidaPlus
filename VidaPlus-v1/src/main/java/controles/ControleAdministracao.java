@@ -47,8 +47,8 @@ public class ControleAdministracao {
         return paciente;
     }
     
-    public boolean cadastrarPaciente(Paciente paciente, int idAdministracao){
-        boolean confirmacao = pacienteDAO.cadastrarPaciente(paciente, idAdministracao);
+    public boolean cadastrarPaciente(Paciente paciente){
+        boolean confirmacao = pacienteDAO.cadastrarPaciente(paciente);
         return confirmacao;
     }
     

@@ -42,6 +42,13 @@ public class PrescricaoInternacaoDAO {
             int rollsAffected = pstmt.executeUpdate();
 
             if(rollsAffected > 0){
+                ResultSet rs = pstmt.getGeneratedKeys();
+                while (rs.next()){
+                    int id = rs.getInt(1);
+                    prescricao.setId(id);
+                }
+                System.out.println("----->Prescrição Médica da Internção realizada:");
+                System.out.println(prescricao);
                 return true;
             }
             
@@ -69,6 +76,8 @@ public class PrescricaoInternacaoDAO {
             
             rs = stmt.executeQuery("select * from prescricaoInternacao where realizado = false");
             
+            System.out.println("----->Prescrição Pendentes:");
+            
             while(rs.next()){
                 int id = rs.getInt("id");
                 int idInternacao = rs.getInt("idInternacao");
@@ -80,14 +89,14 @@ public class PrescricaoInternacaoDAO {
                 PrescricaoInternacao prescricaoInternacao = new PrescricaoInternacao(id, idInternacao, data, prescricao);
                 prescricaoInternacao.setOrientacoes(orientacoes);
                 prescricaoInternacao.setObservacoes(observacoes);
-                
+                System.out.println(prescricaoInternacao);
                 prescricoesPendentes.add(prescricaoInternacao);
             }
             
             return prescricoesPendentes;
             
         } catch (SQLException e){
-            System.out.println("!!!!!Erro ao RECUPERAR a Agenda Completa!!!!!");
+            System.out.println("!!!!!Erro ao RECUPERAR as Prescrições Pendentes!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -121,12 +130,13 @@ public class PrescricaoInternacaoDAO {
                 PrescricaoInternacao prescricaoInternacao = new PrescricaoInternacao(id, idInternacao, data, prescricao);
                 prescricaoInternacao.setOrientacoes(orientacoes);
                 prescricaoInternacao.setObservacoes(observacoes);
-                
+                System.out.println("----->Prescrição Localizada:");
+                System.out.println(prescricaoInternacao);
                 return prescricaoInternacao;
             }
             
         } catch (SQLException e){
-            System.out.println("!!!!!Erro ao RECUPERAR a Agenda Completa!!!!!");
+            System.out.println("!!!!!Erro ao RECUPERAR a Prescrição!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);

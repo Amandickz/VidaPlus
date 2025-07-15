@@ -40,11 +40,13 @@ public class EnfermeiroDAO {
             int rollsAffected = pstmt.executeUpdate();
 
             if(rollsAffected > 0){
+                System.out.println("----->Enfermeiro Cadastrado:");
+                System.out.println(enfermeiro);
                 return true;
             }
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Cadastrar dados!");
+            System.out.println("!!!!!Erro ao SALVAR o Enfermeiro!!!!!");
         } finally {
             DB.closeStatement(pstmt);
             DB.closeConnection();
@@ -66,8 +68,6 @@ public class EnfermeiroDAO {
             
             rs = stmt.executeQuery("select * from enfermeiro where coren = '" + coren + "'");
             
-            System.out.println(rs);
-            
             while(rs.next()){
                 int id = rs.getInt("idProfissionalSaude");
                 String uf = rs.getString("uf");
@@ -75,11 +75,13 @@ public class EnfermeiroDAO {
                 int tipo = rs.getInt("tipo");
                 
                 Enfermeiro enfermeiro = new Enfermeiro(coren, uf, dataEmissao, tipo, id, "", "", "", "", "", "");
+                System.out.println("----->Enfermeiro Localizado pelo COREN:");
+                System.out.println(enfermeiro);
                 return enfermeiro;
             }
             
         } catch (SQLException e){
-            System.err.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao BUSCAR o Enfermeiro!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -102,6 +104,8 @@ public class EnfermeiroDAO {
             
             rs = stmt.executeQuery("select * from enfermeiro");
             
+            System.out.println("----->Enfermeiros Cadastrados na Unidade:");
+            
             while(rs.next()){
                 int id = rs.getInt("idProfissionalSaude");
                 String coren = rs.getString("coren");
@@ -110,13 +114,14 @@ public class EnfermeiroDAO {
                 int tipo = rs.getInt("tipo");
                 
                 Enfermeiro enfermeiro = new Enfermeiro(coren, uf, dataEmissao, tipo, id, "", "", "", "", "", "");
+                System.out.println(enfermeiro);
                 enfermeiros.add(enfermeiro);
             }
             
             return enfermeiros;
             
         } catch (SQLException e){
-            System.err.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao RECUPERAR a Lista de Enfermeiros!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);

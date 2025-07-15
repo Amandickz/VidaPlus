@@ -329,9 +329,9 @@ public class TelaMarcarConsulta extends javax.swing.JFrame {
             String hora = horaSelecionada.getText();
             String nomeMedico = medicoSelecionado.getText();
             
-            Agenda agenda = new Agenda(0, data, hora, 0);
-            
             ProfissionalSaude profissional = controleMedico.buscaProfissionalPorNome(nomeMedico);
+            
+            Agenda agenda = new Agenda(profissional.getId(), data, hora, 0);
             
             int resposta = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja marcar a consulta?"
                     + "\nData: " + agenda.getData() + "\nHora: " + agenda.getHora()
@@ -339,7 +339,8 @@ public class TelaMarcarConsulta extends javax.swing.JFrame {
                     "Marcar Consulta - Confirmação",JOptionPane.YES_NO_OPTION);
             
             if(resposta == JOptionPane.YES_OPTION){
-                boolean confirmacao = controleAgenda.marcarConsulta(profissional.getId(), agenda, paciente.getId());
+                agenda.setIdPaciente(paciente.getId());
+                boolean confirmacao = controleAgenda.marcarConsulta(agenda);
                 if(confirmacao){
                     JOptionPane.showMessageDialog(null, "Consulta Marcada!");
                     preencheListaMedicos();

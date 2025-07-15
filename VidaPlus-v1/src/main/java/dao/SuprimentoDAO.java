@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class SuprimentoDAO {
     
-    public boolean cadastrarSuprimento(Suprimento suprimento, int idAdministrador){
+    public boolean cadastrarSuprimento(Suprimento suprimento){
         Connection conn = null;
         PreparedStatement pstmt = null;
         
@@ -31,7 +31,7 @@ public class SuprimentoDAO {
                     " VALUES(?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             
-            pstmt.setInt(1, idAdministrador);
+            pstmt.setInt(1, suprimento.getIdAdministracao());
             pstmt.setInt(2, suprimento.getTipo());
             pstmt.setString(3, suprimento.getNome());
             pstmt.setDouble(4, suprimento.getValorUnitario());
@@ -75,7 +75,7 @@ public class SuprimentoDAO {
                 double valorUnitario = rs.getDouble("valorUnitario");
                 int quantEstoque = rs.getInt("quantEstoque");
                 
-                Suprimento suprimento = new Suprimento(id, tipo, nome, valorUnitario, quantEstoque);
+                Suprimento suprimento = new Suprimento(id, idAdministracao, tipo, nome, valorUnitario, quantEstoque);
                 suprimentos.add(suprimento);
             }
             
@@ -109,11 +109,12 @@ public class SuprimentoDAO {
             
             while(rs.next()){
                 int id = rs.getInt("id");
+                int idAdministracao = rs.getInt("idAdministracao");
                 int tipo = rs.getInt("tipo");
                 double valorUnitario = rs.getDouble("valorUnitario");
                 int quantEstoque = rs.getInt("quantEstoque");
                 
-                Suprimento suprimento = new Suprimento(id, tipo, nome, valorUnitario, quantEstoque);
+                Suprimento suprimento = new Suprimento(id, idAdministracao, tipo, nome, valorUnitario, quantEstoque);
                 return suprimento;
             }
             

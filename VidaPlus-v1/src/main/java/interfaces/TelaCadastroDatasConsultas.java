@@ -342,6 +342,7 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
         ArrayList<Agenda> consultasGeradas = controleAgenda.gerarNovasConsultas(data, horarioInicial, horarioFinal, intervalo);
         
         for(Agenda a : consultasGeradas){
+            a.setIdMedico(medico.getId());
             todosHorarios.add(a);
         }
         
@@ -371,7 +372,7 @@ public class TelaCadastroDatasConsultas extends javax.swing.JFrame {
 
     private void finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarActionPerformed
         for(int i = 0; i < todosHorarios.size(); i++){
-            boolean confirmacao = controleAgenda.cadastrarData(todosHorarios.get(i), medico.getId());
+            boolean confirmacao = controleAgenda.cadastrarData(todosHorarios.get(i));
             if(!confirmacao){
                 JOptionPane.showMessageDialog(null, "Ops! Algo deu errado."
                         + "\nVoltando a Tela Inicial.");

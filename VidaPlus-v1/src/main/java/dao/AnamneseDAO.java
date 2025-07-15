@@ -73,8 +73,7 @@ public class AnamneseDAO {
             }
             
         } catch (SQLException e){
-            System.out.println(e);
-            System.out.println("********Erro ao Cadastrar dados!");
+            System.out.println("!!!!!Erro ao CADASTRAR a Anamnese do Paciente!!!!!");
         } finally {
             DB.closeStatement(pstmt);
             DB.closeConnection();
@@ -107,7 +106,7 @@ public class AnamneseDAO {
             }
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Cadastrar dados!");
+            System.out.println("!!!!!Erro ao CADASTRAR a Anamnese Feminina do Paciente!!!!!");
         } finally {
             DB.closeStatement(pstmt);
             DB.closeConnection();
@@ -165,7 +164,7 @@ public class AnamneseDAO {
             }
             
         } catch (SQLException e){
-            System.err.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao RECUPERAR a Anamnese do Paciente!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -206,7 +205,7 @@ public class AnamneseDAO {
             }
             
         } catch (SQLException e){
-            System.err.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao RECUPERAR a Anamnese Feminina do Paciente!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -265,7 +264,7 @@ public class AnamneseDAO {
             }
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Cadastrar dados!");
+            System.out.println("!!!!!Erro ao ATUALIZAR a Anamnese do Paciente!!!!!");
         } finally {
             DB.closeStatement(pstmt);
             DB.closeConnection();
@@ -299,7 +298,7 @@ public class AnamneseDAO {
             }
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Cadastrar dados!");
+            System.out.println("!!!!!Erro ao ATUALIZAR a Anamnese Feminina do Paciente!!!!!");
         } finally {
             DB.closeStatement(pstmt);
             DB.closeConnection();

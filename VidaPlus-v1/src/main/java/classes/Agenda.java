@@ -29,7 +29,7 @@ public class Agenda {
         this.hora = hora;
         this.status = status;
     }
-
+    
     public Agenda(int id, int idMedico, String data, String hora, int status) {
         this.id = id;
         this.idMedico = idMedico;

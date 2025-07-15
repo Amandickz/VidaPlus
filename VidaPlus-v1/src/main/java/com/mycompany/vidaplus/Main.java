@@ -22,6 +22,7 @@ import controles.ControlePaciente;
 import controles.ControleProfissional;
 import controles.ControleSuprimento;
 import interfaces.TelaInicial;
+import interfaces.TelaPrimeiroAcessoADM;
 import static spark.Spark.*;
 /**
  *
@@ -53,26 +54,26 @@ public class Main {
             return controleAdministracao.recuperaAdministracao();
         });
         
-        post("/paciente", (req,res) -> {//cadastra paciente
+        post("/paciente/novo", (req,res) -> {//cadastra paciente
             Paciente paciente = gson.fromJson(req.body(), Paciente.class);
-            return controlePaciente.cadastrarPaciente(paciente, Integer.parseInt(req.queryParams("idAdm")));
+            return controlePaciente.cadastrarPaciente(paciente);
         });
         
-        get("/paciente",(req,res) -> {//retorna pacientes
-            return controlePaciente.listaPacientes(Integer.parseInt(req.queryParams("idAdm")));
+        get("/paciente/:idAdm",(req,res) -> {//retorna pacientes
+            return controlePaciente.listaPacientes(Integer.parseInt(req.params(":idAdm")));
         });
         
-        get("/paciente",(req,res) -> {//Busca Paciente por CPF
-            return controlePaciente.buscaPaciente(req.queryParams("cpf"));
+        get("/paciente/busca/:cpf",(req,res) -> {//Busca Paciente por CPF
+            return controlePaciente.buscaPaciente(req.params(":cpf"));
         });
         
         post("/profissional", (req,res) -> {//cadastra profissional
             ProfissionalSaude profissional = gson.fromJson(req.body(), ProfissionalSaude.class);
-            return controleProfissional.cadastraProfissional(profissional, Integer.parseInt(req.queryParams("idAdm")));
+            return controleProfissional.cadastraProfissional(profissional, profissional.getIdAdministracao());
         });
         
-        get("/profissional",(req,res) -> {//retorna profissionais da unidade
-            return controleProfissional.retornarProfissionais(Integer.parseInt(req.queryParams("idAdm")));
+        get("/profissional/:idAdm",(req,res) -> {//retorna profissionais da unidade
+            return controleProfissional.retornarProfissionais(Integer.parseInt(req.params(":idAdm")));
         });
         
         post("/medico", (req,res) -> {//cadastra medico
@@ -84,8 +85,8 @@ public class Main {
             return controleMedico.retornaListaMedica();
         });
         
-        get("/medico",(req,res) -> {//retorna medico via CRM
-            return controleMedico.buscaMedicoCRM(req.queryParams("crm"));
+        get("/medico/busca/:crm",(req,res) -> {//retorna medico via CRM
+            return controleMedico.buscaMedicoCRM(req.params(":crm"));
         });
         
         post("/enfermeiro", (req,res) -> {//cadastra enfermeiro
@@ -97,8 +98,8 @@ public class Main {
             return controleEnfermeiro.retornaListaEnfermeiros();
         });
         
-        get("/enfermeiro",(req,res) -> {//retorna enfermeiro via coren
-            return controleEnfermeiro.buscaEnfermeiro(req.queryParams("coren"));
+        get("/enfermeiro/busca/:coren",(req,res) -> {//retorna enfermeiro via coren
+            return controleEnfermeiro.buscaEnfermeiro(req.params(":coren"));
         });
         
         post("/farmaceutico", (req,res) -> {//cadastra farmaceutico
@@ -110,41 +111,45 @@ public class Main {
             return controleFarmaceutico.retornaListaFarmaceuticos();
         });
         
-        get("/farmaceutico",(req,res) -> {//retorna farmaceutico via crf
-            return controleFarmaceutico.buscaFarmaceutico(req.queryParams("crf"));
+        get("/farmaceutico/busca/:crf",(req,res) -> {//retorna farmaceutico via crf
+            return controleFarmaceutico.buscaFarmaceutico(req.params(":crf"));
         });
         
         post("/leito", (req,res) -> {//cadastra leito
             Leito leito = gson.fromJson(req.body(), Leito.class);
-            return controleLeito.cadastrarLeito(leito, Integer.parseInt(req.queryParams("idAdm")));
+            return controleLeito.cadastrarLeito(leito);
         });
         
-        get("/leito",(req,res) -> {//retorna lista de leitos
-            return controleLeito.recuperaLeitos(Integer.parseInt(req.queryParams("idAdm")));
+        get("/leito/:idAdm",(req,res) -> {//retorna lista de leitos
+            return controleLeito.recuperaLeitos(Integer.parseInt(req.params(":idAdm")));
         });
         
-        get("/leito",(req,res) -> {//retorna o leito de acordo com o número do quarto
-            return controleLeito.buscaLeitoPorNumero(Integer.parseInt(req.queryParams("num")));
+        get("/leito/busca/:num",(req,res) -> {//retorna o leito de acordo com o número do quarto
+            return controleLeito.buscaLeitoPorNumero(Integer.parseInt(req.params(":num")));
         });
         
-        get("/leito/disponiveis",(req,res) -> {//retorna o leito de acordo com o número do quarto
-            return controleLeito.retornaLeitosDisponiveis(Integer.parseInt(req.queryParams("idAdm")));
+        get("/leito/disponiveis/:idAdm",(req,res) -> {//retorna o leito de acordo com o número do quarto
+            return controleLeito.retornaLeitosDisponiveis(Integer.parseInt(req.params(":idAdm")));
         });
         
         post("/suprimento", (req,res) -> {//cadastra suprimento
             Suprimento suprimento = gson.fromJson(req.body(), Suprimento.class);
-            return controleSuprimento.cadastrarSuprimento(suprimento, Integer.parseInt(req.queryParams("idAdm")));
+            return controleSuprimento.cadastrarSuprimento(suprimento);
         });
         
         get("/suprimento",(req,res) -> {//retorna lista de suprimentos
             return controleSuprimento.recuperaSuprimentos(Integer.parseInt(req.queryParams("idAdm")));
         });
         
-        get("/suprimento",(req,res) -> {//retorna suprimento por nome
-            return controleSuprimento.buscaSuprimentoPorNome(req.queryParams("nome"));
+        get("/suprimento/busca/:nome",(req,res) -> {//retorna suprimento por nome
+            return controleSuprimento.buscaSuprimentoPorNome(req.params(":nome"));
         });
         
-        new TelaInicial().setVisible(true);
+        if(controleAdministracao.recuperaAdministracao() == null){
+            new TelaPrimeiroAcessoADM().setVisible(true);
+        } else {
+            new TelaInicial().setVisible(true);
+        }
         
     }
 }

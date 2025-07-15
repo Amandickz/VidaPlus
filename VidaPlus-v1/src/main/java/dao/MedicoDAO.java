@@ -40,11 +40,13 @@ public class MedicoDAO {
             int rollsAffected = pstmt.executeUpdate();
 
             if(rollsAffected > 0){
+                System.out.println("----->Médico Cadastrado:");
+                System.out.println(medico);
                 return true;
             }
             
         } catch (SQLException e){
-            System.out.println("********Erro ao Cadastrar dados!");
+            System.out.println("!!!!!Erro ao SALVAR o Médico!!!!!");
         } finally {
             DB.closeStatement(pstmt);
             DB.closeConnection();
@@ -66,8 +68,6 @@ public class MedicoDAO {
             
             rs = stmt.executeQuery("select * from medico where crm = '" + crm + "'");
             
-            System.out.println(rs);
-            
             while(rs.next()){
                 int id = rs.getInt("idProfissionalSaude");
                 String uf = rs.getString("uf");
@@ -75,11 +75,13 @@ public class MedicoDAO {
                 int especialidade = rs.getInt("especialidade");
                 
                 Medico medico = new Medico(crm, uf, dataInscricao, especialidade, id, "", "", "", "", "", "");
+                System.out.println("----->Enfermeiro Localizado pelo CRM:");
+                System.out.println(medico);
                 return medico;
             }
             
         } catch (SQLException e){
-            System.err.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao BUSCAR o Médico!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
@@ -102,7 +104,7 @@ public class MedicoDAO {
             
             rs = stmt.executeQuery("select * from medico");
             
-            System.out.println(rs);
+            System.out.println("----->Médicos Cadastrados na Unidade:");
             
             while(rs.next()){
                 int id = rs.getInt("idProfissionalSaude");
@@ -112,13 +114,14 @@ public class MedicoDAO {
                 int especialidade = rs.getInt("especialidade");
                 
                 Medico medico = new Medico(crm, uf, dataInscricao, especialidade, id, "", "", "", "", "", "");
+                System.out.println(medico);
                 medicos.add(medico);
             }
             
             return medicos;
             
         } catch (SQLException e){
-            System.err.println("********Erro ao Recuperar dados!");
+            System.out.println("!!!!!Erro ao RECUPERAR a Lista de Médicos!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);

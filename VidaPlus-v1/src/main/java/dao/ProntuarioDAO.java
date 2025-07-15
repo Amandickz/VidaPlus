@@ -44,6 +44,8 @@ public class ProntuarioDAO {
                     int id = rs.getInt(1);
                     prontuarioMedico.setId(id);
                 }
+                System.out.println("----->Prontuário Médico criado:");
+                System.out.println(prontuarioMedico);
                 return prontuarioMedico;
             }
             
@@ -78,7 +80,8 @@ public class ProntuarioDAO {
                 ProntuarioMedico prontuarioMedico = new ProntuarioMedico(id, idPaciente, idAnamnese);
                 prontuarioMedico.setDataAtualizacao(dataAtualizacao);
                 prontuarioMedico.setServico(servico);
-                
+                System.out.println("----->Prontuário Médico localizado pelo ID do Paciente:");
+                System.out.println(prontuarioMedico);
                 return prontuarioMedico;               
             }
             
@@ -110,6 +113,7 @@ public class ProntuarioDAO {
             int rollsAffected = pstmt.executeUpdate();
 
             if(rollsAffected > 0){
+                System.out.println("----->Prontuário Médico atualizado!");
                 return true;
             }
             
@@ -135,8 +139,6 @@ public class ProntuarioDAO {
             
             rs = stmt.executeQuery("select * from prontuario where id = " + id);
             
-            System.out.println("\n----->Prontuario Localizado: ");
-            
             while(rs.next()){
                 int idPaciente = rs.getInt("idPaciente");
                 int idAnamnese = rs.getInt("idAnamnese");
@@ -146,14 +148,13 @@ public class ProntuarioDAO {
                 ProntuarioMedico prontuario = new ProntuarioMedico(id, idPaciente, idAnamnese);
                 prontuario.setDataAtualizacao(dataAtualizacao);
                 prontuario.setServico(servico);
-                
+                System.out.println("----->Prontuário Localizado: ");
                 System.out.println(prontuario);
-                
                 return prontuario;  
             }
             
         } catch (SQLException e){
-            System.out.println("!!!!!Erro ao BUSCAR Prontuário do Paciente por ID!!!!!");
+            System.out.println("!!!!!Erro ao BUSCAR Prontuário por ID!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);

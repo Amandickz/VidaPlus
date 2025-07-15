@@ -35,8 +35,8 @@ public class ControleLeito {
         return leito;
     }
     
-    public boolean cadastrarLeito(Leito leito, int idAdministracao){
-        boolean confirmacao = leitoDAO.cadastrarLeito(leito, idAdministracao);
+    public boolean cadastrarLeito(Leito leito){
+        boolean confirmacao = leitoDAO.cadastrarLeito(leito);
         return confirmacao;
     }
     

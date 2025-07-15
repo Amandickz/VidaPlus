@@ -44,6 +44,8 @@ public class ConsultaDAO {
             int rollsAffected = pstmt.executeUpdate();
 
             if(rollsAffected > 0){
+                System.out.println("----->Consulta Realizada:");
+                System.out.println(consulta);
                 return true;
             }
             
