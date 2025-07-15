@@ -64,41 +64,43 @@ public class AdministracaoDAO {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
-        
+
         try{
-            
+
             conn = DB.getConeConnection();
-            
+
             stmt = conn.createStatement();
-            
+
             rs = stmt.executeQuery("select * from administracao");
-            
+
             System.out.println("----->Administradores Recuperados:");
-            
+
             while(rs.next()){
                 int id = rs.getInt("id");
                 String cnpj = rs.getString("cnpj");
                 String razaoSocial = rs.getString("razaoSocial");
                 String email = rs.getString("email");
                 String telefone = rs.getString("telefone");
-                
-                Administracao adm = new Administracao(id, cnpj, razaoSocial, email, telefone);
+
+                Administracao adm = new Administracao(id, cnpj, razaoSocial,
+                        email, telefone);
                 administradores.add(adm);
                 System.out.println(adm);
             }
-            
+
             return administradores;
-            
+
         } catch (SQLException e){
-            System.out.println("!!!!!Erro ao RECUPERAR dados dos Administradores!!!!!");
+            System.out.println("!!!!!Erro ao RECUPERAR dados "
+                    + "dos Administradores!!!!!");
         } finally {
             DB.closeResultSet(rs);
             DB.closeStatement(stmt);
             DB.closeConnection();
         }
-        
+
         return null;
-        
+
     }
     
     public Administracao buscaAdmPorCNPJ(String cnpj){

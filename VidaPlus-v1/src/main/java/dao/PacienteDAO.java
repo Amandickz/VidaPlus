@@ -27,8 +27,8 @@ public class PacienteDAO {
             conn = DB.getConeConnection();
             
             pstmt = conn.prepareStatement("INSERT INTO paciente" +
-                    "(cpf,nome,email,telefone,dataNascimento,sexo,idAdministracao)" +
-                    " VALUES(?,?,?,?,?,?,?)",
+                    "(cpf,nome,email,telefone,dataNascimento,sexo,"
+                    + "idAdministracao) VALUES(?,?,?,?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS);
             
             pstmt.setString(1, paciente.getCpf());

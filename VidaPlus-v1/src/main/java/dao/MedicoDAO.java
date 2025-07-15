@@ -66,7 +66,8 @@ public class MedicoDAO {
             
             stmt = conn.createStatement();
             
-            rs = stmt.executeQuery("select * from medico where crm = '" + crm + "'");
+            rs = stmt.executeQuery("select * from medico where "
+                    + "crm = '" + crm + "'");
             
             while(rs.next()){
                 int id = rs.getInt("idProfissionalSaude");
@@ -74,7 +75,8 @@ public class MedicoDAO {
                 String dataInscricao = rs.getString("dataInscricao");
                 int especialidade = rs.getInt("especialidade");
                 
-                Medico medico = new Medico(crm, uf, dataInscricao, especialidade, id, "", "", "", "", "", "");
+                Medico medico = new Medico(crm, uf, dataInscricao,
+                        especialidade, id, "", "", "", "", "", "");
                 System.out.println("----->Enfermeiro Localizado pelo CRM:");
                 System.out.println(medico);
                 return medico;

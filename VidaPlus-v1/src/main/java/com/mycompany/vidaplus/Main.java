@@ -137,8 +137,8 @@ public class Main {
             return controleSuprimento.cadastrarSuprimento(suprimento);
         });
         
-        get("/suprimento",(req,res) -> {//retorna lista de suprimentos
-            return controleSuprimento.recuperaSuprimentos(Integer.parseInt(req.queryParams("idAdm")));
+        get("/suprimento/:idAdm",(req,res) -> {//retorna lista de suprimentos
+            return controleSuprimento.recuperaSuprimentos(Integer.parseInt(req.params(":idAdm")));
         });
         
         get("/suprimento/busca/:nome",(req,res) -> {//retorna suprimento por nome

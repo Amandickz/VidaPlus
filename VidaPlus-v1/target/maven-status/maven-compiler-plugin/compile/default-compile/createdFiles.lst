@@ -72,6 +72,7 @@ interfaces\TelaSolicitacoesInternacoes$8.class
 interfaces\TelaSuprimentosCadastrados$19.class
 interfaces\TelaSuprimentosCadastrados$2.class
 interfaces\TelaCadastrarEnfermeiro$17.class
+interfaces\TelaPrimeiroAcessoADM$1.class
 interfaces\TelaCadastrarFarmaceutico$12.class
 interfaces\TelaSolicitacoesInternacoes$11.class
 dao\AdministracaoDAO.class
@@ -347,6 +348,7 @@ interfaces\TelaVerificarInternacoes$12.class
 interfaces\TelaInicialEnfermeiro$10.class
 controles\ControleMovimentoSuprimento.class
 interfaces\TelaInicialMedico$14.class
+interfaces\TelaPrimeiroAcessoADM.class
 interfaces\TelaSolicitacoesInternacoes$5.class
 interfaces\TelaCadastrarFarmaceutico$11.class
 interfaces\TelaAnamnesePaciente$15.class
